@@ -1,7 +1,8 @@
+import React from "react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import ChakraProvider from "@/chakra/provider";
+import ChakraProvider from "~/chakra/provider";
 
 export const metadata: Metadata = {
   title: "Merits hub",
