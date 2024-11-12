@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Provider } from "@/chakra/provider";
+import ChakraProvider from "@/chakra/provider";
 
 export const metadata: Metadata = {
   title: "Merits hub",
@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Provider>{children}</Provider>
+        <ChakraProvider>{children}</ChakraProvider>
       </body>
     </html>
   );

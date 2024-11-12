@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@blockscout/chakra-theme": "^1.32.0",
     "@chakra-ui/react": "^2.10.3",
     "@emotion/react": "^11.13.3",
     "next": "15.0.2",
