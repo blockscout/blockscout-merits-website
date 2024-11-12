@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import { Flex, Box, Button, Text } from "@chakra-ui/react";
+import { useAppKit } from "@reown/appkit/react";
 
 import SpriteIcon from "~/components/SpriteIcon";
 
@@ -10,6 +11,12 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { open } = useAppKit();
+
+  const handleClick = useCallback(() => {
+    open();
+  }, [open]);
+
   return (
     <Flex direction="column" minH="100vh">
       <Flex
@@ -25,7 +32,12 @@ export default function DashboardLayout({
       >
         <Flex justify="space-between" align="center" w="full" maxW="1280px">
           <SpriteIcon name="merits-logo" w="87px" h="24px" />
-          <Button variant="outline" colorScheme="gray" size="sm">
+          <Button
+            variant="outline"
+            colorScheme="gray"
+            size="sm"
+            onClick={handleClick}
+          >
             Log in
           </Button>
         </Flex>
