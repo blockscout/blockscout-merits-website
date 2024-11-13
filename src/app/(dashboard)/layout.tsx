@@ -1,21 +1,39 @@
 "use client";
 
-import React, { useCallback } from "react";
-import { Flex, Box, Button, Text } from "@chakra-ui/react";
-import { useAppKit } from "@reown/appkit/react";
+import React, { useEffect } from "react";
+import { Flex, Box, Text, useDisclosure } from "@chakra-ui/react";
+import { useRouter } from "next/compat/router";
 
+import * as cookies from "~/lib/cookies";
 import SpriteIcon from "~/components/SpriteIcon";
+import LoginModal from "~/components/login/LoginModal";
+import AccountButton from "~/components/AccountButton";
+import getQueryParamString from "~/lib/router/getQueryParamString";
+import removeQueryParam from "~/lib/router/removeQueryParam";
+import { useAppContext } from "~/contexts/app";
 
 export default function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { open } = useAppKit();
+  const router = useRouter();
+  const loginModal = useDisclosure();
+  const { isInitialized, apiToken, address } = useAppContext();
 
-  const handleClick = useCallback(() => {
-    open();
-  }, [open]);
+  useEffect(() => {
+    if (!router) {
+      return;
+    }
+    const refCode = getQueryParamString(router.query.ref);
+    if (refCode) {
+      cookies.set(cookies.NAMES.REFERRAL_CODE, refCode);
+      removeQueryParam(router, "ref");
+      if (!apiToken) {
+        loginModal.onOpen();
+      }
+    }
+  }, [router, apiToken, loginModal]);
 
   return (
     <Flex direction="column" minH="100vh">
@@ -32,14 +50,11 @@ export default function DashboardLayout({
       >
         <Flex justify="space-between" align="center" w="full" maxW="1280px">
           <SpriteIcon name="merits-logo" w="87px" h="24px" />
-          <Button
-            variant="outline"
-            colorScheme="gray"
-            size="sm"
-            onClick={handleClick}
-          >
-            Log in
-          </Button>
+          <AccountButton
+            isLoading={!isInitialized}
+            address={address}
+            openModal={loginModal.onOpen}
+          />
         </Flex>
       </Flex>
       <Box as="main" flex="1">
@@ -66,13 +81,14 @@ export default function DashboardLayout({
           <Flex alignItems="center" gap={3}>
             <Text fontSize="xs">Copyright @ Blockscout Limited 2023-2024</Text>
             <Flex gap={2}>
-              <SpriteIcon name="telegram" boxSize={5} />
-              <SpriteIcon name="github" boxSize={5} />
-              <SpriteIcon name="x" boxSize={5} />
+              <SpriteIcon name="social/telegram-circle" boxSize={5} />
+              <SpriteIcon name="social/github-circle" boxSize={5} />
+              <SpriteIcon name="social/x-circle" boxSize={5} />
             </Flex>
           </Flex>
         </Flex>
       </Flex>
+      {loginModal.isOpen && <LoginModal onClose={loginModal.onClose} />}
     </Flex>
   );
 }

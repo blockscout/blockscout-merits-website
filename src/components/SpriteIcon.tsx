@@ -16,7 +16,6 @@ const SpriteIcon = (
   { name, isLoading, ...props }: Props,
   ref: React.ForwardedRef<HTMLDivElement>,
 ) => {
-  console.log(chakra.svg);
   return (
     <Skeleton isLoaded={!isLoading} display="inline-block" {...props} ref={ref}>
       <chakra.svg w="100%" h="100%">

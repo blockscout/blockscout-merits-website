@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import ChakraProvider from "~/chakra/provider";
 import WagmiProvider from "~/wagmi/provider";
+import { AppContextProvider } from "~/contexts/app";
 
 export const metadata: Metadata = {
   title: "Merits hub",
@@ -34,7 +35,9 @@ export default async function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ChakraProvider>
-          <WagmiProvider cookies={cookies}>{children}</WagmiProvider>
+          <WagmiProvider cookies={cookies}>
+            <AppContextProvider>{children}</AppContextProvider>
+          </WagmiProvider>
         </ChakraProvider>
       </body>
     </html>

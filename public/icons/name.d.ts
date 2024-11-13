@@ -2,8 +2,13 @@
   
   export type IconName =
 	| "blockscout-logo"
-	| "github"
+	| "copy"
 	| "merits-logo"
-	| "telegram"
-	| "x";
+	| "merits"
+	| "profile"
+	| "social/github-circle"
+	| "social/telegram-circle"
+	| "social/x-circle"
+	| "social/x"
+	| "stats";
   
