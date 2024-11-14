@@ -2,15 +2,13 @@
 
 import React, { useEffect } from "react";
 import { Flex, Text, Icon, Link } from "@chakra-ui/react";
-import { useRouter } from "next/compat/router";
+import { useSearchParams, useRouter } from "next/navigation";
 
 import meritsLogo from "@/public/merits-logo.svg";
 import * as cookies from "~/lib/cookies";
 import SpriteIcon from "~/components/SpriteIcon";
 import LoginModal from "~/components/login/LoginModal";
 import AccountButton from "~/components/AccountButton";
-import getQueryParamString from "~/lib/router/getQueryParamString";
-import removeQueryParam from "~/lib/router/removeQueryParam";
 import { useAppContext } from "~/contexts/app";
 
 export default function DashboardLayout({
@@ -19,21 +17,22 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { isInitialized, apiToken, address, loginModal } = useAppContext();
 
   useEffect(() => {
     if (!router) {
       return;
     }
-    const refCode = getQueryParamString(router.query.ref);
+    const refCode = searchParams.get("ref");
     if (refCode) {
       cookies.set(cookies.NAMES.REFERRAL_CODE, refCode);
-      removeQueryParam(router, "ref");
+      router.replace("/");
       if (!apiToken) {
         loginModal.onOpen();
       }
     }
-  }, [router, apiToken, loginModal]);
+  }, [router, apiToken, loginModal, searchParams]);
 
   return (
     <Flex direction="column" minH="100vh">
