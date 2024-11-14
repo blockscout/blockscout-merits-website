@@ -172,7 +172,11 @@ export const termsContent: TermContentProps[] = [
         anything to provide them with any value, utility or functionality.
         Participation in the Program and completion of any related quests, tasks
         or other activities is entirely at your discretion and may not lead to
-        any desired outcome other than participating in a fun experience
+        any desired outcome other than participating in a fun experience. <br />
+        To participate in the Merits program, all users must first create a
+        Blockscout account. By signing up, you agree to have your email added to
+        the Blockscout newsletter. If you wish to unsubscribe at any time,
+        please contact us at support@blockscout.com
       </>
     ),
   },
