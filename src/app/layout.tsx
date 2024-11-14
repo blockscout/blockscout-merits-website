@@ -6,6 +6,7 @@ import "./globals.css";
 import ChakraProvider from "~/chakra/provider";
 import WagmiProvider from "~/wagmi/provider";
 import { AppContextProvider } from "~/contexts/app";
+import { ScrollDirectionProvider } from "~/contexts/scrollDirection";
 
 export const metadata: Metadata = {
   title: "Merits hub",
@@ -36,7 +37,9 @@ export default async function RootLayout({
       <body className={inter.className}>
         <ChakraProvider>
           <WagmiProvider cookies={cookies}>
-            <AppContextProvider>{children}</AppContextProvider>
+            <ScrollDirectionProvider>
+              <AppContextProvider>{children}</AppContextProvider>
+            </ScrollDirectionProvider>
           </WagmiProvider>
         </ChakraProvider>
       </body>

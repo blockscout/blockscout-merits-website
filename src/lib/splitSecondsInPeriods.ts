@@ -1,4 +1,4 @@
-import _padStart from "lodash.padstart";
+import _padStart from "lodash/padStart";
 
 export default function splitSecondsInPeriods(value: number) {
   const seconds = value % 60;

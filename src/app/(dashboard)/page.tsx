@@ -7,6 +7,7 @@ import RewardsDashboardCard from "~/components/dashboard/DashboardCard";
 import RewardsDashboardCardValue from "~/components/dashboard/DashboardCardValue";
 import DailyRewardClaimButton from "~/components/dashboard/DailyRewardClaimButton";
 import DashboardBanner from "~/components/dashboard/DashboardBanner";
+import TabsWithScroll from "~/components/tabs/TabsWithScroll";
 
 import { useAppContext } from "~/contexts/app";
 import useBalancesQuery from "~/hooks/useBalancesQuery";
@@ -106,6 +107,20 @@ export default function Dashboard() {
   return (
     <Flex flexDirection="column" alignItems="flex-start" w="full" gap={6}>
       {content}
+      <TabsWithScroll
+        tabs={[
+          {
+            id: "referral program",
+            title: "Referral program",
+            component: <div>Referral program</div>,
+          },
+          {
+            id: "badges",
+            title: "Badges (soon)",
+            component: <div>Badges</div>,
+          },
+        ]}
+      />
     </Flex>
   );
 }
