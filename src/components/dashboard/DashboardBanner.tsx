@@ -45,6 +45,7 @@ export default function DashboardBanner() {
       <Image
         src="/bg-merit-1.svg"
         alt="Merit 1"
+        w="308px"
         position="absolute"
         bottom={0}
         right="calc(50% - 50px)"
@@ -52,6 +53,7 @@ export default function DashboardBanner() {
       <Image
         src="/bg-merit-2.svg"
         alt="Merit 2"
+        w="150px"
         position="absolute"
         top={0}
         right="30%"
@@ -59,6 +61,7 @@ export default function DashboardBanner() {
       <Image
         src="/bg-merit-3.svg"
         alt="Merit 3"
+        w="90px"
         position="absolute"
         top={0}
         right="15%"
