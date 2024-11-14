@@ -7,6 +7,8 @@ import RewardsDashboardCard from "~/components/dashboard/DashboardCard";
 import RewardsDashboardCardValue from "~/components/dashboard/DashboardCardValue";
 import DailyRewardClaimButton from "~/components/dashboard/DailyRewardClaimButton";
 import DashboardBanner from "~/components/dashboard/DashboardBanner";
+import ReferralProgramTab from "~/components/dashboard/tabs/ReferralProgramTab";
+import BadgesTab from "~/components/dashboard/tabs/BadgesTab";
 import TabsWithScroll from "~/components/tabs/TabsWithScroll";
 
 import { useAppContext } from "~/contexts/app";
@@ -105,21 +107,23 @@ export default function Dashboard() {
   }
 
   return (
-    <Flex flexDirection="column" alignItems="flex-start" w="full" gap={6}>
+    <Flex flexDirection="column" w="full" gap={8}>
       {content}
       <TabsWithScroll
         tabs={[
-          {
-            id: "referral program",
-            title: "Referral program",
-            component: <div>Referral program</div>,
-          },
+          apiToken
+            ? {
+                id: "referral program",
+                title: "Referral program",
+                component: <ReferralProgramTab />,
+              }
+            : null,
           {
             id: "badges",
-            title: "Badges (soon)",
-            component: <div>Badges</div>,
+            title: "Badges",
+            component: <BadgesTab />,
           },
-        ]}
+        ].filter(Boolean)}
       />
     </Flex>
   );

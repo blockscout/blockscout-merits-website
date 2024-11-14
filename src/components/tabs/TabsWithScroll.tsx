@@ -106,7 +106,6 @@ const TabsWithScroll = ({
       size={themeProps.size || "md"}
       ref={tabsRef}
       lazyBehavior={lazyBehavior}
-      width="full"
     >
       <AdaptiveTabsList
         // the easiest and most readable way to achieve correct tab's cut recalculation when
