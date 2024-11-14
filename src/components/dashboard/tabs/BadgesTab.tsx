@@ -16,7 +16,16 @@ import { apos } from "~/lib/htmlEntities";
 export default function ReferralProgramTab() {
   return (
     <>
-      <Alert status="warning" w="fit-content" gap={3} py={2} px={3} mb={8}>
+      <Alert
+        status="warning"
+        w="fit-content"
+        display="flex"
+        flexWrap="wrap"
+        gap={{ base: 2, md: 3 }}
+        py={2}
+        px={3}
+        mb={8}
+      >
         <SpriteIcon name="info-circle" boxSize={5} />
         <Text fontWeight="semibold">
           Bangkok Hacker Badge - Earned at ETHGlobal Thailand & DevCon Bangkok!

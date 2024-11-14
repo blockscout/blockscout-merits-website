@@ -43,7 +43,7 @@ export default function DashboardLayout({
         align="center"
         w="full"
         h="64px"
-        px={12}
+        px={{ base: 3, md: 12 }}
         mx="auto"
         mb={9}
         borderBottom="1px solid"
@@ -58,7 +58,13 @@ export default function DashboardLayout({
           />
         </Flex>
       </Flex>
-      <Flex as="main" flex="1" px={12} flexDir="column" alignItems="center">
+      <Flex
+        as="main"
+        flex="1"
+        px={{ base: 3, md: 12 }}
+        flexDir="column"
+        alignItems="center"
+      >
         <Flex w="full" maxW="1280px">
           {children}
         </Flex>
@@ -68,14 +74,20 @@ export default function DashboardLayout({
         justify="center"
         align="center"
         w="full"
-        h="48px"
-        px={12}
+        minH="48px"
+        px={{ base: 3, md: 12 }}
         mx="auto"
         mb={4}
         mt={12}
       >
-        <Flex justify="space-between" align="center" w="full">
-          <Flex alignItems="center" gap={1.5}>
+        <Flex
+          justify="space-between"
+          align="center"
+          w="full"
+          flexWrap="wrap"
+          gap={3}
+        >
+          <Flex alignItems="center" gap={1.5} flexWrap="wrap">
             <Text fontSize="xs">Made with</Text>
             <SpriteIcon name="blockscout-logo" w="80px" h="12px" />
             <Text fontSize="xs">

@@ -9,6 +9,7 @@ export default function DashboardBanner() {
     <Skeleton
       isLoaded={isInitialized}
       display="flex"
+      flexDir={{ base: "column", md: "row" }}
       justifyContent="space-between"
       alignItems="center"
       w="full"
@@ -20,17 +21,19 @@ export default function DashboardBanner() {
       overflow="hidden"
     >
       <Text
-        fontSize="28px"
-        lineHeight="36px"
+        fontSize={{ base: "20px", md: "28px" }}
+        lineHeight={{ base: "28px", md: "36px" }}
         color="blue.700"
         fontWeight="semibold"
         zIndex={1}
+        textAlign={{ base: "center", md: "left" }}
+        mb={{ base: 4, md: 0 }}
       >
         Master the block explorer.
         <br />
         Earn Merits.
       </Text>
-      <Flex gap={4} zIndex={1}>
+      <Flex gap={4} zIndex={1} flexDir={{ base: "row-reverse", md: "row" }}>
         <Button
           variant="outline"
           as="a"
@@ -49,6 +52,7 @@ export default function DashboardBanner() {
         position="absolute"
         bottom={0}
         right="calc(50% - 50px)"
+        display={{ base: "none", md: "block" }}
       />
       <Image
         src="/bg-merit-2.svg"
@@ -57,6 +61,7 @@ export default function DashboardBanner() {
         position="absolute"
         top={0}
         right="30%"
+        display={{ base: "none", md: "block" }}
       />
       <Image
         src="/bg-merit-3.svg"
@@ -65,6 +70,7 @@ export default function DashboardBanner() {
         position="absolute"
         top={0}
         right="15%"
+        display={{ base: "none", md: "block" }}
       />
     </Skeleton>
   );
