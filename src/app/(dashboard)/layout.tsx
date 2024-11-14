@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { Flex, Text, useDisclosure, Icon } from "@chakra-ui/react";
+import { Flex, Text, Icon } from "@chakra-ui/react";
 import { useRouter } from "next/compat/router";
 
 import meritsLogo from "@/public/merits-logo.svg";
@@ -19,8 +19,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   const router = useRouter();
-  const loginModal = useDisclosure();
-  const { isInitialized, apiToken, address } = useAppContext();
+  const { isInitialized, apiToken, address, loginModal } = useAppContext();
 
   useEffect(() => {
     if (!router) {
@@ -60,7 +59,9 @@ export default function DashboardLayout({
         </Flex>
       </Flex>
       <Flex as="main" flex="1" px={12} flexDir="column" alignItems="center">
-        <Flex maxW="1280px">{children}</Flex>
+        <Flex w="full" maxW="1280px">
+          {children}
+        </Flex>
       </Flex>
       <Flex
         as="footer"

@@ -7,6 +7,7 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
+import { useDisclosure } from "@chakra-ui/react";
 
 import * as cookies from "~/lib/cookies";
 import decodeJWT from "~/lib/decodeJWT";
@@ -16,6 +17,7 @@ type TAppContext = {
   apiToken: string | undefined;
   address: string | undefined;
   saveApiToken: (token: string | undefined) => void;
+  loginModal: ReturnType<typeof useDisclosure>;
 };
 
 const initialState = {
@@ -23,6 +25,11 @@ const initialState = {
   apiToken: undefined,
   address: undefined,
   saveApiToken: () => {},
+  loginModal: {
+    isOpen: false,
+    onOpen: () => {},
+    onClose: () => {},
+  } as ReturnType<typeof useDisclosure>,
 };
 
 const AppContext = createContext<TAppContext>(initialState);
@@ -47,6 +54,7 @@ export function AppContextProvider({ children }: Props) {
   const [isInitialized, setIsInitialized] = React.useState(false);
   const [apiToken, setApiToken] = React.useState<string | undefined>();
   const [address, setAddress] = React.useState<string | undefined>();
+  const loginModal = useDisclosure();
 
   // Save the API token to cookies and state
   const saveApiToken = useCallback((token: string | undefined) => {
@@ -88,7 +96,7 @@ export function AppContextProvider({ children }: Props) {
 
   return (
     <AppContext.Provider
-      value={{ isInitialized, apiToken, address, saveApiToken }}
+      value={{ isInitialized, apiToken, address, saveApiToken, loginModal }}
     >
       {children}
     </AppContext.Provider>

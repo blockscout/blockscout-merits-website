@@ -6,7 +6,9 @@ import { useState, useEffect } from "react";
 import RewardsDashboardCard from "~/components/dashboard/DashboardCard";
 import RewardsDashboardCardValue from "~/components/dashboard/DashboardCardValue";
 import DailyRewardClaimButton from "~/components/dashboard/DailyRewardClaimButton";
+import DashboardBanner from "~/components/dashboard/DashboardBanner";
 
+import { useAppContext } from "~/contexts/app";
 import useBalancesQuery from "~/hooks/useBalancesQuery";
 import useReferralsQuery from "~/hooks/useReferralsQuery";
 import useConfigQuery from "~/hooks/useConfigQuery";
@@ -15,6 +17,7 @@ import useDailyRewardQuery from "~/hooks/useDailyRewardQuery";
 import { apos } from "~/lib/htmlEntities";
 
 export default function Dashboard() {
+  const { apiToken } = useAppContext();
   const balancesQuery = useBalancesQuery();
   const referralsQuery = useReferralsQuery();
   const rewardsConfigQuery = useConfigQuery();
@@ -36,8 +39,8 @@ export default function Dashboard() {
     dailyRewardQuery.isError,
   ]);
 
-  return (
-    <Flex flexDirection="column" alignItems="flex-start" w="full" gap={6}>
+  let content = (
+    <>
       {isError && (
         <Alert status="error">
           Failed to load some data. Please try again later.
@@ -93,6 +96,16 @@ export default function Dashboard() {
           <RewardsDashboardCardValue label="Streaks" value="5 days" />
         </RewardsDashboardCard>
       </Flex>
+    </>
+  );
+
+  if (!apiToken) {
+    content = <DashboardBanner />;
+  }
+
+  return (
+    <Flex flexDirection="column" alignItems="flex-start" w="full" gap={6}>
+      {content}
     </Flex>
   );
 }
