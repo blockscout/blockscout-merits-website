@@ -78,9 +78,8 @@ export function AppContextProvider({ children }: Props) {
   // Get the registered address from the API token
   useEffect(() => {
     const address = getRegisteredAddress(apiToken);
-    if (address) {
-      setAddress(address);
-    } else if (apiToken) {
+    setAddress(address);
+    if (apiToken && !address) {
       saveApiToken(undefined);
     }
   }, [apiToken, saveApiToken]);
