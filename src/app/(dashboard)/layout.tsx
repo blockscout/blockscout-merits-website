@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { Flex, Text, Icon } from "@chakra-ui/react";
+import { Flex, Text, Icon, Link } from "@chakra-ui/react";
 import { useRouter } from "next/compat/router";
 
 import meritsLogo from "@/public/merits-logo.svg";
@@ -85,9 +85,15 @@ export default function DashboardLayout({
           <Flex alignItems="center" gap={3}>
             <Text fontSize="xs">Copyright @ Blockscout Limited 2023-2024</Text>
             <Flex gap={2}>
-              <SpriteIcon name="social/telegram-circle" boxSize={5} />
-              <SpriteIcon name="social/github-circle" boxSize={5} />
-              <SpriteIcon name="social/x-circle" boxSize={5} />
+              <Link href="https://t.me/blockscoutnews" isExternal h={5}>
+                <SpriteIcon name="social/telegram-circle" boxSize={5} />
+              </Link>
+              <Link href="https://github.com/blockscout" isExternal h={5}>
+                <SpriteIcon name="social/github-circle" boxSize={5} />
+              </Link>
+              <Link href="https://x.com/blockscoutcom" isExternal h={5}>
+                <SpriteIcon name="social/x-circle" boxSize={5} />
+              </Link>
             </Flex>
           </Flex>
         </Flex>
