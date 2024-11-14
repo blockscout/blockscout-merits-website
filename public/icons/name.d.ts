@@ -3,9 +3,8 @@
   export type IconName =
 	| "blockscout-logo"
 	| "copy"
+	| "info-circle"
 	| "info"
-	| "merits-logo"
-	| "merits"
 	| "profile"
 	| "social/github-circle"
 	| "social/telegram-circle"
