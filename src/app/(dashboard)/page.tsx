@@ -1,18 +1,98 @@
-import { Flex, Text } from "@chakra-ui/react";
+"use client";
+
+import { Flex, Link, Alert } from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+
+import RewardsDashboardCard from "~/components/dashboard/DashboardCard";
+import RewardsDashboardCardValue from "~/components/dashboard/DashboardCardValue";
+import DailyRewardClaimButton from "~/components/dashboard/DailyRewardClaimButton";
+
+import useBalancesQuery from "~/hooks/useBalancesQuery";
+import useReferralsQuery from "~/hooks/useReferralsQuery";
+import useConfigQuery from "~/hooks/useConfigQuery";
+import useDailyRewardQuery from "~/hooks/useDailyRewardQuery";
+
+import { apos } from "~/lib/htmlEntities";
 
 export default function Dashboard() {
+  const balancesQuery = useBalancesQuery();
+  const referralsQuery = useReferralsQuery();
+  const rewardsConfigQuery = useConfigQuery();
+  const dailyRewardQuery = useDailyRewardQuery();
+
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    setIsError(
+      balancesQuery.isError ||
+        referralsQuery.isError ||
+        rewardsConfigQuery.isError ||
+        dailyRewardQuery.isError,
+    );
+  }, [
+    balancesQuery.isError,
+    referralsQuery.isError,
+    rewardsConfigQuery.isError,
+    dailyRewardQuery.isError,
+  ]);
+
   return (
-    <Flex
-      w="full"
-      justifyContent="center"
-      alignItems="center"
-      flexDirection="column"
-      rowGap="15px"
-      p={{ base: "26px 28px", md: "36px 48px" }}
-    >
-      <Text fontSize="subtitle" fontWeight="semibold" textAlign="center">
-        Dashboard content goes here.
-      </Text>
+    <Flex flexDirection="column" alignItems="flex-start" w="full" gap={6}>
+      {isError && (
+        <Alert status="error">
+          Failed to load some data. Please try again later.
+        </Alert>
+      )}
+      <Flex gap={6} flexDirection={{ base: "column", md: "row" }}>
+        <RewardsDashboardCard
+          description="Claim your daily Merits and any Merits received from referrals."
+          direction="column-reverse"
+          contentAfter={<DailyRewardClaimButton />}
+        >
+          <RewardsDashboardCardValue
+            label="Total balance"
+            value={balancesQuery.data?.total || "N/A"}
+            isLoading={balancesQuery.isPending}
+            withIcon
+            hint={
+              <>
+                Total number of Merits earned from all activities.{" "}
+                <Link
+                  href="https://docs.blockscout.com/using-blockscout/merits"
+                  isExternal
+                >
+                  More info on Merits
+                </Link>
+              </>
+            }
+          />
+        </RewardsDashboardCard>
+        <RewardsDashboardCard
+          title="Referrals"
+          description="Total number of users who have joined the program using your code or referral link."
+          direction="column-reverse"
+        >
+          <RewardsDashboardCardValue
+            label="Referrals"
+            value={
+              referralsQuery.data?.referrals
+                ? `${referralsQuery.data?.referrals} user${Number(referralsQuery.data?.referrals) === 1 ? "" : "s"}`
+                : "N/A"
+            }
+            isLoading={referralsQuery.isPending}
+            hint="The number of referrals who registered with your code/link."
+          />
+        </RewardsDashboardCard>
+        <RewardsDashboardCard
+          title="Streaks"
+          description={`Current number of consecutive days you${apos}ve claimed your daily Merits.`}
+          direction="column-reverse"
+          availableSoon
+          blurFilter
+        >
+          <RewardsDashboardCardValue label="Streaks" value="5 days" />
+        </RewardsDashboardCard>
+      </Flex>
     </Flex>
   );
 }

@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { Flex, Box, Text, useDisclosure } from "@chakra-ui/react";
+import { Flex, Text, useDisclosure, Icon } from "@chakra-ui/react";
 import { useRouter } from "next/compat/router";
 
+import meritsLogo from "@/public/merits-logo.svg";
 import * as cookies from "~/lib/cookies";
 import SpriteIcon from "~/components/SpriteIcon";
 import LoginModal from "~/components/login/LoginModal";
@@ -45,11 +46,12 @@ export default function DashboardLayout({
         h="64px"
         px={12}
         mx="auto"
+        mb={9}
         borderBottom="1px solid"
         borderColor="divider"
       >
         <Flex justify="space-between" align="center" w="full" maxW="1280px">
-          <SpriteIcon name="merits-logo" w="87px" h="24px" />
+          <Icon as={meritsLogo} w="87px" h="24px" />
           <AccountButton
             isLoading={!isInitialized}
             address={address}
@@ -57,9 +59,9 @@ export default function DashboardLayout({
           />
         </Flex>
       </Flex>
-      <Box as="main" flex="1">
-        {children}
-      </Box>
+      <Flex as="main" flex="1" px={12} flexDir="column" alignItems="center">
+        <Flex maxW="1280px">{children}</Flex>
+      </Flex>
       <Flex
         as="footer"
         justify="center"
@@ -69,6 +71,7 @@ export default function DashboardLayout({
         px={12}
         mx="auto"
         mb={4}
+        mt={12}
       >
         <Flex justify="space-between" align="center" w="full">
           <Flex alignItems="center" gap={1.5}>

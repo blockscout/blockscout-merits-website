@@ -3,6 +3,7 @@
   export type IconName =
 	| "blockscout-logo"
 	| "copy"
+	| "info"
 	| "merits-logo"
 	| "merits"
 	| "profile"

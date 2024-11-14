@@ -1,10 +1,7 @@
 import { Icon, useColorModeValue, chakra } from "@chakra-ui/react";
 import React from "react";
 
-// This icon doesn't work properly when it is in the sprite
-// Probably because of the gradient
-// eslint-disable-next-line no-restricted-imports
-import meritsIcon from "~/icons/merits.svg";
+import meritsIcon from "@/public/merits.svg";
 
 type Props = {
   className?: string;

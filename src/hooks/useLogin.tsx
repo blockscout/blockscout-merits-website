@@ -5,11 +5,10 @@ import { useAppContext } from "~/contexts/app";
 
 import getErrorObjPayload from "~/lib/errors/getErrorObjPayload";
 import getErrorMessage from "~/lib/errors/getErrorMessage";
+import { YEAR } from "~/lib/consts";
 
 import useCheckUserQuery from "./useCheckUserQuery";
 import useToast from "./useToast";
-
-const YEAR = 365 * 24 * 60 * 60 * 1000; // One year in milliseconds
 
 function getMessageToSign(
   address: string,

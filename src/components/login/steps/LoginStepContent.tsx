@@ -69,9 +69,7 @@ const LoginStepContent = ({ goNext, closeModal }: Props) => {
           closeModal();
         }
       }
-    } catch (error) {
-      console.error(error);
-    }
+    } catch (error) {} // eslint-disable-line no-empty
     setIsLoading.off();
   }, [
     login,
