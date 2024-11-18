@@ -1,12 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import ChakraProvider from "~/chakra/provider";
-import WagmiProvider from "~/wagmi/provider";
-import { AppContextProvider } from "~/contexts/app";
-import { ScrollDirectionProvider } from "~/contexts/scrollDirection";
+import ClientLayout from "./ClientLayout";
 
 export const metadata: Metadata = {
   title: "Merits hub",
@@ -21,10 +16,6 @@ export const metadata: Metadata = {
   },
 };
 
-const inter = Inter({
-  subsets: ["latin"],
-});
-
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -32,17 +23,5 @@ export default async function RootLayout({
 }>) {
   const cookies = (await headers()).get("cookie");
 
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ChakraProvider>
-          <WagmiProvider cookies={cookies}>
-            <ScrollDirectionProvider>
-              <AppContextProvider>{children}</AppContextProvider>
-            </ScrollDirectionProvider>
-          </WagmiProvider>
-        </ChakraProvider>
-      </body>
-    </html>
-  );
+  return <ClientLayout cookies={cookies}>{children}</ClientLayout>;
 }

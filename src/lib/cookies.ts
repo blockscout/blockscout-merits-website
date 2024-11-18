@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 export enum NAMES {
   API_TOKEN = "api_token", // eslint-disable-line no-unused-vars
   REFERRAL_CODE = "ref_code", // eslint-disable-line no-unused-vars
+  UUID = "uuid", // eslint-disable-line no-unused-vars
 }
 
 export function get(name?: NAMES | undefined | null, serverCookie?: string) {
