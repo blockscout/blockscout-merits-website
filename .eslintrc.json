@@ -1,3 +1,24 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": [
+    "eslint:recommended",
+    "next/core-web-vitals",
+    "plugin:@next/next/recommended",
+    "plugin:@tanstack/eslint-plugin-query/recommended"
+  ],
+  "globals": {
+    "RequestInit": true
+  },
+  "rules": {
+    "no-unused-vars": [
+      "error",
+      {
+        "vars": "local",
+        "ignoreRestSiblings": true,
+        "args": "none",
+        "argsIgnorePattern": "^_",
+        "caughtErrors": "none"
+      }
+    ],
+    "react-hooks/exhaustive-deps": "error"
+  }
 }

@@ -1,7 +1,7 @@
+import React from "react";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import { Provider } from "@/chakra/provider";
+import { headers } from "next/headers";
+import ClientLayout from "./ClientLayout";
 
 export const metadata: Metadata = {
   title: "Merits hub",
@@ -16,20 +16,12 @@ export const metadata: Metadata = {
   },
 };
 
-const inter = Inter({
-  subsets: ["latin"],
-});
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Provider>{children}</Provider>
-      </body>
-    </html>
-  );
+  const cookies = (await headers()).get("cookie");
+
+  return <ClientLayout cookies={cookies}>{children}</ClientLayout>;
 }
