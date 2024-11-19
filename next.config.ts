@@ -22,7 +22,6 @@ const nextConfig: NextConfig = {
     return config;
   },
   reactStrictMode: true,
-  swcMinify: true,
 };
 
 export default nextConfig;
