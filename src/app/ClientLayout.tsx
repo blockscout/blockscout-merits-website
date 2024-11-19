@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Inter } from "next/font/google";
 import ChakraProvider from "~/chakra/provider";
 import WagmiProvider from "~/wagmi/provider";
@@ -12,8 +12,6 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-mixpanel.init();
-
 export default function ClientLayout({
   children,
   cookies,
@@ -21,6 +19,10 @@ export default function ClientLayout({
   children: React.ReactNode;
   cookies: string | null;
 }) {
+  useEffect(() => {
+    mixpanel.init();
+  }, []);
+
   return (
     <html lang="en">
       <body className={inter.className}>
