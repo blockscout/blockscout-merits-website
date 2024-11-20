@@ -1,0 +1,80 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    // DEV SERVER
+    {
+      "type": "shell",
+      "command": "npm run dev -- --preset=${input:dev_config_preset}",
+      "problemMatcher": [],
+      "label": "dev server",
+      "detail": "start local dev server",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "focus": true,
+        "close": false,
+        "revealProblems": "onProblem"
+      },
+      "icon": {
+        "color": "terminal.ansiMagenta",
+        "id": "server-process"
+      },
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    },
+
+    // CODE CHECKS
+    {
+      "type": "typescript",
+      "label": "tsc build",
+      "detail": "compile typescript",
+      "tsconfig": "tsconfig.json",
+      "problemMatcher": ["$tsc"],
+      "icon": {
+        "color": "terminal.ansiCyan",
+        "id": "symbol-type-parameter"
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "focus": true,
+        "close": false,
+        "revealProblems": "onProblem"
+      },
+      "group": "build"
+    },
+    {
+      "type": "npm",
+      "script": "lint",
+      "problemMatcher": [],
+      "label": "eslint",
+      "detail": "run eslint",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "focus": true,
+        "close": false,
+        "revealProblems": "onProblem"
+      },
+      "icon": {
+        "color": "terminal.ansiYellow",
+        "id": "zap"
+      },
+      "runOptions": {
+        "instanceLimit": 1
+      }
+    }
+  ],
+  "inputs": [
+    {
+      "type": "pickString",
+      "id": "dev_config_preset",
+      "description": "Choose dev server config preset:",
+      "options": ["dev"],
+      "default": "dev"
+    }
+  ]
+}

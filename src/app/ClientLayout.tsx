@@ -25,6 +25,10 @@ export default function ClientLayout({
 
   return (
     <html lang="en">
+      <head>
+        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script src="/assets/envs.js" />
+      </head>
       <body className={inter.className}>
         <ChakraProvider>
           <WagmiProvider cookies={cookies}>

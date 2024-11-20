@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { useAppContext } from "~/contexts/app";
+import { getApiUrl } from "~/config/app";
 
 export default function useDailyRewardQuery() {
   const { apiToken } = useAppContext();
@@ -8,14 +9,11 @@ export default function useDailyRewardQuery() {
   return useQuery({
     queryKey: ["daily_reward", apiToken],
     queryFn: async () => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_HOST}/api/v1/user/daily/check`,
-        {
-          headers: {
-            Authorization: `Bearer ${apiToken}`,
-          },
+      const response = await fetch(getApiUrl("/user/daily/check"), {
+        headers: {
+          Authorization: `Bearer ${apiToken}`,
         },
-      );
+      });
       return response.json();
     },
     enabled: Boolean(apiToken),

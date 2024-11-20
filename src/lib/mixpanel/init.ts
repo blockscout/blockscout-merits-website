@@ -3,11 +3,12 @@ import mixpanel from "mixpanel-browser";
 import { deviceType } from "react-device-detect";
 
 import * as cookies from "~/lib/cookies";
+import config from "~/config/app";
 
 import getUuid from "./getUuid";
 import * as userProfile from "./userProfile";
 
-export const projectToken = process.env.NEXT_PUBLIC_MIXPANEL_PROJECT_TOKEN;
+export const projectToken = config.mixpanel.projectToken;
 
 export default function init() {
   if (!projectToken) {

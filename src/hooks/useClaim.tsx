@@ -3,6 +3,7 @@ import { useCallback } from "react";
 import getErrorObjPayload from "~/lib/errors/getErrorObjPayload";
 import getErrorMessage from "~/lib/errors/getErrorMessage";
 import { useAppContext } from "~/contexts/app";
+import { getApiUrl } from "~/config/app";
 
 import useToast from "./useToast";
 
@@ -12,16 +13,13 @@ export default function useClaim() {
 
   return useCallback(async () => {
     try {
-      await fetch(
-        `${process.env.NEXT_PUBLIC_API_HOST}/api/v1/user/daily/claim`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${apiToken}`,
-          },
+      await fetch(getApiUrl("/user/daily/claim"), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiToken}`,
         },
-      );
+      });
     } catch (_error) {
       const apiError = getErrorObjPayload<{ message: string }>(_error);
       toast({

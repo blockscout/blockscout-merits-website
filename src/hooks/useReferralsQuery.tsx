@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { useAppContext } from "~/contexts/app";
+import { getApiUrl } from "~/config/app";
 
 export default function useReferralsQuery() {
   const { apiToken } = useAppContext();
@@ -8,14 +9,11 @@ export default function useReferralsQuery() {
   return useQuery({
     queryKey: ["referrals", apiToken],
     queryFn: async () => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_HOST}/api/v1/user/referrals`,
-        {
-          headers: {
-            Authorization: `Bearer ${apiToken}`,
-          },
+      const response = await fetch(getApiUrl("/user/referrals"), {
+        headers: {
+          Authorization: `Bearer ${apiToken}`,
         },
-      );
+      });
       return response.json();
     },
     enabled: Boolean(apiToken),

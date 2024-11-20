@@ -23,6 +23,7 @@
 # misc
 .DS_Store
 *.pem
+/public/assets/envs.js
 /public/icons/sprite.svg
 /public/icons/README.md
 
@@ -32,7 +33,8 @@ yarn-debug.log*
 yarn-error.log*
 
 # env files (can opt-in for commiting if needed)
-.env*
+.env*.local
+/envs/.env.secrets
 
 # vercel
 .vercel

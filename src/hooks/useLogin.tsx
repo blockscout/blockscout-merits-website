@@ -6,6 +6,7 @@ import { useAppContext } from "~/contexts/app";
 import getErrorObjPayload from "~/lib/errors/getErrorObjPayload";
 import getErrorMessage from "~/lib/errors/getErrorMessage";
 import { YEAR } from "~/lib/consts";
+import config, { getApiUrl } from "~/config/app";
 
 import useCheckUserQuery from "./useCheckUserQuery";
 import useToast from "./useToast";
@@ -24,7 +25,7 @@ function getMessageToSign(
 
   const urlObj =
     window.location.hostname === "localhost"
-      ? new URL(process.env.NEXT_PUBLIC_API_HOST || "")
+      ? new URL(config.api.origin || "")
       : window.location;
 
   return [
@@ -56,13 +57,13 @@ export default function useLogin() {
           throw new Error();
         }
         const [nonceResponse, checkCodeResponse] = await Promise.all([
-          fetch(`${process.env.NEXT_PUBLIC_API_HOST}/api/v1/auth/nonce`).then(
-            (response) => response.json(),
+          fetch(getApiUrl("/auth/nonce")).then((response) =>
+            response.json(),
           ) as Promise<{ nonce: string }>,
           refCode
-            ? (fetch(
-                `${process.env.NEXT_PUBLIC_API_HOST}/api/v1/auth/code/${refCode}`,
-              ).then((response) => response.json()) as Promise<{
+            ? (fetch(getApiUrl(`/auth/code/${refCode}`)).then((response) =>
+                response.json(),
+              ) as Promise<{
                 valid: boolean;
               }>)
             : Promise.resolve({ valid: true }),
@@ -77,20 +78,17 @@ export default function useLogin() {
           refCode,
         );
         const signature = await signMessageAsync({ message });
-        const loginResponse = await (fetch(
-          `${process.env.NEXT_PUBLIC_API_HOST}/api/v1/auth/login`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              nonce: nonceResponse.nonce,
-              message,
-              signature,
-            }),
+        const loginResponse = await (fetch(getApiUrl("/auth/login"), {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        ).then((response) => response.json()) as Promise<{
+          body: JSON.stringify({
+            nonce: nonceResponse.nonce,
+            message,
+            signature,
+          }),
+        }).then((response) => response.json()) as Promise<{
           token: string;
           created: boolean;
         }>);
