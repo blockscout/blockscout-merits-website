@@ -1,7 +1,6 @@
 import type { ChakraProps, ThemingProps } from "@chakra-ui/react";
 import { chakra } from "@chakra-ui/react";
-import _pickBy from "lodash/pickBy";
-import { useRouter } from "next/router";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import React, { useEffect, useRef } from "react";
 
 import type { RoutedTab } from "./types";
@@ -44,6 +43,8 @@ const RoutedTabs = ({
   ...themeProps
 }: Props) => {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const tabIndex = useTabIndexFromQuery(tabs);
   const tabsRef = useRef<HTMLDivElement>(null);
 
@@ -51,36 +52,23 @@ const RoutedTabs = ({
     (index: number) => {
       const nextTab = tabs[index];
 
-      const queryForPathname = _pickBy(router.query, (value, key) =>
-        router.pathname.includes(`[${key}]`),
-      );
+      const params = new URLSearchParams(searchParams.toString());
       const tabId = Array.isArray(nextTab.id) ? nextTab.id[0] : nextTab.id;
-      router.push(
-        {
-          pathname: router.pathname,
-          query: { ...queryForPathname, tab: tabId },
-        },
-        undefined,
-        { shallow: true },
-      );
+      params.set("tab", tabId);
+
+      router.push(`${pathname}?${params}`);
 
       onTabChange?.(index);
     },
-    [tabs, router, onTabChange],
+    [tabs, router, pathname, searchParams, onTabChange],
   );
 
   useEffect(() => {
-    if (router.query.scroll_to_tabs) {
+    const params = new URLSearchParams(searchParams.toString());
+    if (params.get("scroll_to_tabs")) {
       tabsRef?.current?.scrollIntoView(true);
-      delete router.query.scroll_to_tabs;
-      router.push(
-        {
-          pathname: router.pathname,
-          query: router.query,
-        },
-        undefined,
-        { shallow: true },
-      );
+      params.delete("scroll_to_tabs");
+      router.push(`${pathname}?${params}`);
     }
     // replicate componentDidMount
     // eslint-disable-next-line react-hooks/exhaustive-deps

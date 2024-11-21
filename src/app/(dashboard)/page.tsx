@@ -9,7 +9,7 @@ import DailyRewardClaimButton from "~/components/dashboard/DailyRewardClaimButto
 import DashboardBanner from "~/components/dashboard/DashboardBanner";
 import ReferralProgramTab from "~/components/dashboard/tabs/ReferralProgramTab";
 import BadgesTab from "~/components/dashboard/tabs/BadgesTab";
-import TabsWithScroll from "~/components/tabs/TabsWithScroll";
+import RoutedTabs from "~/components/tabs/RoutedTabs";
 
 import { useAppContext } from "~/contexts/app";
 import useBalancesQuery from "~/hooks/useBalancesQuery";
@@ -109,7 +109,7 @@ export default function Dashboard() {
   return (
     <Flex flexDirection="column" w="full" gap={8}>
       {content}
-      <TabsWithScroll
+      <RoutedTabs
         tabs={[
           apiToken
             ? {

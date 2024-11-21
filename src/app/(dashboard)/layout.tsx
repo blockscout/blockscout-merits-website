@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { Flex, Text, Icon, Link } from "@chakra-ui/react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 import meritsLogo from "@/public/static/merits_logo.svg";
 import * as cookies from "~/lib/cookies";
@@ -18,21 +18,24 @@ export default function DashboardLayout({
 }>) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const { isInitialized, apiToken, address, loginModal } = useAppContext();
 
   useEffect(() => {
     if (!router) {
       return;
     }
-    const refCode = searchParams.get("ref");
+    const params = new URLSearchParams(searchParams.toString());
+    const refCode = params.get("ref");
     if (refCode) {
       cookies.set(cookies.NAMES.REFERRAL_CODE, refCode);
-      router.replace("/");
+      params.delete("ref");
+      router.replace(`${pathname}?${params}`);
       if (!apiToken) {
         loginModal.onOpen();
       }
     }
-  }, [router, apiToken, loginModal, searchParams]);
+  }, [router, apiToken, loginModal, searchParams, pathname]);
 
   return (
     <Flex direction="column" minH="100vh">

@@ -1,12 +1,12 @@
-import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 
 import type { RoutedTab } from "./types";
 
 import getQueryParamString from "~/lib/router/getQueryParamString";
 
 export default function useTabIndexFromQuery(tabs: Array<RoutedTab>) {
-  const router = useRouter();
-  const tabFromQuery = getQueryParamString(router.query.tab);
+  const searchParams = useSearchParams();
+  const tabFromQuery = getQueryParamString(searchParams.get("tab"));
 
   if (!tabFromQuery) {
     return 0;
