@@ -9,6 +9,8 @@
     "lint": "next lint",
     "typecheck": "tsc",
     "prepare": "husky",
+    "docker:build": "docker build -t merits:local ./",
+    "docker:start": "./scripts/docker.sh",
     "svg:format": "svgo -r ./src/icons",
     "svg:build-sprite": "icons build -i ./src/icons -o ./public/icons --optimize"
   },
