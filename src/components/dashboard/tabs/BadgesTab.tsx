@@ -76,7 +76,7 @@ export default function ReferralProgramTab() {
               <Image
                 key={index}
                 display={{ base: index > 2 ? "none" : "block", sm: "block" }}
-                src={`/badges/badge_${index + 1}.svg`}
+                src={`/static/badges/badge_${index + 1}.svg`}
                 alt={`Badge ${index + 1}`}
                 w={{
                   base: "calc((100% - 16px) / 3)",

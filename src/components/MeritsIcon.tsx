@@ -1,7 +1,7 @@
 import { Icon, useColorModeValue, chakra } from "@chakra-ui/react";
 import React from "react";
 
-import meritsIcon from "@/public/merits.svg";
+import meritsIcon from "@/public/static/merits.svg";
 
 type Props = {
   className?: string;

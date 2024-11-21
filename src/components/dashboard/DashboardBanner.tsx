@@ -46,7 +46,7 @@ export default function DashboardBanner() {
         <Button onClick={loginModal.onOpen}>Log in</Button>
       </Flex>
       <Image
-        src="/bg-merit-1.svg"
+        src="/static/bg_parts/merit_1.svg"
         alt="Merit 1"
         w="308px"
         position="absolute"
@@ -55,7 +55,7 @@ export default function DashboardBanner() {
         display={{ base: "none", md: "block" }}
       />
       <Image
-        src="/bg-merit-2.svg"
+        src="/static/bg_parts/merit_2.svg"
         alt="Merit 2"
         w="150px"
         position="absolute"
@@ -64,7 +64,7 @@ export default function DashboardBanner() {
         display={{ base: "none", md: "block" }}
       />
       <Image
-        src="/bg-merit-3.svg"
+        src="/static/bg_parts/merit_3.svg"
         alt="Merit 3"
         w="90px"
         position="absolute"

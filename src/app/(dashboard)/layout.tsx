@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { Flex, Text, Icon, Link } from "@chakra-ui/react";
 import { useSearchParams, useRouter } from "next/navigation";
 
-import meritsLogo from "@/public/merits-logo.svg";
+import meritsLogo from "@/public/static/merits_logo.svg";
 import * as cookies from "~/lib/cookies";
 import SpriteIcon from "~/components/SpriteIcon";
 import LoginModal from "~/components/login/LoginModal";
