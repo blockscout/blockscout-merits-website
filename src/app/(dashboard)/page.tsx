@@ -93,10 +93,17 @@ export default function Dashboard() {
           title="Streaks"
           description={`Current number of consecutive days you${apos}ve claimed your daily Merits.`}
           direction="column-reverse"
-          availableSoon
-          blurFilter
         >
-          <RewardsDashboardCardValue label="Streaks" value="5 days" />
+          <RewardsDashboardCardValue
+            label="Streaks"
+            value={
+              dailyRewardQuery.data?.streak
+                ? `${dailyRewardQuery.data?.streak} day${Number(dailyRewardQuery.data?.streak) === 1 ? "" : "s"}`
+                : "N/A"
+            }
+            isLoading={dailyRewardQuery.isPending}
+            hint={`Current number of consecutive days you${apos}ve claimed your daily Merits.`}
+          />
         </RewardsDashboardCard>
       </Flex>
     </>
