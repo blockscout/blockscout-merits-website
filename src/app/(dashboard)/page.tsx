@@ -20,7 +20,7 @@ import useDailyRewardQuery from "~/hooks/useDailyRewardQuery";
 import { apos } from "~/lib/htmlEntities";
 
 export default function Dashboard() {
-  const { apiToken } = useAppContext();
+  const { isInitialized, apiToken } = useAppContext();
   const balancesQuery = useBalancesQuery();
   const referralsQuery = useReferralsQuery();
   const rewardsConfigQuery = useConfigQuery();
@@ -113,23 +113,23 @@ export default function Dashboard() {
     <Flex flexDirection="column" w="full" gap={8}>
       <DashboardBanner />
       {content}
-      <RoutedTabs
-        tabs={[
-          apiToken
-            ? {
-                id: "referral program",
-                title: "Referral program",
-                component: <ReferralProgramTab />,
-              }
-            : null,
-          {
-            id: "badges",
-            title: "Badges",
-            component: <BadgesTab />,
-            count: "(Soon)",
-          },
-        ].filter(Boolean)}
-      />
+      {isInitialized && (
+        <RoutedTabs
+          tabs={[
+            {
+              id: "referral program",
+              title: "Referral program",
+              component: <ReferralProgramTab />,
+            },
+            {
+              id: "badges",
+              title: "Badges",
+              component: <BadgesTab />,
+              count: "(Soon)",
+            },
+          ].filter(Boolean)}
+        />
+      )}
     </Flex>
   );
 }
