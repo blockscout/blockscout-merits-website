@@ -32,7 +32,7 @@ export default function DashboardBanner() {
         as="a"
         href="https://docs.blockscout.com/using-blockscout/merits"
         target="_blank"
-        rel="noopener noreferrer"
+        rel="noopener"
       >
         Learn More
       </Button>

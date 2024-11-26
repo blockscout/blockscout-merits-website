@@ -1,72 +1,47 @@
-import { Skeleton, Flex, Link, Image } from "@chakra-ui/react";
-
-import DashboardCard from "~/components/dashboard/DashboardCard";
+import { Flex, Image, Text, Button } from "@chakra-ui/react";
 
 import { apos } from "~/lib/htmlEntities";
+import { useAppContext } from "~/contexts/app";
 
 export default function BadgesTab() {
+  const { isInitialized, apiToken, loginModal } = useAppContext();
+  const isLoginButtonShown = isInitialized && !apiToken;
+
   return (
-    <DashboardCard
-      title="Badges"
-      description={
-        <Flex flexDir="column" gap={2}>
-          <span>
-            Collect limited and legendary badges by completing different
-            Blockscout related tasks. Go to the badges website to see what
-            {apos}s available and start your collection today.
-          </span>
-          <Link
-            href="https://badges.blockscout.com?utm_source=blockscout&utm_medium=merits-dashboard"
-            fontSize="md"
-            fontWeight="500"
-            isExternal
-          >
-            Go to website
-          </Link>
-        </Flex>
-      }
-      direction="row"
-      availableSoon
+    <Flex
+      w="full"
+      justifyContent="center"
+      py={12}
+      px={2}
+      border="1px solid"
+      borderColor="divider"
+      borderRadius="lg"
     >
-      <Flex
-        flex={1}
-        px={{ base: 4, md: 6 }}
-        py={{ base: 4, md: 0 }}
-        justifyContent="space-between"
-        gap={2}
-      >
-        {Array(5)
-          .fill(null)
-          .map((_, index) => (
-            <Image
-              key={index}
-              display={{ base: index > 2 ? "none" : "block", sm: "block" }}
-              src={`/static/badges/badge_${index + 1}.svg`}
-              alt={`Badge ${index + 1}`}
-              w={{
-                base: "calc((100% - 16px) / 3)",
-                sm: "calc((100% - 32px) / 5)",
-              }}
-              maxW={{ base: "80px", md: "100px" }}
-              maxH={{ base: "80px", md: "100px" }}
-              fallback={
-                <Skeleton
-                  display={{
-                    base: index > 2 ? "none" : "block",
-                    sm: "block",
-                  }}
-                  w={{
-                    base: "calc((100% - 16px) / 3)",
-                    sm: "calc((100% - 32px) / 5)",
-                  }}
-                  maxW={{ base: "80px", md: "100px" }}
-                  maxH={{ base: "80px", md: "100px" }}
-                  aspectRatio={1}
-                />
-              }
-            />
-          ))}
+      <Flex maxW="400px" flexDir="column" alignItems="center">
+        <Image src="/static/badges.svg" alt="Badges" w="270px" mb={6} />
+        <Text fontSize="lg" fontWeight="medium" mb={2}>
+          Badges
+        </Text>
+        <Text textAlign="center" mb={6}>
+          Collect limited edition NFT Badges by completing Blockscout related
+          tasks. See what{apos}s available on the Badges page and start your
+          collection!
+        </Text>
+        <Flex gap={4}>
+          {isLoginButtonShown && (
+            <Button onClick={loginModal.onOpen}>Log in</Button>
+          )}
+          <Button
+            variant={isLoginButtonShown ? "outline" : "solid"}
+            as="a"
+            target="_blank"
+            rel="noopener"
+            href="https://badges.blockscout.com/"
+          >
+            Mint your badges
+          </Button>
+        </Flex>
       </Flex>
-    </DashboardCard>
+    </Flex>
   );
 }
