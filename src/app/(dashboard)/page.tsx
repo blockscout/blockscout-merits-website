@@ -129,6 +129,7 @@ export default function Dashboard() {
             id: "badges",
             title: "Badges",
             component: <BadgesTab />,
+            count: "(Soon)",
           },
         ].filter(Boolean)}
       />

@@ -5,7 +5,7 @@ export interface TabItem {
   // switching between other ids should be handled in the underlying component
   id: string | Array<string>;
   title: string | (() => React.ReactNode);
-  count?: number | null;
+  count?: number | string | null;
   component: React.ReactNode;
 }
 

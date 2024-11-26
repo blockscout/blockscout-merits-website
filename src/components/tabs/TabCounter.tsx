@@ -1,12 +1,12 @@
 import { chakra, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 
-import { getDefaultTransitionProps } from "@blockscout/chakra-theme";
+import getDefaultTransitionProps from "~/chakra/utils/getDefaultTransitionProps";
 
 const COUNTER_OVERLOAD = 50;
 
 type Props = {
-  count?: number | null;
+  count?: number | string | null;
 };
 
 const TabCounter = ({ count }: Props) => {
@@ -18,11 +18,17 @@ const TabCounter = ({ count }: Props) => {
 
   return (
     <chakra.span
-      color={count > 0 ? "text_secondary" : zeroCountColor}
+      color={
+        typeof count === "string" || count > 0
+          ? "text_secondary"
+          : zeroCountColor
+      }
       ml={1}
       {...getDefaultTransitionProps()}
     >
-      {count > COUNTER_OVERLOAD ? `${COUNTER_OVERLOAD}+` : count}
+      {typeof count === "number" && count > COUNTER_OVERLOAD
+        ? `${COUNTER_OVERLOAD}+`
+        : count}
     </chakra.span>
   );
 };
