@@ -42,7 +42,7 @@ export default function Dashboard() {
     dailyRewardQuery.isError,
   ]);
 
-  let content = (
+  const content = apiToken ? (
     <>
       {isError && (
         <Alert status="error">
@@ -107,14 +107,11 @@ export default function Dashboard() {
         </RewardsDashboardCard>
       </Flex>
     </>
-  );
-
-  if (!apiToken) {
-    content = <DashboardBanner />;
-  }
+  ) : null;
 
   return (
     <Flex flexDirection="column" w="full" gap={8}>
+      <DashboardBanner />
       {content}
       <RoutedTabs
         tabs={[

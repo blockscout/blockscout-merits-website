@@ -1,14 +1,8 @@
-import { Skeleton, Text, Flex, Button, Image } from "@chakra-ui/react";
-
-import { useAppContext } from "~/contexts/app";
+import { Flex, Text, Button, Image } from "@chakra-ui/react";
 
 export default function DashboardBanner() {
-  const { isInitialized, loginModal } = useAppContext();
-
   return (
-    <Skeleton
-      isLoaded={isInitialized}
-      display="flex"
+    <Flex
       flexDir={{ base: "column", md: "row" }}
       justifyContent="space-between"
       alignItems="center"
@@ -33,18 +27,15 @@ export default function DashboardBanner() {
         <br />
         Earn Merits.
       </Text>
-      <Flex gap={4} zIndex={1} flexDir={{ base: "row-reverse", md: "row" }}>
-        <Button
-          variant="outline"
-          as="a"
-          href="https://docs.blockscout.com/using-blockscout/merits"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn More
-        </Button>
-        <Button onClick={loginModal.onOpen}>Log in</Button>
-      </Flex>
+      <Button
+        variant="outline"
+        as="a"
+        href="https://docs.blockscout.com/using-blockscout/merits"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Learn More
+      </Button>
       <Image
         src="/static/bg_parts/merit_1.svg"
         alt="Merit 1"
@@ -72,6 +63,6 @@ export default function DashboardBanner() {
         right="15%"
         display={{ base: "none", md: "block" }}
       />
-    </Skeleton>
+    </Flex>
   );
 }
