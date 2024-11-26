@@ -90,12 +90,12 @@ export default function Dashboard() {
           />
         </RewardsDashboardCard>
         <RewardsDashboardCard
-          title="Streaks"
+          title="Streak"
           description={`Current number of consecutive days you${apos}ve claimed your daily Merits.`}
           direction="column-reverse"
         >
           <RewardsDashboardCardValue
-            label="Streaks"
+            label="Streak"
             value={
               dailyRewardQuery.data?.streak
                 ? `${dailyRewardQuery.data?.streak} day${Number(dailyRewardQuery.data?.streak) === 1 ? "" : "s"}`
