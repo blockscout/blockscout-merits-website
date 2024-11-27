@@ -59,10 +59,11 @@ export default function AccountButton({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent w="fit-content">
+      <PopoverContent w="230px">
         <PopoverBody display="flex" flexDir="column">
-          <Text fontSize="sm" mb={2}>
-            This address was used to log in.
+          <Text fontSize="sm" mb={2} textAlign="center">
+            This address is used for the Merits program. Use it across all
+            Blockscout explorers
           </Text>
           <Button variant="outline" size="sm" onClick={handleLogout}>
             Log out

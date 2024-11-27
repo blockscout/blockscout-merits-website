@@ -93,7 +93,7 @@ export default function DashboardLayout({
             <Text fontSize="xs">Made with</Text>
             <SpriteIcon name="blockscout-logo" w="80px" h="12px" />
             <Text fontSize="xs">
-              Tool for inspecting and analyzing EVM based blockchains.
+              One source block explorer for all EVM blockchains.
             </Text>
           </Flex>
           <Flex alignItems="center" gap={3}>
@@ -107,6 +107,9 @@ export default function DashboardLayout({
               </Link>
               <Link href="https://x.com/blockscoutcom" isExternal h={5}>
                 <SpriteIcon name="social/x-circle" boxSize={5} />
+              </Link>
+              <Link href="https://discord.gg/blockscout" isExternal h={5}>
+                <SpriteIcon name="social/discord-circle" boxSize={5} />
               </Link>
             </Flex>
           </Flex>

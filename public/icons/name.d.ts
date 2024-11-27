@@ -6,6 +6,7 @@
 	| "info-circle"
 	| "info"
 	| "profile"
+	| "social/discord-circle"
 	| "social/github-circle"
 	| "social/telegram-circle"
 	| "social/x-circle"
