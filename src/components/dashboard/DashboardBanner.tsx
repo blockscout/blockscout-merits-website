@@ -10,7 +10,7 @@ export default function DashboardBanner() {
       px={8}
       py={6}
       borderRadius="md"
-      bgGradient="linear(255deg, #9CD8FF 9.09%, #D0EFFF 88.45%)"
+      bgGradient="linear(284deg, #DFE4FC 19.64%, #FEFEFF 69.9%, #D3E4FF 100%)"
       position="relative"
       overflow="hidden"
     >
@@ -28,40 +28,43 @@ export default function DashboardBanner() {
         Earn Merits.
       </Text>
       <Button
-        variant="outline"
         as="a"
         href="https://docs.blockscout.com/using-blockscout/merits"
         target="_blank"
         rel="noopener"
+        zIndex={3}
       >
         Learn More
       </Button>
       <Image
         src="/static/bg_parts/merit_1.svg"
         alt="Merit 1"
-        w="308px"
+        w="123px"
         position="absolute"
-        bottom={0}
-        right="calc(50% - 50px)"
+        top={0}
+        right="55%"
         display={{ base: "none", md: "block" }}
+        zIndex={1}
       />
       <Image
         src="/static/bg_parts/merit_2.svg"
         alt="Merit 2"
-        w="150px"
+        h="122px"
         position="absolute"
-        top={0}
-        right="30%"
+        bottom={0}
+        left="50%"
         display={{ base: "none", md: "block" }}
+        zIndex={2}
       />
       <Image
         src="/static/bg_parts/merit_3.svg"
         alt="Merit 3"
-        w="90px"
+        w="436px"
         position="absolute"
-        top={0}
-        right="15%"
+        bottom={0}
+        right={0}
         display={{ base: "none", md: "block" }}
+        zIndex={1}
       />
     </Flex>
   );
