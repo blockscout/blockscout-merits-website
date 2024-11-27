@@ -52,7 +52,7 @@ export default function DashboardLayout({
         borderColor="divider"
       >
         <Flex justify="space-between" align="center" w="full" maxW="1280px">
-          <Icon as={meritsLogo} w="87px" h="24px" />
+          <Icon as={meritsLogo} w="188px" h="24px" />
           <AccountButton
             isLoading={!isInitialized}
             address={address}
