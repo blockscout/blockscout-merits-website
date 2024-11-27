@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 
 import RewardsDashboardCard from "~/components/dashboard/DashboardCard";
 import RewardsDashboardCardValue from "~/components/dashboard/DashboardCardValue";
-import DailyRewardClaimButton from "~/components/dashboard/DailyRewardClaimButton";
 import DashboardBanner from "~/components/dashboard/DashboardBanner";
 import ReferralProgramTab from "~/components/dashboard/tabs/ReferralProgramTab";
 import BadgesTab from "~/components/dashboard/tabs/BadgesTab";
@@ -42,6 +41,18 @@ export default function Dashboard() {
     dailyRewardQuery.isError,
   ]);
 
+  const streakValue = dailyRewardQuery.data?.streak
+    ? `${dailyRewardQuery.data?.streak} day${Number(dailyRewardQuery.data?.streak) === 1 ? "" : "s"}`
+    : "N/A";
+
+  const earnedWithStreak =
+    dailyRewardQuery.data?.streak &&
+    rewardsConfigQuery.data?.rewards.daily_claim
+      ? `${Number(rewardsConfigQuery.data?.rewards.daily_claim) * Number(dailyRewardQuery.data?.streak)}`
+      : "N/A";
+
+  const shareText = `I${apos}ve claimed @blockscoutcom Merits ${streakValue} in a row and earned ${earnedWithStreak} total Merits! #Blockscout #Merits #IYKYK\n\nUse my referral code to get extra points: ${referralsQuery.data?.link}`;
+
   const content = apiToken ? (
     <>
       {isError && (
@@ -51,9 +62,9 @@ export default function Dashboard() {
       )}
       <Flex gap={6} flexDirection={{ base: "column", md: "row" }}>
         <RewardsDashboardCard
-          description="Claim your daily Merits and any Merits received from referrals."
+          title="All Merits"
+          description="Claim your daily Merits and any Merits received from referrals. Available only in Blockscout explorers."
           direction="column-reverse"
-          contentAfter={<DailyRewardClaimButton />}
         >
           <RewardsDashboardCardValue
             label="Total balance"
@@ -93,6 +104,16 @@ export default function Dashboard() {
           title="Streak"
           description={`Current number of consecutive days you${apos}ve claimed your daily Merits.`}
           direction="column-reverse"
+          contentAfter={
+            <Link
+              href={`https://x.com/intent/tweet?text=${encodeURIComponent(shareText)}`}
+              isExternal
+              fontWeight="500"
+              sx={{ "&:hover": { textDecoration: "none" } }}
+            >
+              Share on X
+            </Link>
+          }
         >
           <RewardsDashboardCardValue
             label="Streak"
