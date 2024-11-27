@@ -1,7 +1,8 @@
-import { Skeleton, Flex, Text, Button } from "@chakra-ui/react";
+import { Skeleton, Flex, Button } from "@chakra-ui/react";
 
 import DashboardCard from "~/components/dashboard/DashboardCard";
 import ReadOnlyInputWithCopy from "~/components/ReadOnlyInputWithCopy";
+import EmptyState from "./EmptyState";
 
 import { useAppContext } from "~/contexts/app";
 import useConfigQuery from "~/hooks/useConfigQuery";
@@ -12,29 +13,29 @@ export default function ReferralProgramTab() {
   const configQuery = useConfigQuery();
   const referralsQuery = useReferralsQuery();
 
+  const referralShare = (
+    <Skeleton as="span" isLoaded={!configQuery.isPending}>
+      {configQuery.data?.rewards.referral_share
+        ? `${Number(configQuery.data?.rewards.referral_share) * 100}%`
+        : "N/A"}
+    </Skeleton>
+  );
+
   if (!apiToken) {
     return (
-      <Flex
-        w="full"
-        justifyContent="center"
-        py={12}
-        px={2}
-        border="1px solid"
-        borderColor="divider"
-        borderRadius="lg"
-      >
-        <Flex maxW="400px" flexDir="column" alignItems="center">
-          <Text fontSize="lg" fontWeight="medium" mb={2}>
-            Referral program
-          </Text>
-          <Text textAlign="center" mb={4}>
-            Refer friends and earn Merits!
-            <br />
-            Log in to get your referral link and start sharing.
-          </Text>
-          <Button onClick={loginModal.onOpen}>Log in</Button>
-        </Flex>
-      </Flex>
+      <EmptyState
+        imageSrc="/static/empty_wallet.svg"
+        imageWidth="260px"
+        title="Refer friends and boost your Merits!"
+        description={
+          <>
+            Receive a {referralShare} bonus on all Merits earned by your
+            referrals. Login to start
+          </>
+        }
+        contentAfter={<Button onClick={loginModal.onOpen}>Log in</Button>}
+        maxW="320px"
+      />
     );
   }
 
@@ -43,12 +44,7 @@ export default function ReferralProgramTab() {
       title="Referral program"
       description={
         <>
-          Refer friends and boost your Merits! You receive a{" "}
-          <Skeleton as="span" isLoaded={!configQuery.isPending}>
-            {configQuery.data?.rewards.referral_share
-              ? `${Number(configQuery.data?.rewards.referral_share) * 100}%`
-              : "N/A"}
-          </Skeleton>{" "}
+          Refer friends and boost your Merits! You receive a {referralShare}{" "}
           bonus on all Merits earned by your referrals.
         </>
       }
