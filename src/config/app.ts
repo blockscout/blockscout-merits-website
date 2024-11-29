@@ -16,6 +16,9 @@ const config = {
   reown: {
     projectId: getEnvValue("NEXT_PUBLIC_REOWN_PROJECT_ID"),
   },
+  images: {
+    baseUrl: getEnvValue("NEXT_PUBLIC_IMAGE_CDN_URL"),
+  },
 };
 
 export default config;

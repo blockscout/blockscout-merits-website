@@ -11,5 +11,6 @@
 	| "social/telegram-circle"
 	| "social/x-circle"
 	| "social/x"
+	| "star"
 	| "stats";
   
