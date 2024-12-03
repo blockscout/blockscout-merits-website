@@ -65,7 +65,20 @@ export default function Dashboard() {
       <Flex gap={6} flexDirection={{ base: "column", md: "row" }}>
         <RewardsDashboardCard
           title="All Merits"
-          description="Claim your daily Merits and any Merits received from referrals. Available only in Blockscout explorers."
+          description={
+            <>
+              Claim your daily Merits and any Merits received from referrals.
+              Available only in{" "}
+              <Link
+                href="https://eth.blockscout.com/"
+                isExternal
+                fontWeight="500"
+              >
+                Blockscout
+              </Link>{" "}
+              explorers.
+            </>
+          }
           direction="column-reverse"
         >
           <RewardsDashboardCardValue
@@ -111,7 +124,6 @@ export default function Dashboard() {
               href={`https://x.com/intent/tweet?text=${encodeURIComponent(shareText)}`}
               isExternal
               fontWeight="500"
-              sx={{ "&:hover": { textDecoration: "none" } }}
             >
               Share on X
             </Link>
