@@ -56,7 +56,7 @@ const RoutedTabs = ({
       const tabId = Array.isArray(nextTab.id) ? nextTab.id[0] : nextTab.id;
       params.set("tab", tabId);
 
-      router.push(`${pathname}?${params}`);
+      router.push(`${pathname}?${params}`, { scroll: false });
 
       onTabChange?.(index);
     },
@@ -68,7 +68,7 @@ const RoutedTabs = ({
     if (params.get("scroll_to_tabs")) {
       tabsRef?.current?.scrollIntoView(true);
       params.delete("scroll_to_tabs");
-      router.push(`${pathname}?${params}`);
+      router.push(`${pathname}?${params}`, { scroll: false });
     }
     // replicate componentDidMount
     // eslint-disable-next-line react-hooks/exhaustive-deps
