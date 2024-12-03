@@ -82,7 +82,14 @@ export default function useBadgesQuery() {
         }),
       );
 
-      return userBadges;
+      return userBadges.sort((a, b) => {
+        const addresses = Object.keys(badges);
+        const [aIndex, bIndex] = [
+          addresses.indexOf(a.address),
+          addresses.indexOf(b.address),
+        ];
+        return aIndex !== bIndex ? aIndex - bIndex : a.id - b.id;
+      });
     },
     placeholderData: badgesStub,
     enabled: Boolean(userAddress),

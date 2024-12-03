@@ -1,6 +1,6 @@
 import type { Badge } from "~/types/badge";
 
-export default Array.from({ length: 3 }, (_, i) => ({
+export default Array.from({ length: 5 }, (_, i) => ({
   chainId: "8453",
   id: `badge-${i}`,
   collectionId: "collection-0",

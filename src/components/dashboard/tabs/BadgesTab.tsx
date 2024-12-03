@@ -39,7 +39,7 @@ export default function BadgesTab() {
               as="a"
               target="_blank"
               rel="noopener"
-              href="https://badges.blockscout.com/"
+              href="https://badges.blockscout.com?utm_source=merits-hub&utm_medium=badges-empty-tab"
             >
               Mint your badges
             </Button>
