@@ -1,11 +1,7 @@
-import {
-  Flex,
-  Skeleton,
-  chakra,
-  Box,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Flex, chakra, Box, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
+
+import Skeleton from "~/chakra/Skeleton";
 
 import type { RoutedTab } from "./types";
 

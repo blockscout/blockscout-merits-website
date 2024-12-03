@@ -1,9 +1,14 @@
 import { Flex, Text, Image } from "@chakra-ui/react";
 import React from "react";
 
+import Skeleton from "~/chakra/Skeleton";
+
 type Props = {
-  imageSrc: string;
-  imageWidth: string;
+  image: {
+    src: string;
+    width: string;
+    height: string;
+  };
   title: string;
   description: string | React.ReactNode;
   contentAfter?: React.ReactNode;
@@ -11,8 +16,7 @@ type Props = {
 };
 
 export default function EmptyState({
-  imageSrc,
-  imageWidth,
+  image,
   title,
   description,
   contentAfter,
@@ -29,7 +33,14 @@ export default function EmptyState({
       borderRadius="lg"
     >
       <Flex maxW={maxW} flexDir="column" alignItems="center">
-        <Image src={imageSrc} alt="Empty state" w={imageWidth} mb={6} />
+        <Image
+          src={image.src}
+          alt="Empty state"
+          w={image.width}
+          h={image.height}
+          mb={6}
+          fallback={<Skeleton w={image.width} h={image.height} mb={6} />}
+        />
         <Text fontSize="lg" fontWeight="medium" mb={2}>
           {title}
         </Text>

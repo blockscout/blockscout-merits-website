@@ -1,5 +1,6 @@
-import { Flex, Button, Grid, Skeleton } from "@chakra-ui/react";
+import { Flex, Button, Grid } from "@chakra-ui/react";
 
+import Skeleton from "~/chakra/Skeleton";
 import { apos } from "~/lib/htmlEntities";
 import { useAppContext } from "~/contexts/app";
 import useBadgesQuery from "~/hooks/useBadgesQuery";
@@ -19,8 +20,11 @@ export default function BadgesTab() {
   ) {
     return (
       <EmptyState
-        imageSrc="/static/badges.svg"
-        imageWidth="270px"
+        image={{
+          src: "/static/badges.svg",
+          width: "269px",
+          height: "129px",
+        }}
         title="Badges"
         description={`Collect limited edition NFT Badges by completing Blockscout related
             tasks. See what${apos}s available on the Badges page and start your

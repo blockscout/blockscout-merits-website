@@ -3,10 +3,11 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Skeleton,
   chakra,
 } from "@chakra-ui/react";
 import React from "react";
+
+import Skeleton from "~/chakra/Skeleton";
 
 import CopyToClipboard from "./CopyToClipboard";
 import FormInputPlaceholder from "./FormInputPlaceholder";

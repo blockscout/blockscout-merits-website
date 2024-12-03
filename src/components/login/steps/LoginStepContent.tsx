@@ -9,7 +9,6 @@ import {
   useBoolean,
   Input,
   FormControl,
-  Skeleton,
   Divider,
   Link,
 } from "@chakra-ui/react";
@@ -17,6 +16,7 @@ import type { ChangeEvent } from "react";
 import React, { useCallback, useState, useEffect, useMemo } from "react";
 import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
 
+import Skeleton from "~/chakra/Skeleton";
 import * as cookies from "~/lib/cookies";
 import FormInputPlaceholder from "~/components/FormInputPlaceholder";
 import useCheckUserQuery from "~/hooks/useCheckUserQuery";

@@ -3,12 +3,12 @@ import {
   Box,
   Flex,
   Button,
-  Skeleton,
   useColorModeValue,
   Tag,
 } from "@chakra-ui/react";
 import React from "react";
 
+import Skeleton from "~/chakra/Skeleton";
 import SpriteIcon from "~/components/SpriteIcon";
 import MeritsIcon from "~/components/MeritsIcon";
 import ReadOnlyInputWithCopy from "~/components/ReadOnlyInputWithCopy";

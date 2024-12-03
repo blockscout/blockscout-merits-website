@@ -1,13 +1,8 @@
 import type { StyleProps, ThemingProps } from "@chakra-ui/react";
-import {
-  Box,
-  Skeleton,
-  Tab,
-  TabList,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Tab, TabList, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 
+import Skeleton from "~/chakra/Skeleton";
 import { useScrollDirection } from "~/contexts/scrollDirection";
 import useIsMobile from "~/hooks/useIsMobile";
 import useIsSticky from "~/hooks/useIsSticky";

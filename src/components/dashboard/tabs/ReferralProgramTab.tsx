@@ -1,5 +1,6 @@
-import { Skeleton, Flex, Button } from "@chakra-ui/react";
+import { Flex, Button } from "@chakra-ui/react";
 
+import Skeleton from "~/chakra/Skeleton";
 import DashboardCard from "~/components/dashboard/DashboardCard";
 import ReadOnlyInputWithCopy from "~/components/ReadOnlyInputWithCopy";
 import EmptyState from "./EmptyState";
@@ -24,8 +25,11 @@ export default function ReferralProgramTab() {
   if (!apiToken) {
     return (
       <EmptyState
-        imageSrc="/static/empty_wallet.svg"
-        imageWidth="260px"
+        image={{
+          src: "/static/empty_wallet.svg",
+          width: "266px",
+          height: "210px",
+        }}
         title="Refer friends and boost your Merits!"
         description={
           <>

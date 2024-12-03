@@ -4,7 +4,6 @@ import type {
   PopoverProps,
 } from "@chakra-ui/react";
 import {
-  Skeleton,
   DarkMode,
   PopoverArrow,
   PopoverBody,
@@ -15,6 +14,8 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import React from "react";
+
+import Skeleton from "~/chakra/Skeleton";
 
 import Popover from "./Popover";
 import SpriteIcon from "./SpriteIcon";

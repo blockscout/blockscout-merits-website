@@ -5,8 +5,11 @@ import EmptyState from "./EmptyState";
 export default function DappsTab() {
   return (
     <EmptyState
-      imageSrc="/static/empty_clock.svg"
-      imageWidth="260px"
+      image={{
+        src: "/static/empty_clock.svg",
+        width: "266px",
+        height: "210px",
+      }}
       title="Dapps will be available soon"
       description="Stay tuned for updates"
       contentAfter={

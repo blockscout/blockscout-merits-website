@@ -4,10 +4,11 @@ import {
   useClipboard,
   chakra,
   useDisclosure,
-  Skeleton,
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+
+import Skeleton from "~/chakra/Skeleton";
 
 import type { IconName } from "./SpriteIcon";
 import SpriteIcon from "./SpriteIcon";
