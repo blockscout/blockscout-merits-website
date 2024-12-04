@@ -17,6 +17,7 @@ import useBalancesQuery from "~/hooks/useBalancesQuery";
 import useReferralsQuery from "~/hooks/useReferralsQuery";
 import useConfigQuery from "~/hooks/useConfigQuery";
 import useDailyRewardQuery from "~/hooks/useDailyRewardQuery";
+import useShareTextForStreak from "~/hooks/useShareTextForStreak";
 
 import { apos } from "~/lib/htmlEntities";
 
@@ -26,6 +27,7 @@ export default function Dashboard() {
   const referralsQuery = useReferralsQuery();
   const rewardsConfigQuery = useConfigQuery();
   const dailyRewardQuery = useDailyRewardQuery();
+  const shareText = useShareTextForStreak();
 
   const [isError, setIsError] = useState(false);
 
@@ -42,18 +44,6 @@ export default function Dashboard() {
     rewardsConfigQuery.isError,
     dailyRewardQuery.isError,
   ]);
-
-  const streakValue = dailyRewardQuery.data?.streak
-    ? `${dailyRewardQuery.data?.streak} day${Number(dailyRewardQuery.data?.streak) === 1 ? "" : "s"}`
-    : "N/A";
-
-  const earnedWithStreak =
-    dailyRewardQuery.data?.streak &&
-    rewardsConfigQuery.data?.rewards.daily_claim
-      ? `${Number(rewardsConfigQuery.data?.rewards.daily_claim) * Number(dailyRewardQuery.data?.streak)}`
-      : "N/A";
-
-  const shareText = `I${apos}ve claimed @blockscoutcom Merits ${streakValue} in a row and earned ${earnedWithStreak} total Merits! #Blockscout #Merits #IYKYK\n\nUse my referral code to get extra points: ${referralsQuery.data?.link}`;
 
   const content = apiToken ? (
     <>
