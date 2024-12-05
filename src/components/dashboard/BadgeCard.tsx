@@ -6,7 +6,7 @@ import type { Badge } from "~/types/badge";
 import config from "~/config/app";
 import chains from "~/config/chains";
 
-import SpriteIcon from "~/components/SpriteIcon";
+import SpriteIcon from "~/components/shared/SpriteIcon";
 
 type Props = Badge;
 

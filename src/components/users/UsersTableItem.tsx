@@ -1,10 +1,10 @@
 import { Tr, Td, Link, Flex, Text } from "@chakra-ui/react";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
-import type { IconName } from "~/components/SpriteIcon";
+import type { IconName } from "~/components/shared/SpriteIcon";
 import type { User } from "~/types/api/user";
 
-import SpriteIcon from "~/components/SpriteIcon";
+import SpriteIcon from "~/components/shared/SpriteIcon";
 
 const medals: Record<string, IconName> = {
   "1": "medals/gold",

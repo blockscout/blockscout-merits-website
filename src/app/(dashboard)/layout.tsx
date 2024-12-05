@@ -6,7 +6,7 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 import meritsLogo from "@/public/static/merits_logo.svg";
 import * as cookies from "~/lib/cookies";
-import SpriteIcon from "~/components/SpriteIcon";
+import SpriteIcon from "~/components/shared/SpriteIcon";
 import LoginModal from "~/components/login/LoginModal";
 import AccountButton from "~/components/AccountButton";
 import { useAppContext } from "~/contexts/app";

@@ -18,7 +18,7 @@ import { useAppKit, useAppKitAccount } from "@reown/appkit/react";
 
 import Skeleton from "~/chakra/Skeleton";
 import * as cookies from "~/lib/cookies";
-import FormInputPlaceholder from "~/components/FormInputPlaceholder";
+import FormInputPlaceholder from "~/components/shared/FormInputPlaceholder";
 import useCheckUserQuery from "~/hooks/useCheckUserQuery";
 import useLogin from "~/hooks/useLogin";
 

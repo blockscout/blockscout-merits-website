@@ -9,9 +9,9 @@ import {
 import React from "react";
 
 import Skeleton from "~/chakra/Skeleton";
-import SpriteIcon from "~/components/SpriteIcon";
+import SpriteIcon from "~/components/shared/SpriteIcon";
 import MeritsIcon from "~/components/MeritsIcon";
-import ReadOnlyInputWithCopy from "~/components/ReadOnlyInputWithCopy";
+import ReadOnlyInputWithCopy from "~/components/shared/ReadOnlyInputWithCopy";
 
 import useReferralsQuery from "~/hooks/useReferralsQuery";
 import useConfigQuery from "~/hooks/useConfigQuery";

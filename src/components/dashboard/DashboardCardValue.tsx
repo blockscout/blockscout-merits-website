@@ -3,7 +3,7 @@ import React from "react";
 
 import Skeleton from "~/chakra/Skeleton";
 
-import HintPopover from "~/components/HintPopover";
+import HintPopover from "~/components/shared/HintPopover";
 import MeritsIcon from "~/components/MeritsIcon";
 
 type Props = {

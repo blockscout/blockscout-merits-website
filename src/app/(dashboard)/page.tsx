@@ -11,7 +11,7 @@ import BadgesTab from "~/components/dashboard/tabs/BadgesTab";
 import TasksTab from "~/components/dashboard/tabs/TasksTab";
 import DappsTab from "~/components/dashboard/tabs/DappsTab";
 import UsersTab from "~/components/dashboard/tabs/UsersTab";
-import RoutedTabs from "~/components/tabs/RoutedTabs";
+import RoutedTabs from "~/components/shared/tabs/RoutedTabs";
 
 import { useAppContext } from "~/contexts/app";
 import useBalancesQuery from "~/hooks/useBalancesQuery";

@@ -11,7 +11,7 @@ import React from "react";
 
 import type { MenuButton, TabItem } from "./types";
 
-import Popover from "~/components/Popover";
+import Popover from "~/components/shared/Popover";
 
 import TabCounter from "./TabCounter";
 import { menuButton } from "./utils";
