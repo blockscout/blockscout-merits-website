@@ -6,9 +6,10 @@ import UserTableItem from "./UsersTableItem";
 
 type Props = {
   users: User[];
+  isLoading: boolean;
 };
 
-export default function UsersTable({ users }: Props) {
+export default function UsersTable({ users, isLoading }: Props) {
   return (
     <Table>
       <Thead>
@@ -30,6 +31,7 @@ export default function UsersTable({ users }: Props) {
             user={user}
             prevRank={array[index - 1]?.rank}
             nextRank={array[index + 1]?.rank}
+            isLoading={isLoading}
           />
         ))}
       </Tbody>
