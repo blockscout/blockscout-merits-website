@@ -1,16 +1,9 @@
-import { Tr, Td, Link, Flex, Text } from "@chakra-ui/react";
+import { Tr, Td, Link, Flex, Text, Image } from "@chakra-ui/react";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
-import type { IconName } from "~/components/shared/SpriteIcon";
 import type { User } from "~/types/api/user";
 
-import SpriteIcon from "~/components/shared/SpriteIcon";
-
-const medals: Record<string, IconName> = {
-  "1": "medals/gold",
-  "2": "medals/silver",
-  "3": "medals/bronze",
-};
+const medals = ["gold", "silver", "bronze"] as const;
 
 type Props = {
   user: User;
@@ -27,8 +20,11 @@ export default function UsersTableItem({ user, prevRank, nextRank }: Props) {
         {user.rank !== prevRank && (
           <Flex alignItems="center" gap={4}>
             <Text minW="10px">{user.rank}</Text>
-            {medals[user.rank] && (
-              <SpriteIcon name={medals[user.rank]} boxSize={5} />
+            {medals[Number(user.rank) - 1] && (
+              <Image
+                src={`static/medals/${medals[Number(user.rank) - 1]}.svg`}
+                boxSize={5}
+              />
             )}
           </Flex>
         )}
