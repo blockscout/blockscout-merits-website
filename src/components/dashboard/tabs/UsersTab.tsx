@@ -4,10 +4,14 @@ import UsersTable from "~/components/users/UsersTable";
 import FilterInput from "~/components/shared/filters/FilterInput";
 import Pagination from "~/components/shared/pagination/Pagination";
 
+import { useAppContext } from "~/contexts/app";
 import useUsersQuery from "~/hooks/useUsersQuery";
+import useUserQuery from "~/hooks/useUserQuery";
 
 export default function UsersTab() {
+  const { address } = useAppContext();
   const usersQuery = useUsersQuery();
+  const userQuery = useUserQuery(address);
 
   return (
     <>
@@ -16,8 +20,10 @@ export default function UsersTab() {
         <Pagination {...usersQuery.pagination} />
       </Flex>
       <UsersTable
+        user={address ? userQuery.data : undefined}
+        isLoadingUser={userQuery.isPlaceholderData}
         users={usersQuery.data?.items || []}
-        isLoading={usersQuery.isPlaceholderData}
+        isLoadingUsers={usersQuery.isPlaceholderData}
       />
     </>
   );

@@ -5,11 +5,18 @@ import type { User } from "~/types/api/user";
 import UserTableItem from "./UsersTableItem";
 
 type Props = {
+  user?: User;
+  isLoadingUser: boolean;
   users: User[];
-  isLoading: boolean;
+  isLoadingUsers: boolean;
 };
 
-export default function UsersTable({ users, isLoading }: Props) {
+export default function UsersTable({
+  user,
+  isLoadingUser,
+  users,
+  isLoadingUsers,
+}: Props) {
   return (
     <Table>
       <Thead>
@@ -28,8 +35,16 @@ export default function UsersTable({ users, isLoading }: Props) {
         </Tr>
       </Thead>
       <Tbody>
+        {user && (
+          <UserTableItem
+            key="self"
+            user={user}
+            isSelf
+            isLoading={isLoadingUser}
+          />
+        )}
         {users?.map((user, index) => (
-          <UserTableItem key={index} user={user} isLoading={isLoading} />
+          <UserTableItem key={index} user={user} isLoading={isLoadingUsers} />
         ))}
       </Tbody>
     </Table>
