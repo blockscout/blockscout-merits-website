@@ -3,6 +3,8 @@ export interface User {
   referrals: string;
   rank: string;
   top_percent: number;
+  registered_at: string;
+  total_balance: string;
 }
 
 export interface UsersResponse {

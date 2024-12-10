@@ -9,7 +9,7 @@ export default function useUsersQuery() {
   return useQueryWithPages<UsersResponse>({
     queryKey: "users",
     url: getApiUrl("/leaderboard/users"),
-    params: { page_size: 10 },
+    params: { page_size: 50 },
     placeholderData: usersStub,
   });
 }

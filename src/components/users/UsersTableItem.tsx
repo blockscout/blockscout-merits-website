@@ -4,44 +4,39 @@ import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 import type { User } from "~/types/api/user";
 
 import Skeleton from "~/chakra/Skeleton";
+import MeritsIcon from "../MeritsIcon";
 
 const medals = ["gold", "silver", "bronze"] as const;
 
 type Props = {
   user: User;
-  prevRank: string;
-  nextRank: string;
   isLoading?: boolean;
 };
 
-export default function UsersTableItem({
-  user,
-  prevRank,
-  nextRank,
-  isLoading,
-}: Props) {
-  const borderBottom =
-    nextRank === user.rank ? "1px solid transparent" : undefined;
+export default function UsersTableItem({ user, isLoading }: Props) {
+  const date = new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }).format(new Date(user.registered_at));
 
   return (
     <Tr>
-      <Td borderBottom={borderBottom}>
-        <Skeleton isLoaded={!isLoading}>
-          {user.rank !== prevRank && (
-            <Flex alignItems="center" gap={4}>
-              <Text minW="10px">{user.rank}</Text>
-              {medals[Number(user.rank) - 1] && (
-                <Image
-                  src={`static/medals/${medals[Number(user.rank) - 1]}.svg`}
-                  boxSize={5}
-                />
-              )}
-            </Flex>
-          )}
+      <Td>
+        <Skeleton isLoaded={!isLoading} display="inline-block">
+          <Flex alignItems="center" gap={4}>
+            <Text minW="10px">{user.rank}</Text>
+            {medals[Number(user.rank) - 1] && (
+              <Image
+                src={`static/medals/${medals[Number(user.rank) - 1]}.svg`}
+                boxSize={5}
+              />
+            )}
+          </Flex>
         </Skeleton>
       </Td>
-      <Td borderBottom={borderBottom}>
-        <Skeleton isLoaded={!isLoading}>
+      <Td>
+        <Skeleton isLoaded={!isLoading} display="inline-block">
           <Flex alignItems="center" gap={1.5}>
             <Jazzicon diameter={16} seed={jsNumberForAddress(user.address)} />
             <Link
@@ -53,11 +48,23 @@ export default function UsersTableItem({
           </Flex>
         </Skeleton>
       </Td>
-      <Td isNumeric borderBottom={borderBottom}>
-        <Skeleton isLoaded={!isLoading}>{user.referrals}</Skeleton>
+      <Td isNumeric>
+        <Skeleton isLoaded={!isLoading} display="inline-block">
+          {date}
+        </Skeleton>
       </Td>
-      <Td isNumeric borderBottom={borderBottom}>
-        <Skeleton isLoaded={!isLoading}>{user.top_percent}%</Skeleton>
+      <Td isNumeric>
+        <Skeleton isLoaded={!isLoading} display="inline-block">
+          {user.referrals}
+        </Skeleton>
+      </Td>
+      <Td isNumeric>
+        <Skeleton isLoaded={!isLoading} display="inline-block">
+          <Flex alignItems="center" gap={2}>
+            <MeritsIcon boxSize={5} noShadow />
+            <Text>{user.total_balance}</Text>
+          </Flex>
+        </Skeleton>
       </Td>
     </Tr>
   );
