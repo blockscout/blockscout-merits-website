@@ -18,7 +18,6 @@ import useBalancesQuery from "~/hooks/useBalancesQuery";
 import useReferralsQuery from "~/hooks/useReferralsQuery";
 import useConfigQuery from "~/hooks/useConfigQuery";
 import useDailyRewardQuery from "~/hooks/useDailyRewardQuery";
-import useShareTextForStreak from "~/hooks/useShareTextForStreak";
 
 import { apos } from "~/lib/htmlEntities";
 
@@ -28,7 +27,6 @@ export default function Dashboard() {
   const referralsQuery = useReferralsQuery();
   const rewardsConfigQuery = useConfigQuery();
   const dailyRewardQuery = useDailyRewardQuery();
-  const shareText = useShareTextForStreak();
 
   const [isError, setIsError] = useState(false);
 
@@ -45,6 +43,14 @@ export default function Dashboard() {
     rewardsConfigQuery.isError,
     dailyRewardQuery.isError,
   ]);
+
+  let shareText = `Claim your free @blockscoutcom #Merits and start building your daily streak today! #Blockscout #Merits #IYKYK\n\nBoost your rewards instantly by using my referral code: ${referralsQuery.data?.link}`;
+  if (Number(dailyRewardQuery.data?.streak) > 0) {
+    const days = `day${Number(dailyRewardQuery.data?.streak) === 1 ? "" : "s"}`;
+    shareText =
+      `I${apos}ve claimed Merits ${dailyRewardQuery.data?.streak} ${days} in a row!\n\n` +
+      shareText;
+  }
 
   const content = apiToken ? (
     <>
@@ -103,22 +109,25 @@ export default function Dashboard() {
                 : "N/A"
             }
             isLoading={referralsQuery.isPending}
-            hint="The number of referrals who registered with your code/link."
           />
         </RewardsDashboardCard>
         <RewardsDashboardCard
           title="Streak"
-          description={`Current number of consecutive days you${apos}ve claimed your daily Merits.`}
-          direction="column-reverse"
-          contentAfter={
-            <Link
-              href={`https://x.com/intent/tweet?text=${encodeURIComponent(shareText)}`}
-              isExternal
-              fontWeight="500"
-            >
-              Share on X
-            </Link>
+          description={
+            <>
+              Current number of consecutive days you{apos}ve claimed your daily
+              Merits. The longer your streak, the more daily Merits you can
+              earn.{" "}
+              <Link
+                href={`https://x.com/intent/tweet?text=${encodeURIComponent(shareText)}`}
+                isExternal
+                fontWeight="500"
+              >
+                Share on X
+              </Link>
+            </>
           }
+          direction="column-reverse"
         >
           <RewardsDashboardCardValue
             label="Streak"
@@ -128,7 +137,6 @@ export default function Dashboard() {
                 : "N/A"
             }
             isLoading={dailyRewardQuery.isPending}
-            hint={`Current number of consecutive days you${apos}ve claimed your daily Merits.`}
           />
         </RewardsDashboardCard>
       </Flex>
