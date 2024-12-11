@@ -6,7 +6,7 @@ import { useAppContext } from "~/contexts/app";
 import useBadgesQuery from "~/hooks/useBadgesQuery";
 
 import BadgeCard from "~/components/dashboard/BadgeCard";
-import EmptyState from "./EmptyState";
+import EmptyState from "~/components/shared/EmptyState";
 
 export default function BadgesTab() {
   const { isInitialized, apiToken, loginModal } = useAppContext();

@@ -1,6 +1,6 @@
 import { Button } from "@chakra-ui/react";
 
-import EmptyState from "./EmptyState";
+import EmptyState from "~/components/shared/EmptyState";
 
 export default function DappsTab() {
   return (

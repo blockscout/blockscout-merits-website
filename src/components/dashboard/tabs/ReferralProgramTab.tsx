@@ -3,7 +3,7 @@ import { Flex, Button } from "@chakra-ui/react";
 import Skeleton from "~/chakra/Skeleton";
 import DashboardCard from "~/components/dashboard/DashboardCard";
 import ReadOnlyInputWithCopy from "~/components/shared/ReadOnlyInputWithCopy";
-import EmptyState from "./EmptyState";
+import EmptyState from "~/components/shared/EmptyState";
 
 import { useAppContext } from "~/contexts/app";
 import useConfigQuery from "~/hooks/useConfigQuery";

@@ -13,6 +13,7 @@ type Props = {
   description: string | React.ReactNode;
   contentAfter?: React.ReactNode;
   maxW?: string;
+  noBorder?: boolean;
 };
 
 export default function EmptyState({
@@ -21,6 +22,7 @@ export default function EmptyState({
   description,
   contentAfter,
   maxW,
+  noBorder,
 }: Props) {
   return (
     <Flex
@@ -28,7 +30,7 @@ export default function EmptyState({
       justifyContent="center"
       py={12}
       px={2}
-      border="1px solid"
+      border={noBorder ? "none" : "1px solid"}
       borderColor="divider"
       borderRadius="lg"
     >
