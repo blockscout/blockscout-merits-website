@@ -11,6 +11,8 @@ const medals = ["gold", "silver", "bronze"] as const;
 
 type Props = {
   user: User;
+  prevRank?: string;
+  nextRank?: string;
   isLoading?: boolean;
   isSelf?: boolean;
 };
@@ -23,12 +25,22 @@ function getPercentOfUsersBelow(topPercent: User["top_percent"]) {
   return percent;
 }
 
-export default function UsersTableItem({ user, isLoading, isSelf }: Props) {
+export default function UsersTableItem({
+  user,
+  prevRank,
+  nextRank,
+  isLoading,
+  isSelf,
+}: Props) {
+  const borderBottom =
+    nextRank === user.rank ? "1px solid transparent" : undefined;
+
   return (
     <Tr
       sx={{
         "> td": {
           verticalAlign: "middle",
+          borderBottom,
           borderColor: isSelf ? "blue.100" : undefined,
           position: "relative",
           _after: {
@@ -49,17 +61,19 @@ export default function UsersTableItem({ user, isLoading, isSelf }: Props) {
     >
       <Td>
         <Skeleton isLoaded={!isLoading} display="inline-block">
-          <Flex alignItems="center" gap={4}>
-            <Text minW="10px" fontWeight={isSelf ? "600" : "500"}>
-              {user.rank}
-            </Text>
-            {medals[Number(user.rank) - 1] && (
-              <Image
-                src={`static/medals/${medals[Number(user.rank) - 1]}.svg`}
-                boxSize={5}
-              />
-            )}
-          </Flex>
+          {user.rank !== prevRank && (
+            <Flex alignItems="center" gap={4}>
+              <Text minW="10px" fontWeight={isSelf ? "600" : "500"}>
+                {user.rank}
+              </Text>
+              {medals[Number(user.rank) - 1] && (
+                <Image
+                  src={`static/medals/${medals[Number(user.rank) - 1]}.svg`}
+                  boxSize={5}
+                />
+              )}
+            </Flex>
+          )}
         </Skeleton>
       </Td>
       <Td>

@@ -43,8 +43,14 @@ export default function UsersTable({
             isLoading={isLoadingUser}
           />
         )}
-        {users?.map((user, index) => (
-          <UserTableItem key={index} user={user} isLoading={isLoadingUsers} />
+        {users?.map((user, index, array) => (
+          <UserTableItem
+            key={index}
+            user={user}
+            prevRank={array[index - 1]?.rank}
+            nextRank={array[index + 1]?.rank}
+            isLoading={isLoadingUsers}
+          />
         ))}
       </Tbody>
     </Table>
