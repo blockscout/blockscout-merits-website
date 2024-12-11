@@ -39,6 +39,7 @@ export default function UsersTab() {
           {...usersQuery.pagination}
           page={searchAddress ? 1 : usersQuery.pagination.page}
           isLoading={searchAddress ? true : usersQuery.pagination.isLoading} // to disable the pagination
+          hasPages={searchAddress ? true : usersQuery.pagination.hasPages}
         />
       </Flex>
       <UsersTable
