@@ -22,8 +22,8 @@ export default function BadgesTab() {
       <EmptyState
         image={{
           src: "/static/badges.svg",
-          width: "269px",
-          height: "129px",
+          width: 269,
+          height: 129,
         }}
         title="Badges"
         description={`Collect limited edition NFT Badges by completing Blockscout related

@@ -63,8 +63,8 @@ export default function UsersTable({
         <EmptyState
           image={{
             src: "/static/empty_search.svg",
-            width: "240px",
-            height: "185px",
+            width: 240,
+            height: 185,
           }}
           title="No results"
           description="Enter a full 0x address to search for a user on the leaderboard"

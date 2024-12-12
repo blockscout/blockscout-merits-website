@@ -1,4 +1,4 @@
-import { Flex, Text, Image } from "@chakra-ui/react";
+import { Flex, Text, Image, useBreakpointValue } from "@chakra-ui/react";
 import React from "react";
 
 import Skeleton from "~/chakra/Skeleton";
@@ -6,8 +6,8 @@ import Skeleton from "~/chakra/Skeleton";
 type Props = {
   image: {
     src: string;
-    width: string;
-    height: string;
+    width: number;
+    height: number;
   };
   title: string;
   description: string | React.ReactNode;
@@ -24,6 +24,15 @@ export default function EmptyState({
   maxW,
   noBorder,
 }: Props) {
+  const width = useBreakpointValue({
+    base: Math.round(image.width / 1.5),
+    md: image.width,
+  });
+  const height = useBreakpointValue({
+    base: Math.round(image.height / 1.5),
+    md: image.height,
+  });
+
   return (
     <Flex
       w="full"
@@ -38,15 +47,15 @@ export default function EmptyState({
         <Image
           src={image.src}
           alt="Empty state"
-          w={image.width}
-          h={image.height}
+          w={width}
+          h={height}
           mb={6}
-          fallback={<Skeleton w={image.width} h={image.height} mb={6} />}
+          fallback={<Skeleton w={width} h={height} mb={6} />}
         />
         <Text fontSize="lg" fontWeight="medium" mb={2}>
           {title}
         </Text>
-        <Text textAlign="center" mb={6}>
+        <Text fontSize={{ base: "sm", md: "base" }} textAlign="center" mb={6}>
           {description}
         </Text>
         {contentAfter}

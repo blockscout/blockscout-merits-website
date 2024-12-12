@@ -27,8 +27,8 @@ export default function ReferralProgramTab() {
       <EmptyState
         image={{
           src: "/static/empty_wallet.svg",
-          width: "266px",
-          height: "210px",
+          width: 266,
+          height: 210,
         }}
         title="Refer friends and boost your Merits!"
         description={

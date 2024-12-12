@@ -7,8 +7,8 @@ export default function DappsTab() {
     <EmptyState
       image={{
         src: "/static/empty_clock.svg",
-        width: "266px",
-        height: "210px",
+        width: 266,
+        height: 210,
       }}
       title="Dapps will be available soon"
       description="Stay tuned for updates"
