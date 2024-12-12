@@ -2,6 +2,7 @@ import type { UseQueryResult } from "@tanstack/react-query";
 import { useQueryClient, useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import React, { useCallback } from "react";
+import { animateScroll } from "react-scroll";
 
 import type { PaginationParams } from "~/types/pagination";
 
@@ -45,6 +46,7 @@ type Props = {
   url: string;
   params?: Record<string, unknown>;
   placeholderData?: unknown;
+  scrollRef?: React.RefObject<HTMLDivElement>;
 };
 
 export default function useQueryWithPages<Response>({
@@ -52,6 +54,7 @@ export default function useQueryWithPages<Response>({
   url,
   params,
   placeholderData,
+  scrollRef,
 }: Props): QueryWithPagesResult<Response> {
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -73,6 +76,19 @@ export default function useQueryWithPages<Response>({
   const [hasPages, setHasPages] = React.useState(page > 1);
 
   const isMounted = React.useRef(false);
+
+  const scrollToTop = useCallback(() => {
+    if (scrollRef?.current) {
+      const scrollPosition = window.scrollY;
+      const elementPosition =
+        scrollRef.current.getBoundingClientRect().top + scrollPosition;
+      if (scrollPosition > elementPosition) {
+        scrollRef.current.scrollIntoView(true);
+      }
+    } else {
+      animateScroll.scrollToTop({ duration: 0 });
+    }
+  }, [scrollRef]);
 
   const urlObj = new URL(url);
   const queryParams = { ...pageParams[page], ...params };
@@ -115,8 +131,9 @@ export default function useQueryWithPages<Response>({
     );
 
     setHasPages(true);
+    scrollToTop();
     router.push(`${pathname}?${params}`, { scroll: false });
-  }, [nextPageParams, page, router, pathname, searchParams]);
+  }, [nextPageParams, page, router, pathname, searchParams, scrollToTop]);
 
   const onPrevPageClick = useCallback(() => {
     // returning to the first page
@@ -132,15 +149,26 @@ export default function useQueryWithPages<Response>({
         encodeURIComponent(JSON.stringify(pageParams[page - 1])),
       );
     }
-
+    scrollToTop();
     router.push(`${pathname}?${params}`, { scroll: false });
     if (page === 2) {
       queryClient.removeQueries({ queryKey: [queryKey] });
     }
     setPage((prev) => prev - 1);
-  }, [router, page, pageParams, queryClient, queryKey, pathname, searchParams]);
+  }, [
+    router,
+    page,
+    pageParams,
+    queryClient,
+    queryKey,
+    pathname,
+    searchParams,
+    scrollToTop,
+  ]);
 
   const resetPage = useCallback(() => {
+    scrollToTop();
+
     const params = new URLSearchParams(searchParams.toString());
     params.delete("page");
     params.delete("next_page_params");
@@ -157,7 +185,7 @@ export default function useQueryWithPages<Response>({
         type: "inactive",
       });
     }, 100);
-  }, [queryClient, queryKey, router, pathname, searchParams]);
+  }, [queryClient, queryKey, router, pathname, searchParams, scrollToTop]);
 
   const hasNextPage = nextPageParams
     ? Object.keys(nextPageParams).length > 0

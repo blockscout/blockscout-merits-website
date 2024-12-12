@@ -1,8 +1,9 @@
-import { Table, Thead, Tbody, Tr, Th } from "@chakra-ui/react";
+import { Table, Tbody, Tr, Th } from "@chakra-ui/react";
 
 import type { User } from "~/types/api/user";
 
 import EmptyState from "~/components/shared/EmptyState";
+import Thead from "~/components/shared/TheadSticky";
 
 import UserTableItem from "./UsersTableItem";
 
@@ -24,7 +25,7 @@ export default function UsersTable({
   return (
     <>
       <Table>
-        <Thead>
+        <Thead top={80}>
           <Tr>
             <Th w="10%">Rank</Th>
             <Th w="45%">Address</Th>
