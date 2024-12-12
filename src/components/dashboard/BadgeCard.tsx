@@ -1,5 +1,5 @@
-import { Flex, Text, Image, Link } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { Flex, Text, Image, Link, useBoolean } from "@chakra-ui/react";
+import React from "react";
 
 import type { Badge } from "~/types/badge";
 
@@ -7,6 +7,8 @@ import config from "~/config/app";
 import chains from "~/config/chains";
 
 import SpriteIcon from "~/components/shared/SpriteIcon";
+
+import useIsMobile from "~/hooks/useIsMobile";
 
 type Props = Badge;
 
@@ -42,24 +44,36 @@ export default function BadgeCard({
   description,
   rarity,
 }: Props) {
-  const [isHovered, setIsHovered] = useState(false);
+  const isMobile = useIsMobile();
+  const [isHovered, setIsHovered] = useBoolean(false);
 
-  return (
-    <Flex
-      flexDir="column"
-      h="320px"
-      px={2}
-      pt={isHovered ? 4 : 2}
-      pb={4}
-      gap={4}
-      border="1px solid"
-      borderColor="divider"
-      borderRadius="lg"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+  const content = isHovered ? (
+    <>
+      <Flex flexDir="column" gap={2} px={3}>
+        <Link
+          href={`${chains[chainId].explorerUrl}/token/${address}`}
+          isExternal
+          fontWeight="500"
+        >
+          {name}
+        </Link>
+        <Text fontSize="sm">
+          Token ID:{" "}
+          <Link
+            href={`${chains[chainId].explorerUrl}/token/${address}/instance/${id}`}
+            isExternal
+          >
+            #{id}
+          </Link>
+        </Text>
+      </Flex>
+      <Text fontSize="sm" px={3} wordBreak="break-word">
+        {description}
+      </Text>
+    </>
+  ) : (
+    <>
       <Flex
-        display={isHovered ? "none" : "flex"}
         w="full"
         h="224px"
         alignItems="center"
@@ -86,32 +100,28 @@ export default function BadgeCard({
           </Text>
         </Flex>
       </Flex>
-      <Flex flexDir="column" gap={2} px={3}>
-        <Link
-          href={`${chains[chainId].explorerUrl}/token/${address}`}
-          isExternal
-          fontWeight="500"
-        >
-          {name}
-        </Link>
-        <Text fontSize="sm">
-          Token ID:{" "}
-          <Link
-            href={`${chains[chainId].explorerUrl}/token/${address}/instance/${id}`}
-            isExternal
-          >
-            #{id}
-          </Link>
-        </Text>
-      </Flex>
-      <Text
-        fontSize="sm"
-        px={3}
-        wordBreak="break-word"
-        display={isHovered ? "flex" : "none"}
-      >
-        {description}
+      <Text fontWeight="500" px={3}>
+        {name}
       </Text>
+    </>
+  );
+
+  return (
+    <Flex
+      flexDir="column"
+      h="300px"
+      px={2}
+      pt={isHovered ? 4 : 2}
+      pb={4}
+      gap={4}
+      border="1px solid"
+      borderColor="divider"
+      borderRadius="lg"
+      onMouseEnter={!isMobile ? setIsHovered.on : undefined}
+      onMouseLeave={!isMobile ? setIsHovered.off : undefined}
+      onClick={isMobile ? setIsHovered.toggle : undefined}
+    >
+      {content}
     </Flex>
   );
 }
