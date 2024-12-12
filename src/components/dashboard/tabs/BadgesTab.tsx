@@ -1,4 +1,4 @@
-import { Flex, Button, Grid } from "@chakra-ui/react";
+import { Flex, Button, Grid, Alert, Text, Link } from "@chakra-ui/react";
 
 import Skeleton from "~/chakra/Skeleton";
 import { apos } from "~/lib/htmlEntities";
@@ -7,6 +7,7 @@ import useBadgesQuery from "~/hooks/useBadgesQuery";
 
 import BadgeCard from "~/components/dashboard/BadgeCard";
 import EmptyState from "~/components/shared/EmptyState";
+import SpriteIcon from "~/components/shared/SpriteIcon";
 
 export default function BadgesTab() {
   const { isInitialized, apiToken, loginModal } = useAppContext();
@@ -51,12 +52,38 @@ export default function BadgesTab() {
   }
 
   return (
-    <Grid gap={6} templateColumns="repeat(auto-fill, minmax(230px, 1fr))">
-      {badgesQuery.data?.map((badge, index) => (
-        <Skeleton key={index} isLoaded={!badgesQuery.isPlaceholderData}>
-          <BadgeCard {...badge} />
-        </Skeleton>
-      ))}
-    </Grid>
+    <>
+      {!badgesQuery.isPlaceholderData && (
+        <Alert
+          status="info"
+          w="full"
+          display="flex"
+          justifyContent="center"
+          gap={{ base: 2, md: 3 }}
+          py={2}
+          px={3}
+          mb={8}
+        >
+          <SpriteIcon name="info-circle" boxSize={5} flexShrink={0} />
+          <Text fontWeight="semibold" textAlign="center">
+            Joined recent campaigns? Mint your Merit Badge{" "}
+            <Link
+              href="https://badges.blockscout.com/home?utm_source=merits-hub&utm_medium=badges"
+              isExternal
+              textDecoration="underline"
+            >
+              here
+            </Link>
+          </Text>
+        </Alert>
+      )}
+      <Grid gap={6} templateColumns="repeat(auto-fill, minmax(230px, 1fr))">
+        {badgesQuery.data?.map((badge, index) => (
+          <Skeleton key={index} isLoaded={!badgesQuery.isPlaceholderData}>
+            <BadgeCard {...badge} />
+          </Skeleton>
+        ))}
+      </Grid>
+    </>
   );
 }
