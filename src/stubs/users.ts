@@ -9,5 +9,8 @@ export default {
     registered_at: new Date().toISOString(),
     total_balance: "100",
   })),
-  next_page_params: null,
+  next_page_params: {
+    page_token: "0",
+    page_size: 50,
+  },
 } as UsersResponse;

@@ -2,7 +2,7 @@ import { Flex } from "@chakra-ui/react";
 import React, { useCallback, useState } from "react";
 import { isAddress } from "viem";
 
-import UsersTable from "~/components/users/UsersTable";
+import Users from "~/components/users/Users";
 import FilterInput from "~/components/shared/filters/FilterInput";
 import Pagination from "~/components/shared/pagination/Pagination";
 
@@ -28,11 +28,17 @@ export default function UsersTab() {
 
   return (
     <>
-      <Flex justifyContent="space-between" mb={6}>
+      <Flex
+        flexDirection={{ base: "column-reverse", md: "row" }}
+        justifyContent="space-between"
+        alignItems={{ base: "flex-end", md: "center" }}
+        mb={{ base: 3, md: 6 }}
+        gap={3}
+      >
         <FilterInput
           size="xs"
           placeholder="Search by address"
-          w="400px"
+          w={{ base: "full", md: "400px" }}
           onChange={handleSearchAddressChange}
         />
         <Pagination
@@ -42,7 +48,7 @@ export default function UsersTab() {
           hasPages={searchAddress ? true : usersQuery.pagination.hasPages}
         />
       </Flex>
-      <UsersTable
+      <Users
         user={address ? userQuery.data : undefined}
         isLoadingUser={userQuery.isPlaceholderData}
         users={

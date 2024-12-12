@@ -7,7 +7,7 @@ import Skeleton from "~/chakra/Skeleton";
 import formatDate from "~/lib/formatDate";
 import MeritsIcon from "../MeritsIcon";
 
-const medals = ["gold", "silver", "bronze"] as const;
+import { medals, getPercentOfUsersBelow } from "./utils";
 
 type Props = {
   user: User;
@@ -16,14 +16,6 @@ type Props = {
   isLoading?: boolean;
   isSelf?: boolean;
 };
-
-function getPercentOfUsersBelow(topPercent: User["top_percent"]) {
-  let percent = 100 - topPercent;
-  if (percent < 99) {
-    percent = Math.floor(percent);
-  }
-  return percent;
-}
 
 export default function UsersTableItem({
   user,
