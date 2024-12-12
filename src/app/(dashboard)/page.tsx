@@ -137,6 +137,18 @@ export default function Dashboard() {
                 : "N/A"
             }
             isLoading={dailyRewardQuery.isPending}
+            hint={
+              <>
+                See the{" "}
+                <Link
+                  href="https://docs.blockscout.com/using-blockscout/merits/streak-number-and-daily-rewards"
+                  isExternal
+                >
+                  docs
+                </Link>{" "}
+                to learn how your streak number affects daily rewards
+              </>
+            }
           />
         </RewardsDashboardCard>
       </Flex>
