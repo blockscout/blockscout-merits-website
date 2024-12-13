@@ -61,16 +61,9 @@ export default function BadgesTab() {
   return (
     <>
       {!badgesQuery.isPlaceholderData && (
-        <Alert
-          status="info"
-          colorScheme="gray"
-          justifyContent="center"
-          py={2}
-          px={3}
-          mb={8}
-        >
+        <Alert status="info" colorScheme="gray" mb={8}>
           <AlertIcon display={{ base: "none", lg: "flex" }} />
-          <AlertTitle fontWeight="semibold" textAlign="center">
+          <AlertTitle>
             Joined recent campaigns? Mint your Merit Badge{" "}
             <Link
               href="https://badges.blockscout.com/home?utm_source=merits-hub&utm_medium=badges"
