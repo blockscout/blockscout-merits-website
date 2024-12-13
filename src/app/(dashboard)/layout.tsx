@@ -86,6 +86,7 @@ export default function DashboardLayout({
           justify="space-between"
           align="center"
           w="full"
+          maxW="1280px"
           flexWrap="wrap"
           gap={3}
         >
