@@ -67,7 +67,7 @@ export default function Dashboard() {
               Claim your daily Merits and any Merits received from referrals.
               Available only in{" "}
               <Link
-                href="https://eth.blockscout.com/"
+                href="https://eth.blockscout.com/?utm_source=merits-website&utm_medium=balance"
                 isExternal
                 fontWeight="500"
               >

@@ -1,6 +1,5 @@
 import {
   Button,
-  Flex,
   Popover,
   PopoverTrigger,
   PopoverContent,
@@ -9,9 +8,10 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useCallback } from "react";
-import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 
 import { useAppContext } from "~/contexts/app";
+
+import AddressEntity from "~/components/shared/AddressEntity";
 
 type Props = {
   isLoading?: boolean;
@@ -44,16 +44,14 @@ export default function AccountButton({
         <Button
           variant="header"
           size="sm"
+          fontWeight="700"
           onClick={address ? accountMenu.onOpen : openModal}
           data-selected={Boolean(address)}
           isLoading={isLoading}
           loadingText="Loading..."
         >
           {address ? (
-            <Flex alignItems="center" gap={1.5}>
-              <Jazzicon diameter={16} seed={jsNumberForAddress(address)} />
-              {address.slice(0, 4)}...{address.slice(-4)}
-            </Flex>
+            <AddressEntity address={address} isShort fontWeight="700" />
           ) : (
             "Log in"
           )}

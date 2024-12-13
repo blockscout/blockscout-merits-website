@@ -1,13 +1,15 @@
-import { Flex, Link, Text, Image, Tag } from "@chakra-ui/react";
-import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
+import { Flex, Text, Tag } from "@chakra-ui/react";
 
 import type { User } from "~/types/api/user";
 
 import Skeleton from "~/chakra/Skeleton";
+import AddressEntity from "~/components/shared/AddressEntity";
 import MeritsIcon from "~/components/MeritsIcon";
 import formatDate from "~/lib/formatDate";
 
-import { medals, getPercentOfUsersBelow } from "./utils";
+import Medal from "./Medal";
+
+import { getPercentOfUsersBelow } from "./utils";
 
 type Props = {
   user: User;
@@ -30,26 +32,18 @@ export default function UsersListItem({ user, isLoading, isSelf }: Props) {
       _first={{ borderTop: "1px solid", borderColor: "divider" }}
     >
       <Flex alignItems="center" justifyContent="space-between">
-        <Skeleton isLoaded={!isLoading} as={Flex} alignItems="center" gap={1.5}>
-          <Jazzicon diameter={16} seed={jsNumberForAddress(user.address)} />
-          <Link
-            href={`https://eth.blockscout.com/address/${user.address}`}
-            isExternal
-            fontWeight={isSelf ? "600" : "500"}
-          >
-            {user.address.slice(0, 4)}...{user.address.slice(-4)}
-          </Link>
-        </Skeleton>
+        <AddressEntity
+          address={user.address}
+          isLoading={isLoading}
+          isShort
+          hasLink
+          fontWeight={isSelf ? "600" : "500"}
+        />
         <Skeleton isLoaded={!isLoading} as={Flex} alignItems="center" gap={2}>
           <Text minW="10px" fontWeight={isSelf ? "600" : "500"}>
             Rank: {user.rank}
           </Text>
-          {medals[Number(user.rank) - 1] && (
-            <Image
-              src={`static/medals/${medals[Number(user.rank) - 1]}.svg`}
-              boxSize={5}
-            />
-          )}
+          <Medal rank={user.rank} />
         </Skeleton>
       </Flex>
       {isSelf && (

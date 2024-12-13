@@ -51,7 +51,7 @@ export default function BadgeCard({
     <>
       <Flex flexDir="column" gap={2} px={3}>
         <Link
-          href={`${chains[chainId].explorerUrl}/token/${address}`}
+          href={`${chains[chainId].explorerUrl}/token/${address}?utm_source=merits-website&utm_medium=badge-card&utm_campaign=badge-name`}
           isExternal
           fontWeight="500"
         >
@@ -60,7 +60,7 @@ export default function BadgeCard({
         <Text fontSize="sm">
           Token ID:{" "}
           <Link
-            href={`${chains[chainId].explorerUrl}/token/${address}/instance/${id}`}
+            href={`${chains[chainId].explorerUrl}/token/${address}/instance/${id}?utm_source=merits-website&utm_medium=badge-card&utm_campaign=badge-token-id`}
             isExternal
           >
             #{id}
@@ -84,6 +84,7 @@ export default function BadgeCard({
       >
         <Image
           src={`${config.images.baseUrl}/${collectionId}/${rarity}.png`}
+          alt={`${name} badge`}
           width="130px"
         />
         <Flex

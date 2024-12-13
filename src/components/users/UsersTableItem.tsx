@@ -1,13 +1,16 @@
-import { Tr, Td, Link, Flex, Text, Image, Tag } from "@chakra-ui/react";
-import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
+import { Tr, Td, Flex, Text, Tag } from "@chakra-ui/react";
 
 import type { User } from "~/types/api/user";
 
 import Skeleton from "~/chakra/Skeleton";
 import formatDate from "~/lib/formatDate";
-import MeritsIcon from "../MeritsIcon";
 
-import { medals, getPercentOfUsersBelow } from "./utils";
+import AddressEntity from "~/components/shared/AddressEntity";
+
+import MeritsIcon from "../MeritsIcon";
+import Medal from "./Medal";
+
+import { getPercentOfUsersBelow } from "./utils";
 
 type Props = {
   user: User;
@@ -58,40 +61,33 @@ export default function UsersTableItem({
               <Text minW="10px" fontWeight={isSelf ? "600" : "500"}>
                 {user.rank}
               </Text>
-              {medals[Number(user.rank) - 1] && (
-                <Image
-                  src={`static/medals/${medals[Number(user.rank) - 1]}.svg`}
-                  boxSize={5}
-                />
-              )}
+              <Medal rank={user.rank} />
             </Flex>
           )}
         </Skeleton>
       </Td>
       <Td>
-        <Skeleton isLoaded={!isLoading} display="inline-block">
-          <Flex flexDirection="column" gap={2}>
-            <Flex alignItems="center" gap={1.5}>
-              <Jazzicon diameter={16} seed={jsNumberForAddress(user.address)} />
-              <Link
-                href={`https://eth.blockscout.com/address/${user.address}`}
-                isExternal
-                fontWeight={isSelf ? "600" : "500"}
-              >
-                {user.address}
-              </Link>
-            </Flex>
-            {isSelf && (
-              <Flex alignItems="center" gap={2}>
+        <Flex flexDirection="column" gap={2}>
+          <AddressEntity
+            address={user.address}
+            isLoading={isLoading}
+            hasLink
+            fontWeight={isSelf ? "600" : "500"}
+          />
+          {isSelf && (
+            <Flex alignItems="center" gap={2}>
+              <Skeleton isLoaded={!isLoading}>
                 <Tag colorScheme="blue">You</Tag>
+              </Skeleton>
+              <Skeleton isLoaded={!isLoading}>
                 <Tag colorScheme="purple">
                   Rank higher than {getPercentOfUsersBelow(user.top_percent)}%
                   of users
                 </Tag>
-              </Flex>
-            )}
-          </Flex>
-        </Skeleton>
+              </Skeleton>
+            </Flex>
+          )}
+        </Flex>
       </Td>
       <Td isNumeric>
         <Skeleton isLoaded={!isLoading} display="inline-block">
