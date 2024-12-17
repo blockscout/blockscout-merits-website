@@ -8,6 +8,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useCallback } from "react";
+import { useDisconnect } from "@reown/appkit/react";
 
 import { useAppContext } from "~/contexts/app";
 
@@ -26,11 +27,13 @@ export default function AccountButton({
 }: Props) {
   const { saveApiToken } = useAppContext();
   const accountMenu = useDisclosure();
+  const { disconnect } = useDisconnect();
 
   const handleLogout = useCallback(() => {
     saveApiToken(undefined);
     accountMenu.onClose();
-  }, [saveApiToken, accountMenu]);
+    disconnect();
+  }, [saveApiToken, accountMenu, disconnect]);
 
   return (
     <Popover
