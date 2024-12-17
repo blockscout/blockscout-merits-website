@@ -6,6 +6,7 @@
 	| "copy"
 	| "info-circle"
 	| "info"
+	| "merits-outline"
 	| "profile"
 	| "search"
 	| "social/discord-circle"

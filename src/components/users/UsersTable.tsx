@@ -4,7 +4,7 @@ import type { User } from "~/types/api/user";
 
 import EmptyState from "~/components/shared/EmptyState";
 import Thead from "~/components/shared/TheadSticky";
-import MeritsIcon from "~/components/MeritsIcon";
+import SpriteIcon from "~/components/shared/SpriteIcon";
 
 import UserTableItem from "./UsersTableItem";
 
@@ -27,7 +27,13 @@ export default function UsersTable({
     <>
       <Table>
         <Thead top={80}>
-          <Tr>
+          <Tr
+            sx={{
+              "& > th": {
+                color: "blackAlpha.800",
+              },
+            }}
+          >
             <Th w="10%">Rank</Th>
             <Th w="50%">Address</Th>
             <Th w="15%">Registration</Th>
@@ -35,8 +41,8 @@ export default function UsersTable({
               Referrals
             </Th>
             <Th isNumeric w="15%">
-              <Flex alignItems="center" justifyContent="flex-end" gap={1}>
-                <MeritsIcon boxSize={5} noShadow />
+              <Flex alignItems="center" justifyContent="flex-end" gap={2}>
+                <SpriteIcon name="merits-outline" boxSize={5} />
                 Merits
               </Flex>
             </Th>
