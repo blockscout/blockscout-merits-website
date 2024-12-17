@@ -7,7 +7,6 @@ import formatDate from "~/lib/formatDate";
 
 import AddressEntity from "~/components/shared/AddressEntity";
 
-import MeritsIcon from "../MeritsIcon";
 import Medal from "./Medal";
 
 import { getPercentOfUsersBelow } from "./utils";
@@ -29,6 +28,8 @@ export default function UsersTableItem({
 }: Props) {
   const borderBottom =
     nextRank === user.rank ? "1px solid transparent" : undefined;
+
+  const [integer, decimal] = user.total_balance.split(".");
 
   return (
     <Tr
@@ -72,7 +73,7 @@ export default function UsersTableItem({
             address={user.address}
             isLoading={isLoading}
             hasLink
-            fontWeight={isSelf ? "600" : "500"}
+            fontWeight="600"
           />
           {isSelf && (
             <Flex alignItems="center" gap={2}>
@@ -89,7 +90,7 @@ export default function UsersTableItem({
           )}
         </Flex>
       </Td>
-      <Td isNumeric>
+      <Td>
         <Skeleton isLoaded={!isLoading} display="inline-block">
           <Text fontWeight={isSelf ? "600" : "500"}>
             {formatDate(user.registered_at)}
@@ -103,11 +104,9 @@ export default function UsersTableItem({
       </Td>
       <Td isNumeric>
         <Skeleton isLoaded={!isLoading} display="inline-block">
-          <Flex alignItems="center" gap={2}>
-            <MeritsIcon boxSize={5} noShadow />
-            <Text fontWeight={isSelf ? "600" : "500"}>
-              {user.total_balance}
-            </Text>
+          <Flex fontWeight={isSelf ? "600" : "500"}>
+            <Text>{integer}</Text>
+            {decimal && <Text variant="secondary">.{decimal}</Text>}
           </Flex>
         </Skeleton>
       </Td>

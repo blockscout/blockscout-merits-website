@@ -1,9 +1,10 @@
-import { Table, Tbody, Tr, Th } from "@chakra-ui/react";
+import { Table, Tbody, Tr, Th, Flex } from "@chakra-ui/react";
 
 import type { User } from "~/types/api/user";
 
 import EmptyState from "~/components/shared/EmptyState";
 import Thead from "~/components/shared/TheadSticky";
+import MeritsIcon from "~/components/MeritsIcon";
 
 import UserTableItem from "./UsersTableItem";
 
@@ -28,15 +29,16 @@ export default function UsersTable({
         <Thead top={80}>
           <Tr>
             <Th w="10%">Rank</Th>
-            <Th w="45%">Address</Th>
-            <Th isNumeric w="15%">
-              Registration
-            </Th>
-            <Th isNumeric w="15%">
+            <Th w="50%">Address</Th>
+            <Th w="15%">Registration</Th>
+            <Th isNumeric w="10%">
               Referrals
             </Th>
             <Th isNumeric w="15%">
-              Merits
+              <Flex alignItems="center" justifyContent="flex-end" gap={1}>
+                <MeritsIcon boxSize={5} noShadow />
+                Merits
+              </Flex>
             </Th>
           </Tr>
         </Thead>
