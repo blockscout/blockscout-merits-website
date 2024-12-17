@@ -6,8 +6,9 @@ import ClientLayout from "./ClientLayout";
 export async function generateMetadata(): Promise<Metadata> {
   const host = (await headers()).get("host") || "localhost:3000";
   return {
-    title: "Merits hub",
-    description: "Merits hub for Web3 scouts",
+    title: "Blockscout Merits hub",
+    description:
+      "Master the block explorer. Start earning Blockscout Merits today!",
     metadataBase: new URL(`https://${host}`),
     openGraph: {
       type: "website",
