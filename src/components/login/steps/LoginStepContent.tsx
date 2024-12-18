@@ -95,6 +95,13 @@ const LoginStepContent = ({ goNext, closeModal }: Props) => {
     }
   }, [refCode, isRefCodeUsed, isSignUp]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const buttonText = useMemo(() => {
+    if (!isConnected) {
+      return "Connect wallet";
+    }
+    return isSignUp ? "Get started" : "Continue";
+  }, [isConnected, isSignUp]);
+
   return (
     <>
       <Image
@@ -164,7 +171,7 @@ const LoginStepContent = ({ goNext, closeModal }: Props) => {
         loadingText={isLoading ? "Sign message in your wallet" : undefined}
         isDisabled={refCodeError}
       >
-        {isConnected ? "Get started" : "Connect wallet"}
+        {buttonText}
       </Button>
       <Text
         fontSize="sm"
