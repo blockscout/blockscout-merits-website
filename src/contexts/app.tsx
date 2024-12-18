@@ -59,7 +59,7 @@ export function AppContextProvider({ children }: Props) {
   // Save the API token to cookies and state
   const saveApiToken = useCallback((token: string | undefined) => {
     if (token) {
-      cookies.set(cookies.NAMES.API_TOKEN, token);
+      cookies.set(cookies.NAMES.API_TOKEN, token, { expires: 365 });
     } else {
       cookies.remove(cookies.NAMES.API_TOKEN);
     }
