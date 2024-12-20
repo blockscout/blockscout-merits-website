@@ -4,6 +4,7 @@ import {
   AccordionPanel,
   Box,
   chakra,
+  Flex,
 } from "@chakra-ui/react";
 import React from "react";
 
@@ -30,13 +31,15 @@ const FaqItem = ({ index, question, answer }: Props) => {
             role="group"
             alignItems="flex-start"
           >
-            <SpriteIcon
-              name={isExpanded ? "minus" : "plus"}
-              boxSize={6}
-              color="blue.600"
-              _groupHover={{ color: "blue.400" }}
-              transition="colors"
-            />
+            <Flex h="28px" alignItems="center">
+              <SpriteIcon
+                name={isExpanded ? "minus" : "plus"}
+                boxSize={6}
+                color="blue.600"
+                _groupHover={{ color: "blue.400" }}
+                transition="colors"
+              />
+            </Flex>
             <chakra.h3>{index + 1}.</chakra.h3>
             <chakra.h3 flex="1" textAlign="left">
               {question}
