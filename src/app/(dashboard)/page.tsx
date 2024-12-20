@@ -12,6 +12,7 @@ import TasksTab from "~/components/dashboard/tabs/TasksTab";
 import DappsTab from "~/components/dashboard/tabs/DappsTab";
 import UsersTab from "~/components/dashboard/tabs/UsersTab";
 import RoutedTabs from "~/components/shared/tabs/RoutedTabs";
+import Faq from "~/components/shared/faq/Faq";
 
 import { useAppContext } from "~/contexts/app";
 import useBalancesQuery from "~/hooks/useBalancesQuery";
@@ -192,6 +193,7 @@ export default function Dashboard() {
           ].filter(Boolean)}
         />
       )}
+      {isInitialized && <Faq />}
     </Flex>
   );
 }

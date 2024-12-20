@@ -7,6 +7,8 @@
 	| "info-circle"
 	| "info"
 	| "merits-outline"
+	| "minus"
+	| "plus"
 	| "profile"
 	| "search"
 	| "social/discord-circle"
