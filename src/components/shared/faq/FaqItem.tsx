@@ -28,6 +28,7 @@ const FaqItem = ({ index, question, answer }: Props) => {
             fontSize="lg"
             fontWeight={500}
             role="group"
+            alignItems="flex-start"
           >
             <SpriteIcon
               name={isExpanded ? "minus" : "plus"}

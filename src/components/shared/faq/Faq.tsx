@@ -117,11 +117,20 @@ const FAQ_ITEMS = [
 const Faq = () => {
   const sliceIndex = Math.ceil(FAQ_ITEMS.length / 2);
   return (
-    <Box mt={12}>
-      <Heading as="h2" mb={4} fontSize="2xl" fontWeight="medium">
+    <Box mt={{ base: 0, md: 10 }}>
+      <Heading
+        as="h2"
+        lineHeight="32px"
+        mb={3}
+        fontSize="2xl"
+        fontWeight="medium"
+      >
         FAQ
       </Heading>
-      <Flex gap={12}>
+      <Flex
+        flexDirection={{ base: "column", md: "row" }}
+        gap={{ base: 0, md: 12 }}
+      >
         <Accordion flex={1} allowMultiple>
           {FAQ_ITEMS.slice(0, sliceIndex).map((item, index) => (
             <FaqItem
