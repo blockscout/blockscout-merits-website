@@ -49,6 +49,21 @@ const badges: Badges = {
     name: "SmolRefuel",
     chainId: "8453",
   },
+  "0xdD7306a58784F92b6a7F97AC8024258E0BB67daE": {
+    collectionId: "merit-christmas-badge",
+    name: "Merit Christmas",
+    chainId: "8453",
+  },
+  "0x3bC1DB4bb5B76771fDE2761FbBB2d44FE9cb6256": {
+    collectionId: "sherblock-holmes",
+    name: "Sherblock Holmes",
+    chainId: "8453",
+  },
+  "0x3a58612a670CF687192e18Fde7cB9272d8CAc35C": {
+    collectionId: "xstar-humanity-badge",
+    name: "XStar Humanity",
+    chainId: "8453",
+  },
   "0xDC41A43c425363Dc8dd368219417b76aFa12BA7a": {
     collectionId: {
       "1": "blockscout-fren-badge",
