@@ -35,6 +35,9 @@ createAppKit({
     onramp: false,
   },
   themeMode: "light",
+  themeVariables: {
+    "--w3m-z-index": 1500,
+  },
 });
 
 function ContextProvider({
