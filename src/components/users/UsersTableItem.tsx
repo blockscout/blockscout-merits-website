@@ -50,7 +50,6 @@ export default function UsersTableItem({
             bgGradient:
               "linear(180deg, rgba(190, 227, 248, 0) 0%, rgba(190, 227, 248, 0.2) 100%)",
             pointerEvents: "none",
-            zIndex: 1,
           },
         },
       }}
