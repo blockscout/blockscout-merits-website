@@ -1,4 +1,5 @@
 import { Table, Tbody, Tr, Th, Flex } from "@chakra-ui/react";
+import { useMemo } from "react";
 
 import type { User } from "~/types/api/user";
 
@@ -23,6 +24,14 @@ export default function UsersTable({
   isLoadingUsers,
   isSearch,
 }: Props) {
+  const groupedByRank = useMemo(
+    () =>
+      Object.entries(Object.groupBy(users, ({ rank }) => rank)).map(
+        ([_, grouped]) => grouped as User[],
+      ),
+    [users],
+  );
+
   return (
     <>
       <Table>
@@ -57,15 +66,17 @@ export default function UsersTable({
               isLoading={isLoadingUser}
             />
           )}
-          {users.map((user, index, array) => (
-            <UserTableItem
-              key={index}
-              user={user}
-              prevRank={array[index - 1]?.rank}
-              nextRank={array[index + 1]?.rank}
-              isLoading={isLoadingUsers}
-            />
-          ))}
+          {groupedByRank.map((users) =>
+            users.map((user, index) => (
+              <UserTableItem
+                key={index}
+                user={user}
+                indexInGroup={index}
+                groupSize={users.length}
+                isLoading={isLoadingUsers}
+              />
+            )),
+          )}
         </Tbody>
       </Table>
       {isSearch && !users.length && (

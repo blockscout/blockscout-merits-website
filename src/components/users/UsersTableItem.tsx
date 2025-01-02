@@ -13,6 +13,8 @@ import { getPercentOfUsersBelow } from "./utils";
 
 type Props = {
   user: User;
+  indexInGroup?: number;
+  groupSize?: number;
   prevRank?: string;
   nextRank?: string;
   isLoading?: boolean;
@@ -21,14 +23,11 @@ type Props = {
 
 export default function UsersTableItem({
   user,
-  prevRank,
-  nextRank,
+  indexInGroup = 0,
+  groupSize = 1,
   isLoading,
   isSelf,
 }: Props) {
-  const borderBottom =
-    nextRank === user.rank ? "1px solid transparent" : undefined;
-
   const [integer, decimal] = user.total_balance.split(".");
 
   return (
@@ -36,7 +35,8 @@ export default function UsersTableItem({
       sx={{
         "> td": {
           verticalAlign: "middle",
-          borderBottom,
+          borderBottom:
+            indexInGroup < groupSize - 1 ? "1px solid transparent" : undefined,
           borderColor: isSelf ? "blue.100" : undefined,
           position: "relative",
           _after: {
@@ -55,19 +55,24 @@ export default function UsersTableItem({
         },
       }}
     >
-      <Td>
-        <Skeleton isLoaded={!isLoading} display="inline-block">
-          {user.rank !== prevRank && (
+      {indexInGroup === 0 && (
+        <Td rowSpan={groupSize} alignContent="start">
+          <Skeleton
+            isLoaded={!isLoading}
+            display="inline-block"
+            position={groupSize > 1 ? "sticky" : undefined}
+            top={groupSize > 1 ? 136 : undefined} // 80px pagination + 40px thead + 16px padding
+          >
             <Flex alignItems="center" gap={4}>
               <Text minW="10px" fontWeight={isSelf ? "600" : "500"}>
                 {user.rank}
               </Text>
               <Medal rank={user.rank} />
             </Flex>
-          )}
-        </Skeleton>
-      </Td>
-      <Td>
+          </Skeleton>
+        </Td>
+      )}
+      <Td _first={{ paddingLeft: 1.5 }}>
         <Flex flexDirection="column" gap={2}>
           <AddressEntity
             address={user.address}
