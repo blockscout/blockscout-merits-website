@@ -1,5 +1,7 @@
 import { Flex, Link, Text } from "@chakra-ui/react";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
+import { useEnsName } from "wagmi";
+import { mainnet } from "wagmi/chains";
 
 import Skeleton from "~/chakra/Skeleton";
 
@@ -18,6 +20,11 @@ export default function AddressEntity({
   hasLink,
   fontWeight,
 }: Props) {
+  const ensQuery = useEnsName({
+    address: address as `0x${string}`,
+    chainId: mainnet.id,
+  });
+
   const displayedAddress = isShort
     ? `${address.slice(0, 4)}...${address.slice(-4)}`
     : address;
@@ -27,15 +34,15 @@ export default function AddressEntity({
       href={`https://eth.blockscout.com/address/${address}?utm_source=merits-website&utm_medium=dashboard`}
       isExternal
     >
-      {displayedAddress}
+      {ensQuery.data || displayedAddress}
     </Link>
   ) : (
-    <Text>{displayedAddress}</Text>
+    <Text>{ensQuery.data || displayedAddress}</Text>
   );
 
   return (
     <Skeleton
-      isLoaded={!isLoading}
+      isLoaded={!isLoading && !ensQuery.isPending}
       as={Flex}
       alignItems="center"
       w="fit-content"
