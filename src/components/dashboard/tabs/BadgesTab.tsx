@@ -19,6 +19,16 @@ import Faq from "~/components/shared/faq/Faq";
 
 const FAQ_ITEMS = [
   {
+    question: "What are badges?",
+    answer: (
+      <>
+        Blockscout Badges is a new initiative by the Blockscout Team, designed
+        to celebrate and recognize our community members for their involvement
+        in key campaigns and contributions.
+      </>
+    ),
+  },
+  {
     question:
       "Are there different traits in each collection? What makes them unique?",
     answer: (
@@ -37,7 +47,7 @@ const FAQ_ITEMS = [
     answer: (
       <>
         Participants for each NFT were gathered during the designated campaign
-        period. But don{apos}t worry—Blockscout will be launching more NFTs in
+        period. But don{apos}t worry — Blockscout will be launching more NFTs in
         future campaigns! Be sure to follow our social channels to stay updated
         on the next exciting opportunity.
       </>

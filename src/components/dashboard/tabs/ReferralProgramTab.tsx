@@ -5,6 +5,7 @@ import DashboardCard from "~/components/dashboard/DashboardCard";
 import ReadOnlyInputWithCopy from "~/components/shared/ReadOnlyInputWithCopy";
 import EmptyState from "~/components/shared/EmptyState";
 import Faq from "~/components/shared/faq/Faq";
+import { apos } from "~/lib/htmlEntities";
 
 import { useAppContext } from "~/contexts/app";
 import useConfigQuery from "~/hooks/useConfigQuery";
@@ -61,6 +62,15 @@ const FAQ_ITEMS = [
         In your Merits dashboard you will find a referral code and a referral
         link you can share with your friends. They can follow the link directly
         or enter the code when signing up to the program for the first time.
+      </>
+    ),
+  },
+  {
+    question: "I have more questions. Where can I ask them?",
+    answer: (
+      <>
+        If you can{apos}t find answers to your questions, you can check our
+        detailed FAQ or ask directly on our Discord server.
       </>
     ),
   },
