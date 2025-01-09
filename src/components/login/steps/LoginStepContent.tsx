@@ -21,6 +21,7 @@ import * as cookies from "~/lib/cookies";
 import FormInputPlaceholder from "~/components/shared/FormInputPlaceholder";
 import useCheckUserQuery from "~/hooks/useCheckUserQuery";
 import useLogin from "~/hooks/useLogin";
+import * as mixpanel from "~/lib/mixpanel";
 
 type Props = {
   goNext: (isReferral: boolean) => void;
@@ -44,7 +45,10 @@ const LoginStepContent = ({ goNext, closeModal }: Props) => {
     [isConnected, checkUserQuery],
   );
 
-  const handleConnectModalOpen = useCallback(() => open(), [open]);
+  const handleConnectModalOpen = useCallback(() => {
+    mixpanel.logEvent(mixpanel.EventTypes.WALLET, { Action: "Connect" });
+    open();
+  }, [open]);
 
   const handleRefCodeChange = React.useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -55,6 +59,7 @@ const LoginStepContent = ({ goNext, closeModal }: Props) => {
 
   const handleLogin = useCallback(async () => {
     try {
+      mixpanel.logEvent(mixpanel.EventTypes.WALLET, { Action: "Sign" });
       setRefCodeError.off();
       setIsLoading.on();
       const { isNewUser, invalidRefCodeError } = await login(

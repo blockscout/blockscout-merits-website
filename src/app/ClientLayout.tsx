@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import { Inter } from "next/font/google";
 import ChakraProvider from "~/chakra/provider";
 import WagmiProvider from "~/wagmi/provider";
@@ -19,9 +19,8 @@ export default function ClientLayout({
   children: React.ReactNode;
   cookies: string | null;
 }) {
-  useEffect(() => {
-    mixpanel.init();
-  }, []);
+  const isMixpanelInited = mixpanel.useInit();
+  mixpanel.useLogPageView(isMixpanelInited);
 
   return (
     <html lang="en">

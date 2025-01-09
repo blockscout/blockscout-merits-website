@@ -11,6 +11,7 @@ import { useCallback } from "react";
 import { useDisconnect } from "@reown/appkit/react";
 
 import { useAppContext } from "~/contexts/app";
+import * as mixpanel from "~/lib/mixpanel";
 
 import AddressEntity from "~/components/shared/AddressEntity";
 
@@ -30,6 +31,7 @@ export default function AccountButton({
   const { disconnect } = useDisconnect();
 
   const handleLogout = useCallback(() => {
+    mixpanel.logEvent(mixpanel.EventTypes.WALLET, { Action: "Logout" });
     saveApiToken(undefined);
     accountMenu.onClose();
     disconnect();

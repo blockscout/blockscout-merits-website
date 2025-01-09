@@ -11,6 +11,7 @@ import { useDisclosure } from "@chakra-ui/react";
 
 import * as cookies from "~/lib/cookies";
 import decodeJWT from "~/lib/decodeJWT";
+import * as mixpanel from "~/lib/mixpanel";
 
 type TAppContext = {
   isInitialized: boolean;
@@ -54,7 +55,11 @@ export function AppContextProvider({ children }: Props) {
   const [isInitialized, setIsInitialized] = React.useState(false);
   const [apiToken, setApiToken] = React.useState<string | undefined>();
   const [address, setAddress] = React.useState<string | undefined>();
-  const loginModal = useDisclosure();
+  const loginModal = useDisclosure({
+    onOpen: () => {
+      mixpanel.logEvent(mixpanel.EventTypes.WALLET, { Action: "Login" });
+    },
+  });
 
   // Save the API token to cookies and state
   const saveApiToken = useCallback((token: string | undefined) => {

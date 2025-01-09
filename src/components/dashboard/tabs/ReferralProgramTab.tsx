@@ -1,4 +1,5 @@
 import { Flex, Button, UnorderedList, ListItem, Link } from "@chakra-ui/react";
+import React, { useCallback } from "react";
 
 import Skeleton from "~/chakra/Skeleton";
 import DashboardCard from "~/components/dashboard/DashboardCard";
@@ -10,6 +11,7 @@ import { apos } from "~/lib/htmlEntities";
 import { useAppContext } from "~/contexts/app";
 import useConfigQuery from "~/hooks/useConfigQuery";
 import useReferralsQuery from "~/hooks/useReferralsQuery";
+import * as mixpanel from "~/lib/mixpanel";
 
 const FAQ_ITEMS = [
   {
@@ -81,6 +83,14 @@ export default function ReferralProgramTab() {
   const configQuery = useConfigQuery();
   const referralsQuery = useReferralsQuery();
 
+  const handleCopyLink = useCallback(() => {
+    mixpanel.logEvent(mixpanel.EventTypes.ACTION, { Source: "Copy ref link" });
+  }, []);
+
+  const handleCopyCode = useCallback(() => {
+    mixpanel.logEvent(mixpanel.EventTypes.ACTION, { Source: "Copy ref code" });
+  }, []);
+
   const referralShare = (
     <Skeleton as="span" isLoaded={!configQuery.isPending}>
       {configQuery.data?.rewards.referral_share
@@ -134,12 +144,14 @@ export default function ReferralProgramTab() {
             value={referralsQuery.data?.link || "N/A"}
             isLoading={referralsQuery.isPending}
             flex={2}
+            onCopy={handleCopyLink}
           />
           <ReadOnlyInputWithCopy
             label="Referral code"
             value={referralsQuery.data?.code || "N/A"}
             isLoading={referralsQuery.isPending}
             flex={1}
+            onCopy={handleCopyCode}
           />
         </Flex>
       </DashboardCard>

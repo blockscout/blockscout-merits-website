@@ -17,6 +17,7 @@ type Props = {
   value: string;
   className?: string;
   isLoading?: boolean;
+  onCopy?: () => void;
 };
 
 const RewardsReadOnlyInputWithCopy = ({
@@ -24,6 +25,7 @@ const RewardsReadOnlyInputWithCopy = ({
   value,
   className,
   isLoading,
+  onCopy,
 }: Props) => (
   <FormControl variant="floating" id={label} className={className}>
     <Skeleton isLoaded={!isLoading}>
@@ -47,7 +49,7 @@ const RewardsReadOnlyInputWithCopy = ({
           justifyContent="flex-end"
           pr={2}
         >
-          <CopyToClipboard text={value} />
+          <CopyToClipboard text={value} onClick={onCopy} />
         </InputRightElement>
       </InputGroup>
     </Skeleton>

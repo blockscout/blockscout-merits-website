@@ -1,6 +1,13 @@
 import { Flex, Text, Button, Image } from "@chakra-ui/react";
+import React, { useCallback } from "react";
+
+import * as mixpanel from "~/lib/mixpanel";
 
 export default function DashboardBanner() {
+  const handleClick = useCallback(() => {
+    mixpanel.logEvent(mixpanel.EventTypes.ACTION, { Source: "Banner" });
+  }, []);
+
   return (
     <Flex
       flexDir={{ base: "column", md: "row" }}
@@ -33,6 +40,7 @@ export default function DashboardBanner() {
         target="_blank"
         rel="noopener"
         zIndex={3}
+        onClick={handleClick}
       >
         Learn More
       </Button>

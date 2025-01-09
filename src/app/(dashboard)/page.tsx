@@ -1,7 +1,7 @@
 "use client";
 
 import { Flex, Link, Alert } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import RewardsDashboardCard from "~/components/dashboard/DashboardCard";
 import RewardsDashboardCardValue from "~/components/dashboard/DashboardCardValue";
@@ -20,6 +20,7 @@ import useConfigQuery from "~/hooks/useConfigQuery";
 import useDailyRewardQuery from "~/hooks/useDailyRewardQuery";
 
 import { apos } from "~/lib/htmlEntities";
+import * as mixpanel from "~/lib/mixpanel";
 
 export default function Dashboard() {
   const { isInitialized, apiToken } = useAppContext();
@@ -43,6 +44,10 @@ export default function Dashboard() {
     rewardsConfigQuery.isError,
     dailyRewardQuery.isError,
   ]);
+
+  const handleShareClick = useCallback(() => {
+    mixpanel.logEvent(mixpanel.EventTypes.ACTION, { Source: "Share button" });
+  }, []);
 
   let shareText = `Claim your free @blockscoutcom #Merits and start building your daily streak today! #Blockscout #Merits #IYKYK\n\nBoost your rewards instantly by using my referral code: ${referralsQuery.data?.link}`;
   if (Number(dailyRewardQuery.data?.streak) > 0) {
@@ -122,6 +127,7 @@ export default function Dashboard() {
                 href={`https://x.com/intent/tweet?text=${encodeURIComponent(shareText)}`}
                 isExternal
                 fontWeight="500"
+                onClick={handleShareClick}
               >
                 Share on X
               </Link>
