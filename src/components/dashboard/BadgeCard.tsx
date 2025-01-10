@@ -47,11 +47,13 @@ export default function BadgeCard({
   const isMobile = useIsMobile();
   const [isHovered, setIsHovered] = useBoolean(false);
 
+  const utmParams = `utm_source=merits-website&utm_medium=badge-card&utm_campaign=${collectionId}`;
+
   const content = isHovered ? (
     <>
       <Flex flexDir="column" gap={2} px={3}>
         <Link
-          href={`${chains[chainId].explorerUrl}/token/${address}?utm_source=merits-website&utm_medium=badge-card&utm_campaign=badge-name`}
+          href={`${chains[chainId].explorerUrl}/token/${address}?${utmParams}`}
           isExternal
           fontWeight="500"
         >
@@ -60,7 +62,7 @@ export default function BadgeCard({
         <Text fontSize="sm">
           Token ID:{" "}
           <Link
-            href={`${chains[chainId].explorerUrl}/token/${address}/instance/${id}?utm_source=merits-website&utm_medium=badge-card&utm_campaign=badge-token-id`}
+            href={`${chains[chainId].explorerUrl}/token/${address}/instance/${id}?${utmParams}`}
             isExternal
           >
             #{id}
