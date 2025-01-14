@@ -13,7 +13,7 @@ import { apos } from "~/lib/htmlEntities";
 import { useAppContext } from "~/contexts/app";
 import useBadgesQuery from "~/hooks/useBadgesQuery";
 
-import BadgeCard from "~/components/dashboard/BadgeCard";
+import BadgeCard from "~/components/badges/BadgeCard";
 import EmptyState from "~/components/shared/EmptyState";
 import Faq from "~/components/shared/faq/Faq";
 

@@ -6,11 +6,11 @@ import { useState, useEffect, useCallback } from "react";
 import RewardsDashboardCard from "~/components/dashboard/DashboardCard";
 import RewardsDashboardCardValue from "~/components/dashboard/DashboardCardValue";
 import DashboardBanner from "~/components/dashboard/DashboardBanner";
-import ReferralProgramTab from "~/components/dashboard/tabs/ReferralProgramTab";
-import BadgesTab from "~/components/dashboard/tabs/BadgesTab";
-import TasksTab from "~/components/dashboard/tabs/TasksTab";
-import DappsTab from "~/components/dashboard/tabs/DappsTab";
-import UsersTab from "~/components/dashboard/tabs/UsersTab";
+import ReferralProgramTab from "~/components/tabs/ReferralProgramTab";
+import BadgesTab from "~/components/tabs/BadgesTab";
+import TasksTab from "~/components/tabs/TasksTab";
+import DappsTab from "~/components/tabs/DappsTab";
+import UsersTab from "~/components/tabs/UsersTab";
 import RoutedTabs from "~/components/shared/tabs/RoutedTabs";
 
 import { useAppContext } from "~/contexts/app";
