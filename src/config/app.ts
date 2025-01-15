@@ -19,6 +19,10 @@ const config = {
   images: {
     baseUrl: getEnvValue("NEXT_PUBLIC_IMAGE_CDN_URL"),
   },
+  airtable: {
+    apiKey: getEnvValue("NEXT_PUBLIC_AIRTABLE_API_KEY"),
+    baseId: getEnvValue("NEXT_PUBLIC_AIRTABLE_BASE_ID"),
+  },
 };
 
 export default config;

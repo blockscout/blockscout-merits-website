@@ -11,6 +11,7 @@ import BadgesTab from "~/components/tabs/BadgesTab";
 import TasksTab from "~/components/tabs/TasksTab";
 import DappsTab from "~/components/tabs/DappsTab";
 import UsersTab from "~/components/tabs/UsersTab";
+import CampaignsTab from "~/components/tabs/CampaignsTab";
 import RoutedTabs from "~/components/shared/tabs/RoutedTabs";
 
 import { useAppContext } from "~/contexts/app";
@@ -182,6 +183,11 @@ export default function Dashboard() {
               id: "badges",
               title: "Badges",
               component: <BadgesTab />,
+            },
+            {
+              id: "campaigns",
+              title: "Campaigns",
+              component: <CampaignsTab />,
             },
             {
               id: "tasks",

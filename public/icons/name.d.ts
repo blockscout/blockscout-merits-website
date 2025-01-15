@@ -9,6 +9,7 @@
 	| "merits-outline"
 	| "minus"
 	| "plus"
+	| "present"
 	| "profile"
 	| "search"
 	| "social/discord-circle"
