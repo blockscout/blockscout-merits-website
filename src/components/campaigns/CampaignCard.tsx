@@ -39,6 +39,8 @@ export default function CampaignCard({
       borderColor="divider"
       borderRadius="lg"
       height="100%"
+      cursor="pointer"
+      onClick={handleClick}
     >
       <Flex
         w="full"
