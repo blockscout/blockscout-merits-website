@@ -1,32 +1,17 @@
 import { Flex, Text, Image, Link } from "@chakra-ui/react";
-import React from "react";
+import React, { useCallback } from "react";
 
 import type { Campaign } from "~/types/campaign";
 
 import StatusLabel from "./StatusLabel";
 import RewardLabel from "./RewardLabel";
 
-function getBgColor(
-  rewardType: Campaign["rewardType"],
-  rewardValue: string,
-  endDate: string,
-) {
-  if (new Date() > new Date(endDate)) {
-    return "rgba(16, 17, 18, 0.06)";
-  }
+import { getBgColor } from "./utils";
 
-  if (rewardType === "merits") {
-    return "#DFE8F5";
-  }
-
-  if (rewardType === "badge") {
-    return rewardValue === "epic" ? "#FCE4AF" : "#EFE1FF";
-  }
-}
-
-type Props = Campaign;
+type Props = Campaign & { onClick: (id: string) => void };
 
 export default function CampaignCard({
+  id,
   title,
   description,
   rewardType,
@@ -34,9 +19,14 @@ export default function CampaignCard({
   imageUrl,
   startDate,
   endDate,
+  onClick,
 }: Props) {
   const bgColor = getBgColor(rewardType, rewardValue, endDate);
   const isExpired = new Date() > new Date(endDate);
+
+  const handleClick = useCallback(() => {
+    onClick(id);
+  }, [id, onClick]);
 
   return (
     <Flex
@@ -88,7 +78,12 @@ export default function CampaignCard({
         <Text fontSize="sm" noOfLines={2}>
           {description}
         </Text>
-        <Link fontSize="sm" fontWeight="500" marginTop="auto">
+        <Link
+          fontSize="sm"
+          fontWeight="500"
+          marginTop="auto"
+          onClick={handleClick}
+        >
           Details
         </Link>
       </Flex>

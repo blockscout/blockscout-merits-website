@@ -2,12 +2,16 @@
   
   export type IconName =
 	| "arrows/east-mini"
+	| "arrows/west"
 	| "blockscout-logo"
+	| "cardio"
+	| "clock"
 	| "copy"
 	| "info-circle"
 	| "info"
 	| "merits-outline"
 	| "minus"
+	| "pie-chart"
 	| "plus"
 	| "present"
 	| "profile"

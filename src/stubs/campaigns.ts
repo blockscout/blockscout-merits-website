@@ -1,6 +1,7 @@
 import type { Campaign } from "~/types/campaign";
 
 export default Array.from({ length: 4 }, (_, i) => ({
+  id: `campaign-${i}`,
   title: `Campaign ${i}`,
   description: `Campaign ${i} description`,
   rewardType: "merits",
