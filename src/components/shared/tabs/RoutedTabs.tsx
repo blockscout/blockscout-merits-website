@@ -52,7 +52,7 @@ const RoutedTabs = ({
     (index: number) => {
       const nextTab = tabs[index];
 
-      const params = new URLSearchParams(searchParams.toString());
+      const params = new URLSearchParams();
       const tabId = Array.isArray(nextTab.id) ? nextTab.id[0] : nextTab.id;
       params.set("tab", tabId);
 
@@ -60,7 +60,7 @@ const RoutedTabs = ({
 
       onTabChange?.(index);
     },
-    [tabs, router, pathname, searchParams, onTabChange],
+    [tabs, router, pathname, onTabChange],
   );
 
   useEffect(() => {

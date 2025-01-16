@@ -8,12 +8,10 @@ export interface Campaign {
   startDate: string;
   endDate: string;
   checkTime: string;
-  tasks: [
-    {
-      title: string;
-      description: string;
-      buttonText?: string;
-      buttonLink?: string;
-    },
-  ];
+  tasks: {
+    title: string;
+    description: string;
+    buttonText?: string;
+    buttonLink?: string;
+  }[];
 }
