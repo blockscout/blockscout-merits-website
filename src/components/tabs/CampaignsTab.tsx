@@ -1,5 +1,5 @@
 import { Grid } from "@chakra-ui/react";
-import { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 import type { Campaign } from "~/types/campaign";
@@ -11,7 +11,11 @@ import campaignsStub from "~/stubs/campaigns";
 import CampaignCard from "~/components/campaigns/CampaignCard";
 import CampaignDetails from "~/components/campaigns/CampaignDetails";
 
-export default function BadgesTab() {
+type Props = {
+  scrollRef?: React.RefObject<HTMLDivElement>;
+};
+
+export default function BadgesTab({ scrollRef }: Props) {
   const campaignsQuery = useCampaignsQuery();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -21,6 +25,17 @@ export default function BadgesTab() {
     Campaign | undefined
   >();
 
+  const scrollToTop = useCallback(() => {
+    if (scrollRef?.current) {
+      const scrollPosition = window.scrollY;
+      const elementPosition =
+        scrollRef.current.getBoundingClientRect().top + scrollPosition;
+      if (scrollPosition > elementPosition) {
+        scrollRef.current.scrollIntoView(true);
+      }
+    }
+  }, [scrollRef]);
+
   const handleSelect = useCallback(
     (id?: string, isReplace?: boolean) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -29,9 +44,12 @@ export default function BadgesTab() {
       } else {
         params.delete("id");
       }
-      router[isReplace ? "replace" : "push"](`${pathname}?${params}`);
+      router[isReplace ? "replace" : "push"](`${pathname}?${params}`, {
+        scroll: false,
+      });
+      scrollToTop();
     },
-    [searchParams, pathname, router],
+    [searchParams, pathname, router, scrollToTop],
   );
 
   const handleClose = useCallback(() => handleSelect(), [handleSelect]);

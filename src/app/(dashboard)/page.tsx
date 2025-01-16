@@ -1,7 +1,7 @@
 "use client";
 
 import { Flex, Link, Alert } from "@chakra-ui/react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 import RewardsDashboardCard from "~/components/dashboard/DashboardCard";
 import RewardsDashboardCardValue from "~/components/dashboard/DashboardCardValue";
@@ -31,6 +31,7 @@ export default function Dashboard() {
   const dailyRewardQuery = useDailyRewardQuery();
 
   const [isError, setIsError] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsError(
@@ -166,6 +167,7 @@ export default function Dashboard() {
     <Flex flexDirection="column" w="full" gap={8}>
       <DashboardBanner />
       {content}
+      <div ref={scrollRef}></div>
       {isInitialized && (
         <RoutedTabs
           tabs={[
@@ -187,7 +189,7 @@ export default function Dashboard() {
             {
               id: "campaigns",
               title: "Campaigns",
-              component: <CampaignsTab />,
+              component: <CampaignsTab scrollRef={scrollRef} />,
             },
             {
               id: "tasks",
