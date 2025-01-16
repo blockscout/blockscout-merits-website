@@ -1,4 +1,4 @@
-import { Flex, Text, Button, Image } from "@chakra-ui/react";
+import { Flex, Text, Button, Image, useBoolean, Link } from "@chakra-ui/react";
 import React from "react";
 import { format } from "date-fns";
 
@@ -25,6 +25,8 @@ export default function CampaignDetails({
   tasks,
   onClose,
 }: Props) {
+  const [isExpanded, setIsExpanded] = useBoolean(false);
+
   const bgColor = getBgColor(rewardType, rewardValue, endDate);
   const isExpired = new Date() > new Date(endDate);
 
@@ -37,17 +39,43 @@ export default function CampaignDetails({
           flexShrink={0}
           onClick={onClose}
         >
-          <SpriteIcon name="arrows/west" boxSize={6} color="gray.400" />
+          <SpriteIcon
+            name="arrows/west"
+            boxSize={6}
+            color={{ base: "blue.600", md: "gray.400" }}
+          />
         </Button>
-        <Text as="h2" fontSize="32px" fontWeight="500">
+        <Text as="h2" fontSize={{ base: "lg", md: "32px" }} fontWeight="500">
           {title}
         </Text>
       </Flex>
-      <Text fontSize="sm" mb={8}>
+      <Text
+        fontSize="sm"
+        mb={{ base: 3, md: 8 }}
+        noOfLines={{ base: isExpanded ? undefined : 2, md: 9999 }}
+      >
         {description}
       </Text>
-      <Flex gap={6} alignItems="flex-start">
-        <Flex width="378px" flexDir="column" gap={6}>
+      <Link
+        display={{ base: "block", md: "none" }}
+        onClick={setIsExpanded.toggle}
+        fontWeight="500"
+        _hover={{ textDecoration: "none" }}
+        mb={6}
+        alignSelf="flex-start"
+      >
+        Show {isExpanded ? "less" : "more"}
+      </Link>
+      <Flex
+        flexDir={{ base: "column", md: "row" }}
+        gap={{ base: 3, md: 6 }}
+        alignItems="flex-start"
+      >
+        <Flex
+          width={{ base: "full", md: "280px", lg: "378px" }}
+          flexDir="column"
+          gap={{ base: 3, md: 6 }}
+        >
           <Flex
             w="full"
             h="240px"
@@ -146,7 +174,8 @@ export default function CampaignDetails({
           {tasks.map((task, index) => (
             <Flex
               key={index}
-              alignItems="center"
+              flexDir={{ base: "column", md: "row" }}
+              alignItems={{ base: "stretch", md: "center" }}
               justifyContent="space-between"
               gap={4}
               p={5}
@@ -167,6 +196,7 @@ export default function CampaignDetails({
                   target="_blank"
                   rel="noopener"
                   variant="outline"
+                  flexShrink={0}
                 >
                   {task.buttonText}
                 </Button>
