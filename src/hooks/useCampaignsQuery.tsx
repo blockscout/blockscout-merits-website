@@ -45,7 +45,6 @@ export default function useCampaignsQuery() {
         (record) =>
           ({
             ...record.fields,
-            id: record.id,
             tasks: JSON.parse(record.fields.tasks as string),
           }) as Campaign,
       );
