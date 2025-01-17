@@ -10,12 +10,14 @@ import { EventTypes } from "./utils";
 export default function useLogPageView(isInited: boolean) {
   const searchParams = useSearchParams();
   const tab = getQueryParamString(searchParams.get("tab"));
+  const id = searchParams.get("id") || undefined;
 
   React.useEffect(() => {
     if (!isInited) return;
 
     logEvent(EventTypes.PAGE_VIEW, {
       Source: getTabName(tab),
+      Extra: id,
     });
-  }, [isInited, tab]);
+  }, [isInited, tab, id]);
 }

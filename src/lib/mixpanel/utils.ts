@@ -10,6 +10,7 @@ export enum EventTypes {
 export type EventPayload<Type extends EventTypes> =
 Type extends EventTypes.PAGE_VIEW ? {
   Source: string;
+  Extra?: string | undefined;
 } :
 Type extends EventTypes.WALLET ? {
   Action: 'Login' | 'Connect' | 'Sign' | 'Logout';
