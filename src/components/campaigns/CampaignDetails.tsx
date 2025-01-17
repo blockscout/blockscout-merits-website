@@ -34,12 +34,13 @@ export default function CampaignDetails({
 
   return (
     <Flex flexDir="column">
-      <Flex alignItems="center" gap={3} mb={3}>
+      <Flex alignItems="flex-start" gap={3} mb={3}>
         <Button
           variant="unstyled"
           display="inline-flex"
           flexShrink={0}
           onClick={onClose}
+          height={{ base: "27px", md: "48px" }}
         >
           <SpriteIcon
             name="arrows/west"

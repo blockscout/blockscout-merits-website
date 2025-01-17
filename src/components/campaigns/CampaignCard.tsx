@@ -41,6 +41,7 @@ export default function CampaignCard({
       height="100%"
       cursor="pointer"
       onClick={handleClick}
+      role="group"
     >
       <Flex
         w="full"
@@ -57,6 +58,10 @@ export default function CampaignCard({
           width={rewardType === "badge" ? "130px" : "96px"}
           opacity={isExpired ? 0.3 : 1}
           filter={isExpired ? "grayscale(1)" : "none"}
+          transitionProperty="transform"
+          transitionDuration="normal"
+          transitionTimingFunction="ease"
+          _groupHover={{ base: {}, lg: { transform: "scale(1.1)" } }}
         />
         <StatusLabel
           startDate={startDate}
