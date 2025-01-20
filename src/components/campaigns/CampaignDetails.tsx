@@ -30,7 +30,7 @@ export default function CampaignDetails({
   const [isExpanded, setIsExpanded] = useBoolean(false);
 
   const bgColor = getBgColor(rewardType, rewardValue, endDate);
-  const isExpired = new Date() > new Date(endDate);
+  const isExpired = endDate && new Date() > new Date(endDate);
 
   return (
     <Flex flexDir="column">
@@ -148,7 +148,7 @@ export default function CampaignDetails({
               {
                 icon: "clock" as const,
                 title: "End date",
-                value: format(endDate, "dd.MM.yyyy"),
+                value: endDate ? format(endDate, "dd.MM.yyyy") : "Unlimited",
               },
               {
                 icon: "pie-chart" as const,

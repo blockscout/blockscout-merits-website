@@ -10,18 +10,19 @@ const airtable = new Airtable({ apiKey: config.airtable.apiKey }).base(
   config.airtable.baseId as string,
 );
 
-function sortCampaigns(array: Campaign[]) {
+function sortCampaigns(array: Campaign[]): Campaign[] {
   const currentDate = new Date();
 
   return array.sort((a, b) => {
     const startA = new Date(a.startDate);
-    const endA = new Date(a.endDate);
-    const startB = new Date(b.startDate);
-    const endB = new Date(b.endDate);
+    const endA = a.endDate ? new Date(a.endDate) : undefined;
 
-    const getStatus = (start: Date, end: Date): number => {
+    const startB = new Date(b.startDate);
+    const endB = b.endDate ? new Date(b.endDate) : undefined;
+
+    const getStatus = (start: Date, end?: Date): number => {
       if (currentDate < start) return 0; // Upcoming
-      if (currentDate > end) return 2; // Expired
+      if (end && currentDate > end) return 2; // Expired
       return 1; // Active
     };
 

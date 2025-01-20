@@ -22,7 +22,7 @@ export default function CampaignCard({
   onClick,
 }: Props) {
   const bgColor = getBgColor(rewardType, rewardValue, endDate);
-  const isExpired = new Date() > new Date(endDate);
+  const isExpired = endDate && new Date() > new Date(endDate);
 
   const handleClick = useCallback(() => {
     onClick(id);

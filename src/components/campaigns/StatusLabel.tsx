@@ -3,7 +3,7 @@ import React from "react";
 
 type Props = {
   startDate: string;
-  endDate: string;
+  endDate: string | undefined;
   className?: string;
 };
 
@@ -15,7 +15,7 @@ const StatusLabel = ({ startDate, endDate, className }: Props) => {
   if (now < new Date(startDate)) {
     text = "Upcoming";
     color = "blue.400";
-  } else if (now > new Date(endDate)) {
+  } else if (endDate && now > new Date(endDate)) {
     text = "Expired";
     color = "blackAlpha.500";
   } else {

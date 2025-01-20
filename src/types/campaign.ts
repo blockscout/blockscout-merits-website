@@ -6,7 +6,7 @@ export interface Campaign {
   rewardValue: string;
   imageUrl: string;
   startDate: string;
-  endDate: string;
+  endDate?: string;
   checkTime: string;
   tasks: {
     title: string;
