@@ -101,7 +101,7 @@ export default function CampaignDetails({
             <Image
               src={imageUrl}
               alt={`${title} image`}
-              width={rewardType === "badge" ? "130px" : "96px"}
+              width="130px"
               opacity={isExpired ? 0.3 : 1}
               filter={isExpired ? "grayscale(1)" : "none"}
             />
