@@ -33,7 +33,7 @@ export default function UsersTableItem({
   return (
     <Tr
       sx={{
-        "> td": {
+        "> td:not(.rank)": {
           verticalAlign: "middle",
           borderBottom:
             indexInGroup < groupSize - 1 ? "1px solid transparent" : undefined,
@@ -55,7 +55,7 @@ export default function UsersTableItem({
       }}
     >
       {indexInGroup === 0 && (
-        <Td rowSpan={groupSize} alignContent="start">
+        <Td className="rank" rowSpan={groupSize} alignContent="start">
           <Skeleton
             isLoaded={!isLoading}
             display="inline-block"
