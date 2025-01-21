@@ -11,29 +11,49 @@ const airtable = new Airtable({ apiKey: config.airtable.apiKey }).base(
 );
 
 function sortCampaigns(array: Campaign[]): Campaign[] {
-  const currentDate = new Date();
+  const statusPriority: Record<Campaign["status"], number> = {
+    upcoming: 0,
+    active: 1,
+    expired: 2,
+  };
 
   return array.sort((a, b) => {
-    const startA = new Date(a.startDate);
-    const endA = a.endDate ? new Date(a.endDate) : undefined;
+    const priorityA = statusPriority[a.status];
+    const priorityB = statusPriority[b.status];
 
-    const startB = new Date(b.startDate);
-    const endB = b.endDate ? new Date(b.endDate) : undefined;
-
-    const getStatus = (start: Date, end?: Date): number => {
-      if (currentDate < start) return 0; // Upcoming
-      if (end && currentDate > end) return 2; // Expired
-      return 1; // Active
-    };
-
-    const statusA = getStatus(startA, endA);
-    const statusB = getStatus(startB, endB);
-
-    if (statusA !== statusB) {
-      return statusA - statusB;
+    if (priorityA !== priorityB) {
+      return priorityA - priorityB;
     }
-    return startA.getTime() - startB.getTime();
+
+    if (a.status === "expired") {
+      const endA = a.endDate ? new Date(a.endDate).getTime() : Infinity;
+      const endB = b.endDate ? new Date(b.endDate).getTime() : Infinity;
+      return endB - endA;
+    } else {
+      const startA = new Date(a.startDate).getTime();
+      const startB = new Date(b.startDate).getTime();
+      return startB - startA;
+    }
   });
+}
+
+function getStatus(startDate: string, endDate?: string): string {
+  const now = new Date();
+  const start = new Date(startDate);
+
+  if (now < start) {
+    return "upcoming";
+  }
+
+  if (endDate) {
+    const end = new Date(endDate);
+    end.setDate(end.getDate() + 1);
+    if (now >= end) {
+      return "expired";
+    }
+  }
+
+  return "active";
 }
 
 export default function useCampaignsQuery() {
@@ -46,6 +66,10 @@ export default function useCampaignsQuery() {
         (record) =>
           ({
             ...record.fields,
+            status: getStatus(
+              record.fields.startDate as string,
+              record.fields.endDate as string,
+            ),
             tasks: JSON.parse(record.fields.tasks as string),
           }) as Campaign,
       );

@@ -17,12 +17,10 @@ export default function CampaignCard({
   rewardType,
   rewardValue,
   imageUrl,
-  startDate,
-  endDate,
+  status,
   onClick,
 }: Props) {
-  const bgColor = getBgColor(rewardType, rewardValue, endDate);
-  const isExpired = endDate && new Date() > new Date(endDate);
+  const bgColor = getBgColor(rewardType, rewardValue, status);
 
   const handleClick = useCallback(() => {
     onClick(id);
@@ -56,16 +54,15 @@ export default function CampaignCard({
           src={imageUrl}
           alt={`${title} image`}
           width="130px"
-          opacity={isExpired ? 0.3 : 1}
-          filter={isExpired ? "grayscale(1)" : "none"}
+          opacity={status === "expired" ? 0.3 : 1}
+          filter={status === "expired" ? "grayscale(1)" : "none"}
           transitionProperty="transform"
           transitionDuration="normal"
           transitionTimingFunction="ease"
           _groupHover={{ base: {}, lg: { transform: "scale(1.1)" } }}
         />
         <StatusLabel
-          startDate={startDate}
-          endDate={endDate}
+          status={status}
           position="absolute"
           left="12px"
           top="12px"

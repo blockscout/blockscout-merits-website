@@ -3,9 +3,9 @@ import type { Campaign } from "~/types/campaign";
 export function getBgColor(
   rewardType: Campaign["rewardType"],
   rewardValue: string,
-  endDate: string | undefined,
+  status: Campaign["status"],
 ) {
-  if (endDate && new Date() > new Date(endDate)) {
+  if (status === "expired") {
     return "rgba(16, 17, 18, 0.06)";
   }
 

@@ -20,6 +20,7 @@ export default function CampaignDetails({
   rewardType,
   rewardValue,
   imageUrl,
+  status,
   startDate,
   endDate,
   checkTime,
@@ -29,8 +30,7 @@ export default function CampaignDetails({
 }: Props) {
   const [isExpanded, setIsExpanded] = useBoolean(false);
 
-  const bgColor = getBgColor(rewardType, rewardValue, endDate);
-  const isExpired = endDate && new Date() > new Date(endDate);
+  const bgColor = getBgColor(rewardType, rewardValue, status);
 
   return (
     <Flex flexDir="column">
@@ -102,8 +102,8 @@ export default function CampaignDetails({
               src={imageUrl}
               alt={`${title} image`}
               width="130px"
-              opacity={isExpired ? 0.3 : 1}
-              filter={isExpired ? "grayscale(1)" : "none"}
+              opacity={status === "expired" ? 0.3 : 1}
+              filter={status === "expired" ? "grayscale(1)" : "none"}
             />
             <RewardLabel
               rewardType={rewardType}
@@ -125,14 +125,7 @@ export default function CampaignDetails({
               {
                 icon: "cardio" as const,
                 title: "Status",
-                value: (
-                  <StatusLabel
-                    startDate={startDate}
-                    endDate={endDate}
-                    p={0}
-                    h="auto"
-                  />
-                ),
+                value: <StatusLabel status={status} p={0} h="auto" />,
               },
               {
                 icon: "present" as const,

@@ -5,6 +5,7 @@ export interface Campaign {
   rewardType: "merits" | "badge";
   rewardValue: string;
   imageUrl: string;
+  status: "upcoming" | "active" | "expired";
   startDate: string;
   endDate?: string;
   checkTime: string;

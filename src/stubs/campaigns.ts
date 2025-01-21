@@ -8,6 +8,7 @@ export default Array.from({ length: 4 }, (_, i) => ({
   rewardType: "merits",
   rewardValue: "100",
   imageUrl: "https://example.com",
+  status: "expired",
   startDate: "2022-01-01",
   endDate: "2022-12-31",
   checkTime: "Every 24 hours",
