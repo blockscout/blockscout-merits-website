@@ -94,7 +94,7 @@ export default function DashboardLayout({
             <Text fontSize="xs">Made with</Text>
             <SpriteIcon name="blockscout-logo" w="80px" h="12px" />
             <Text fontSize="xs">
-              One source block explorer for all EVM blockchains.
+              Open-source block explorer for all EVM blockchains.
             </Text>
           </Flex>
           <Flex alignItems="center" gap={3}>
