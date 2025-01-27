@@ -3,6 +3,8 @@ import React from "react";
 
 import type { Campaign } from "~/types/campaign";
 
+import capitalizeFirstLetter from "~/lib/capitalizeFirstLetter";
+
 type Props = {
   status: Campaign["status"];
   className?: string;
@@ -25,9 +27,7 @@ const StatusLabel = ({ status, className }: Props) => (
     bgColor="white"
   >
     <Box w={2} h={2} borderRadius="full" bgColor={colors[status]} />
-    <Text fontSize="sm">
-      {status.charAt(0).toUpperCase() + status.slice(1)}
-    </Text>
+    <Text fontSize="sm">{capitalizeFirstLetter(status)}</Text>
   </Flex>
 );
 

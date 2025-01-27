@@ -1,32 +1,30 @@
 import { Flex, Text, Image, Link } from "@chakra-ui/react";
 import React, { useCallback } from "react";
 
-import type { Campaign } from "~/types/campaign";
+import type { Offer } from "~/types/api/offer";
 
+import SpriteIcon from "~/components/shared/SpriteIcon";
 import LabelWithIcon from "~/components/shared/LabelWithIcon";
 import capitalizeFirstLetter from "~/lib/capitalizeFirstLetter";
 
-import StatusLabel from "./StatusLabel";
-
 import { getBgColor } from "./utils";
 
-type Props = Campaign & { onClick: (id: string) => void };
+type Props = Offer & { onClick: (id: string) => void };
 
-export default function CampaignCard({
-  id,
-  title,
-  description,
-  rewardType,
-  rewardValue,
-  imageUrl,
-  status,
+export default function OfferCard({
+  offer_id,
+  details,
+  price,
+  redemptions_limit,
+  redemptions_count,
   onClick,
 }: Props) {
-  const bgColor = getBgColor(rewardType, rewardValue, status);
+  const isExpired = redemptions_count >= redemptions_limit;
+  const bgColor = getBgColor(details.type, isExpired);
 
   const handleClick = useCallback(() => {
-    onClick(id);
-  }, [id, onClick]);
+    onClick(offer_id);
+  }, [offer_id, onClick]);
 
   return (
     <Flex
@@ -49,33 +47,29 @@ export default function CampaignCard({
         alignItems="center"
         justifyContent="center"
         borderRadius="base"
-        bgColor={bgColor}
+        bg={bgColor}
         position="relative"
       >
         <Image
-          src={imageUrl}
-          alt={`${title} image`}
-          width="130px"
-          opacity={status === "expired" ? 0.3 : 1}
-          filter={status === "expired" ? "grayscale(1)" : "none"}
+          src={details.image_url}
+          alt={`${details.name} image`}
+          opacity={isExpired ? 0.3 : 1}
+          filter={isExpired ? "grayscale(1)" : "none"}
           transitionProperty="transform"
           transitionDuration="normal"
           transitionTimingFunction="ease"
           _groupHover={{ base: {}, lg: { transform: "scale(1.1)" } }}
         />
-        <StatusLabel
-          status={status}
+        <LabelWithIcon
+          icon="cards"
+          text={`${redemptions_limit - redemptions_count}/${redemptions_limit}`}
           position="absolute"
           left="12px"
           top="12px"
         />
         <LabelWithIcon
           icon="present"
-          text={
-            rewardType === "merits"
-              ? `${rewardValue} Merits`
-              : capitalizeFirstLetter(rewardType)
-          }
+          text={capitalizeFirstLetter(details.type)}
           position="absolute"
           right="12px"
           top="12px"
@@ -83,19 +77,26 @@ export default function CampaignCard({
       </Flex>
       <Flex flexDir="column" px={3} gap={2} flex={1}>
         <Text fontWeight="600" noOfLines={2}>
-          {title}
+          {details.name}
         </Text>
         <Text fontSize="sm" noOfLines={2}>
-          {description}
+          {details.description}
         </Text>
-        <Link
-          fontSize="sm"
-          fontWeight="500"
+        <Flex
+          alignItems="center"
+          justifyContent="space-between"
           marginTop="auto"
-          onClick={handleClick}
         >
-          Details
-        </Link>
+          <Link fontSize="sm" fontWeight="500" onClick={handleClick}>
+            Details
+          </Link>
+          <Flex alignItems="center" gap={2}>
+            <SpriteIcon name="merits-outline" boxSize={5} />
+            <Text fontSize="sm">
+              {Number(price).toLocaleString("en-US")} Merits
+            </Text>
+          </Flex>
+        </Flex>
       </Flex>
     </Flex>
   );

@@ -5,10 +5,11 @@ import { format } from "date-fns";
 import type { Campaign } from "~/types/campaign";
 
 import SpriteIcon from "~/components/shared/SpriteIcon";
+import LabelWithIcon from "~/components/shared/LabelWithIcon";
 import Skeleton from "~/chakra/Skeleton";
+import capitalizeFirstLetter from "~/lib/capitalizeFirstLetter";
 
 import StatusLabel from "./StatusLabel";
-import RewardLabel from "./RewardLabel";
 
 import { getBgColor } from "./utils";
 
@@ -105,9 +106,13 @@ export default function CampaignDetails({
               opacity={status === "expired" ? 0.3 : 1}
               filter={status === "expired" ? "grayscale(1)" : "none"}
             />
-            <RewardLabel
-              rewardType={rewardType}
-              rewardValue={rewardValue}
+            <LabelWithIcon
+              icon="present"
+              text={
+                rewardType === "merits"
+                  ? `${rewardValue} Merits`
+                  : capitalizeFirstLetter(rewardType)
+              }
               position="absolute"
               right="12px"
               top="12px"

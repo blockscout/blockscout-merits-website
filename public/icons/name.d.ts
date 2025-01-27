@@ -5,6 +5,7 @@
 	| "arrows/west"
 	| "blockscout-logo"
 	| "cardio"
+	| "cards"
 	| "clock"
 	| "copy"
 	| "info-circle"

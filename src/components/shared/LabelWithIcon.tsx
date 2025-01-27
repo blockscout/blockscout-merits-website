@@ -1,18 +1,16 @@
 import { Flex, Text, chakra } from "@chakra-ui/react";
 import React from "react";
 
-import type { Campaign } from "~/types/campaign";
-
+import type { IconName } from "~/components/shared/SpriteIcon";
 import SpriteIcon from "~/components/shared/SpriteIcon";
 
 type Props = {
-  rewardType: Campaign["rewardType"];
-  rewardValue: Campaign["rewardValue"];
+  icon: IconName;
+  text: string;
   className?: string;
 };
 
-const RewardLabel = ({ rewardType, rewardValue, className }: Props) => {
-  const text = rewardType === "merits" ? `${rewardValue} Merits` : "Badge";
+const LabelWithIcon = ({ icon, text, className }: Props) => {
   return (
     <Flex
       className={className}
@@ -23,10 +21,10 @@ const RewardLabel = ({ rewardType, rewardValue, className }: Props) => {
       borderRadius="base"
       bgColor="white"
     >
-      <SpriteIcon name="present" boxSize={5} color="blackAlpha.800" />
+      <SpriteIcon name={icon} boxSize={5} color="blackAlpha.800" />
       <Text fontSize="sm">{text}</Text>
     </Flex>
   );
 };
 
-export default chakra(RewardLabel);
+export default chakra(LabelWithIcon);
