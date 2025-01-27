@@ -33,6 +33,8 @@ createAppKit({
     analytics: true,
     swaps: false,
     onramp: false,
+    email: false,
+    socials: [],
   },
   themeMode: "light",
   themeVariables: {
