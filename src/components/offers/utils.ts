@@ -1,9 +1,6 @@
 import type { Offer } from "~/types/api/offer";
 
-export function getBgColor(
-  type: Offer["details"]["type"],
-  isExpired?: boolean,
-) {
+export function getBgColor(type: Offer["details"]["type"], isValid?: boolean) {
   const colors = {
     booster: "linear-gradient(126deg, #FCC0FF 10%, #FFD5B3 90%)",
     badge: "#EFE1FF",
@@ -11,5 +8,5 @@ export function getBgColor(
     access: "linear-gradient(126deg, #E0B9FE 10%, #CDE8FF 80%)",
   };
 
-  return isExpired ? "rgba(16, 17, 18, 0.06)" : colors[type];
+  return isValid ? colors[type] : "rgba(16, 17, 18, 0.06)";
 }

@@ -17,10 +17,10 @@ export default function OfferCard({
   price,
   redemptions_limit,
   redemptions_count,
+  is_valid,
   onClick,
 }: Props) {
-  const isExpired = redemptions_count >= redemptions_limit;
-  const bgColor = getBgColor(details.type, isExpired);
+  const bgColor = getBgColor(details.type, is_valid);
 
   const handleClick = useCallback(() => {
     onClick(offer_id);
@@ -53,8 +53,8 @@ export default function OfferCard({
         <Image
           src={details.image_url}
           alt={`${details.name} image`}
-          opacity={isExpired ? 0.3 : 1}
-          filter={isExpired ? "grayscale(1)" : "none"}
+          opacity={!is_valid ? 0.3 : 1}
+          filter={!is_valid ? "grayscale(1)" : "none"}
           transitionProperty="transform"
           transitionDuration="normal"
           transitionTimingFunction="ease"
