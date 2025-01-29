@@ -24,6 +24,20 @@ export default [
           description:
             "Finish the process with your promo code to get a discount",
         },
+        {
+          title: "Redeem your Merits",
+          description: "Claim your GnosisPay promo code",
+        },
+        {
+          title: "Get a discount",
+          description:
+            "Use your copied promo code during the card issuing on the [GnosisPay website](https://example.com)",
+        },
+        {
+          title: "Proceed with purchase",
+          description:
+            "Finish the process with your promo code to get a discount",
+        },
       ],
     },
     price: "100000",
