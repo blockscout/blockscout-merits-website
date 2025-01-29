@@ -1,10 +1,21 @@
 import { Flex, Text, Button, Link, Box } from "@chakra-ui/react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import { useCallback } from "react";
 
 import type { Offer } from "~/types/api/offer";
 
-export default function HowToUse({ offer }: { offer: Offer }) {
+type Props = {
+  offer: Offer;
+  redeem: (offer: Offer) => void;
+  isRedeeming: boolean;
+};
+
+export default function HowToUse({ offer, redeem, isRedeeming }: Props) {
+  const handleRedeem = useCallback(() => {
+    redeem(offer);
+  }, [offer, redeem]);
+
   return (
     <Flex flexDir="column" gap={6}>
       <Box maxH="338px" overflowY="scroll">
@@ -41,7 +52,9 @@ export default function HowToUse({ offer }: { offer: Offer }) {
           ))}
         </Flex>
       </Box>
-      <Button>Claim reward</Button>
+      <Button onClick={handleRedeem} isLoading={isRedeeming}>
+        Claim reward
+      </Button>
     </Flex>
   );
 }

@@ -1,6 +1,7 @@
 import { Flex, Image, Text, Button } from "@chakra-ui/react";
 import { upperFirst } from "lodash";
 import { format } from "date-fns";
+import { useCallback } from "react";
 
 import type { Offer } from "~/types/api/offer";
 
@@ -9,9 +10,19 @@ import useBalancesQuery from "~/hooks/useBalancesQuery";
 
 import { getBgColor } from "../utils";
 
-export default function Description({ offer }: { offer: Offer }) {
+type Props = {
+  offer: Offer;
+  redeem: (offer: Offer) => void;
+  isRedeeming: boolean;
+};
+
+export default function Description({ offer, redeem, isRedeeming }: Props) {
   const balancesQuery = useBalancesQuery();
   const bgColor = getBgColor(offer.details.type, offer.is_valid);
+
+  const handleRedeem = useCallback(() => {
+    redeem(offer);
+  }, [offer, redeem]);
 
   return (
     <Flex flexDir="column" gap={6}>
@@ -95,7 +106,9 @@ export default function Description({ offer }: { offer: Offer }) {
         </Flex>
       </Flex>
       <Text>{offer.details.description}</Text>
-      <Button>Claim reward</Button>
+      <Button onClick={handleRedeem} isLoading={isRedeeming}>
+        Claim reward
+      </Button>
     </Flex>
   );
 }

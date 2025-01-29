@@ -6,7 +6,7 @@ import {
   ModalCloseButton,
   ModalBody,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useCallback } from "react";
 import { useAppKitState } from "@reown/appkit/react";
 
 import type { Offer } from "~/types/api/offer";
@@ -14,6 +14,9 @@ import type { Offer } from "~/types/api/offer";
 import TabsWithScroll from "~/components/shared/tabs/TabsWithScroll";
 
 import useIsMobile from "~/hooks/useIsMobile";
+import useRedeemOffer from "~/hooks/useRedeemOffer";
+import useBalancesQuery from "~/hooks/useBalancesQuery";
+import useOffersQuery from "~/hooks/useOffersQuery";
 
 import Description from "./modalTabs/Description";
 import HowToUse from "./modalTabs/HowToUse";
@@ -27,6 +30,22 @@ type Props = {
 const OfferDetailsModal = ({ offer, onClose }: Props) => {
   const isMobile = useIsMobile();
   const { open: isWalletModalOpen } = useAppKitState();
+  const balancesQuery = useBalancesQuery();
+  const offersQuery = useOffersQuery();
+  const redeemOffer = useRedeemOffer();
+  const [isRedeeming, setIsRedeeming] = React.useState(false);
+
+  const handleRedeem = useCallback(
+    async (offer: Offer) => {
+      setIsRedeeming(true);
+      try {
+        await redeemOffer(offer);
+        await Promise.all([balancesQuery.refetch(), offersQuery.refetch()]);
+      } catch (error) {} // eslint-disable-line no-empty
+      setIsRedeeming(false);
+    },
+    [redeemOffer, balancesQuery, offersQuery],
+  );
 
   return (
     <Modal
@@ -47,12 +66,24 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
               {
                 id: "description",
                 title: "Description",
-                component: <Description offer={offer} />,
+                component: (
+                  <Description
+                    offer={offer}
+                    redeem={handleRedeem}
+                    isRedeeming={isRedeeming}
+                  />
+                ),
               },
               {
                 id: "how to use",
                 title: "How to use",
-                component: <HowToUse offer={offer} />,
+                component: (
+                  <HowToUse
+                    offer={offer}
+                    redeem={handleRedeem}
+                    isRedeeming={isRedeeming}
+                  />
+                ),
               },
               {
                 id: "redemptions",

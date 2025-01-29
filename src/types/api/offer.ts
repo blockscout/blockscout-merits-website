@@ -5,18 +5,21 @@ export interface Offer {
     description: string;
     type: "booster" | "badge" | "discount" | "access";
     image_url: string;
-    steps: {
-      title: string;
-      description: string;
-    }[];
+    steps:
+      | {
+          title: string;
+          description: string;
+        }[]
+      | [];
   };
   price: string;
   weight: number;
   valid_since: string;
-  valid_until: string;
+  valid_until: string | null;
   redemptions_limit: number;
   redemptions_count: number;
   is_valid: boolean;
+  min_passport_score: string | null;
   is_hidden: boolean;
   is_unique_per_address: boolean;
   is_auto_filled: boolean;
