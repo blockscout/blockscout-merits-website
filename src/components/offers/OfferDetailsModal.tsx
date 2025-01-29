@@ -38,7 +38,7 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
       <ModalOverlay />
       <ModalContent width="560px" p={6}>
         <ModalHeader fontWeight="500" textStyle="h3" mb={3}>
-          {offer.details.name}
+          {offer.details.title}
         </ModalHeader>
         <ModalCloseButton top={6} right={6} />
         <ModalBody mb={0}>

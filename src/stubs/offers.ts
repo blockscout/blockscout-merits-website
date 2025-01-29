@@ -4,7 +4,7 @@ export default [
   {
     offer_id: "offer-0",
     details: {
-      name: "2x Merits rewards",
+      title: "2x Merits rewards",
       description:
         "Description lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       type: "booster",
@@ -54,7 +54,7 @@ export default [
   {
     offer_id: "offer-1",
     details: {
-      name: "Swapscout Pioneer",
+      title: "Swapscout Pioneer",
       description:
         "Description lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       type: "badge",
@@ -90,7 +90,7 @@ export default [
   {
     offer_id: "offer-2",
     details: {
-      name: "Order GnosisPay card with 20% discount",
+      title: "Order GnosisPay card with 20% discount",
       description:
         "Description lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       type: "discount",
@@ -126,7 +126,7 @@ export default [
   {
     offer_id: "offer-3",
     details: {
-      name: "Free Zerion premium",
+      title: "Free Zerion premium",
       description:
         "Description lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       type: "access",
@@ -162,7 +162,7 @@ export default [
   {
     offer_id: "offer-4",
     details: {
-      name: "Blockscout Galxe Fren",
+      title: "Blockscout Galxe Fren",
       description:
         "Description lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       type: "badge",
@@ -198,7 +198,7 @@ export default [
   {
     offer_id: "offer-5",
     details: {
-      name: "x3 Merits rewards",
+      title: "x3 Merits rewards",
       description:
         "Description lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       type: "booster",
@@ -234,7 +234,7 @@ export default [
   {
     offer_id: "offer-6",
     details: {
-      name: "Blockscout Alpha Scout",
+      title: "Blockscout Alpha Scout",
       description:
         "Description lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       type: "badge",

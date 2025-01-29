@@ -1,7 +1,7 @@
 export interface Offer {
   offer_id: string;
   details: {
-    name: string;
+    title: string;
     description: string;
     type: "booster" | "badge" | "discount" | "access";
     image_url: string;

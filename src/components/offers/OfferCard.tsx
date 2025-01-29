@@ -52,7 +52,7 @@ export default function OfferCard({
       >
         <Image
           src={details.image_url}
-          alt={`${details.name} image`}
+          alt={`${details.title} image`}
           opacity={!is_valid ? 0.3 : 1}
           filter={!is_valid ? "grayscale(1)" : "none"}
           transitionProperty="transform"
@@ -77,7 +77,7 @@ export default function OfferCard({
       </Flex>
       <Flex flexDir="column" px={3} gap={2} flex={1}>
         <Text fontWeight="600" noOfLines={2}>
-          {details.name}
+          {details.title}
         </Text>
         <Text fontSize="sm" noOfLines={2}>
           {details.description}

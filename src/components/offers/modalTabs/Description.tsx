@@ -25,7 +25,7 @@ export default function Description({ offer }: { offer: Offer }) {
         >
           <Image
             src={offer.details.image_url}
-            alt={`${offer.details.name} image`}
+            alt={`${offer.details.title} image`}
             opacity={!offer.is_valid ? 0.3 : 1}
             filter={!offer.is_valid ? "grayscale(1)" : "none"}
             transform="scale(0.75)"
