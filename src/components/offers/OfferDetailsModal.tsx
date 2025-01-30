@@ -152,7 +152,7 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
                 {
                   id: "redemptions",
                   title: "Redemptions",
-                  component: <Redemptions />,
+                  component: <Redemptions offer={offer} />,
                 },
               ].filter(Boolean)}
             />

@@ -45,6 +45,7 @@ type Props = {
   queryKey: string;
   url: string;
   params?: Record<string, unknown>;
+  headers?: Record<string, string>;
   placeholderData?: unknown;
   scrollRef?: React.RefObject<HTMLDivElement>;
 };
@@ -53,6 +54,7 @@ export default function useQueryWithPages<Response>({
   queryKey,
   url,
   params,
+  headers,
   placeholderData,
   scrollRef,
 }: Props): QueryWithPagesResult<Response> {
@@ -101,9 +103,9 @@ export default function useQueryWithPages<Response>({
   });
 
   const queryResult = useQuery({
-    queryKey: [queryKey, urlObj.toString()],
+    queryKey: [queryKey, urlObj.toString(), headers],
     queryFn: async () => {
-      const response = await fetch(urlObj.toString());
+      const response = await fetch(urlObj.toString(), { headers });
       return response.json();
     },
     placeholderData,
