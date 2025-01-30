@@ -44,8 +44,10 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
   >();
 
   const isInsufficientBalance = useMemo(
-    () => Number(balancesQuery.data?.total || 0) < Number(offer.price),
-    [balancesQuery, offer],
+    () =>
+      Boolean(address) &&
+      Number(balancesQuery.data?.total || 0) < Number(offer.price),
+    [balancesQuery, offer, address],
   );
 
   const handleClose = useCallback(() => {
