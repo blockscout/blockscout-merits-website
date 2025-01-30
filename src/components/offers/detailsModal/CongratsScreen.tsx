@@ -4,6 +4,7 @@ import React from "react";
 import type { Offer } from "~/types/api/offer";
 
 import { apos } from "~/lib/htmlEntities";
+import CopyToClipboard from "~/components/shared/CopyToClipboard";
 
 import { getBgColor } from "../utils";
 
@@ -42,7 +43,17 @@ const CongratsScreen = ({
             ? "Promo code"
             : `You${apos}ve been added to the whitelist`}
         </Text>
-        {promoCode && <Text fontWeight="600">{promoCode}</Text>}
+        {promoCode && (
+          <Flex position="relative">
+            <Text fontWeight="600">{promoCode}</Text>
+            <CopyToClipboard
+              text={promoCode}
+              position="absolute"
+              right="-30px"
+              top="1px"
+            />
+          </Flex>
+        )}
       </Flex>
       <Flex w="full" flexDir="column" alignItems="center" gap={3}>
         <Button w="full" onClick={onClose}>
