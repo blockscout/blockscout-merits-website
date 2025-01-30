@@ -1,28 +1,23 @@
-import { Flex, Image, Text, Button } from "@chakra-ui/react";
+import { Flex, Image, Text } from "@chakra-ui/react";
 import { upperFirst } from "lodash";
 import { format } from "date-fns";
-import { useCallback } from "react";
+import React from "react";
 
 import type { Offer } from "~/types/api/offer";
 
 import SpriteIcon from "~/components/shared/SpriteIcon";
 import useBalancesQuery from "~/hooks/useBalancesQuery";
 
-import { getBgColor } from "../utils";
+import { getBgColor } from "../../utils";
 
 type Props = {
   offer: Offer;
-  redeem: (offer: Offer) => void;
-  isRedeeming: boolean;
+  redeemButton: React.ReactNode;
 };
 
-export default function Description({ offer, redeem, isRedeeming }: Props) {
+export default function Description({ offer, redeemButton }: Props) {
   const balancesQuery = useBalancesQuery();
   const bgColor = getBgColor(offer.details.type, offer.is_valid);
-
-  const handleRedeem = useCallback(() => {
-    redeem(offer);
-  }, [offer, redeem]);
 
   return (
     <Flex flexDir="column" gap={6}>
@@ -106,9 +101,7 @@ export default function Description({ offer, redeem, isRedeeming }: Props) {
         </Flex>
       </Flex>
       <Text>{offer.details.description}</Text>
-      <Button onClick={handleRedeem} isLoading={isRedeeming}>
-        Claim reward
-      </Button>
+      {redeemButton}
     </Flex>
   );
 }

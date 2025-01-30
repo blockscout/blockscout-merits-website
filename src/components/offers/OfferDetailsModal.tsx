@@ -5,9 +5,9 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
+  Button,
 } from "@chakra-ui/react";
-import React, { useCallback } from "react";
-import { useAppKitState } from "@reown/appkit/react";
+import React, { useCallback, useMemo } from "react";
 
 import type { Offer } from "~/types/api/offer";
 
@@ -17,10 +17,12 @@ import useIsMobile from "~/hooks/useIsMobile";
 import useRedeemOffer from "~/hooks/useRedeemOffer";
 import useBalancesQuery from "~/hooks/useBalancesQuery";
 import useOffersQuery from "~/hooks/useOffersQuery";
+import { useAppContext } from "~/contexts/app";
 
-import Description from "./modalTabs/Description";
-import HowToUse from "./modalTabs/HowToUse";
-import Redemptions from "./modalTabs/Redemptions";
+import Description from "./detailsModal/tabs/Description";
+import HowToUse from "./detailsModal/tabs/HowToUse";
+import Redemptions from "./detailsModal/tabs/Redemptions";
+import CongratsScreen from "./detailsModal/CongratsScreen";
 
 type Props = {
   offer: Offer;
@@ -29,69 +31,99 @@ type Props = {
 
 const OfferDetailsModal = ({ offer, onClose }: Props) => {
   const isMobile = useIsMobile();
-  const { open: isWalletModalOpen } = useAppKitState();
   const balancesQuery = useBalancesQuery();
   const offersQuery = useOffersQuery();
   const redeemOffer = useRedeemOffer();
+  const { address, loginModal } = useAppContext();
   const [isRedeeming, setIsRedeeming] = React.useState(false);
+  const [isRedeemed, setIsRedeemed] = React.useState(false);
+  const [promoCode, setPromoCode] = React.useState<string | undefined>();
+  const [defaultTabIndex, setDefaultTabIndex] = React.useState<
+    number | undefined
+  >();
 
-  const handleRedeem = useCallback(
-    async (offer: Offer) => {
-      setIsRedeeming(true);
-      try {
-        await redeemOffer(offer);
-        await Promise.all([balancesQuery.refetch(), offersQuery.refetch()]);
-      } catch (error) {} // eslint-disable-line no-empty
-      setIsRedeeming(false);
-    },
-    [redeemOffer, balancesQuery, offersQuery],
+  const handleClose = useCallback(() => {
+    onClose();
+    setIsRedeemed(false);
+    setPromoCode(undefined);
+  }, [onClose]);
+
+  const handleOpenInstructions = useCallback(() => {
+    setIsRedeemed(false);
+    setPromoCode(undefined);
+    setDefaultTabIndex(1);
+  }, []);
+
+  const handleRedeem = useCallback(async () => {
+    setIsRedeeming(true);
+    try {
+      const { secret } = await redeemOffer(offer);
+      setPromoCode(secret);
+      setIsRedeemed(true);
+      await Promise.all([balancesQuery.refetch(), offersQuery.refetch()]);
+    } catch (error) {} // eslint-disable-line no-empty
+    setIsRedeeming(false);
+  }, [offer, redeemOffer, balancesQuery, offersQuery]);
+
+  const redeemButton = useMemo(
+    () => (
+      <Button
+        onClick={address ? handleRedeem : loginModal.onOpen}
+        isLoading={isRedeeming}
+      >
+        {address ? "Claim reward" : "Log in"}
+      </Button>
+    ),
+    [handleRedeem, isRedeeming, loginModal, address],
   );
 
   return (
     <Modal
-      isOpen={!isWalletModalOpen}
-      onClose={onClose}
+      isOpen={!loginModal.isOpen}
+      onClose={handleClose}
       size={isMobile ? "full" : "md"}
       isCentered
     >
       <ModalOverlay />
-      <ModalContent width="560px" p={6}>
+      <ModalContent width={isRedeemed ? "400px" : "560px"} p={6}>
         <ModalHeader fontWeight="500" textStyle="h3" mb={3}>
-          {offer.details.title}
+          {isRedeemed ? "Congratulations" : offer.details.title}
         </ModalHeader>
         <ModalCloseButton top={6} right={6} />
         <ModalBody mb={0}>
-          <TabsWithScroll
-            tabs={[
-              {
-                id: "description",
-                title: "Description",
-                component: (
-                  <Description
-                    offer={offer}
-                    redeem={handleRedeem}
-                    isRedeeming={isRedeeming}
-                  />
-                ),
-              },
-              {
-                id: "how to use",
-                title: "How to use",
-                component: (
-                  <HowToUse
-                    offer={offer}
-                    redeem={handleRedeem}
-                    isRedeeming={isRedeeming}
-                  />
-                ),
-              },
-              {
-                id: "redemptions",
-                title: "Redemptions",
-                component: <Redemptions />,
-              },
-            ].filter(Boolean)}
-          />
+          {isRedeemed ? (
+            <CongratsScreen
+              offer={offer}
+              promoCode={promoCode}
+              onClose={handleClose}
+              onOpenInstructions={handleOpenInstructions}
+            />
+          ) : (
+            <TabsWithScroll
+              defaultTabIndex={defaultTabIndex}
+              tabs={[
+                {
+                  id: "description",
+                  title: "Description",
+                  component: (
+                    <Description offer={offer} redeemButton={redeemButton} />
+                  ),
+                },
+                {
+                  id: "how to use",
+                  title: "How to use",
+                  component: (
+                    <HowToUse offer={offer} redeemButton={redeemButton} />
+                  ),
+                },
+                {
+                  id: "redemptions",
+                  title: "Redemptions",
+                  component: <Redemptions />,
+                },
+              ].filter(Boolean)}
+            />
+          )}
         </ModalBody>
       </ModalContent>
     </Modal>
