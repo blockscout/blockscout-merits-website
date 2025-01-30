@@ -15,9 +15,7 @@ export default function OffersTab() {
 
   const handleSelect = useCallback(
     (id: Offer["offer_id"]) => {
-      const offer = offersQuery.data?.items.find(
-        (offer) => offer.offer_id === id,
-      );
+      const offer = offersQuery.data?.find((offer) => offer.offer_id === id);
       setSelectedOffer(offer);
     },
     [offersQuery.data],
@@ -34,7 +32,7 @@ export default function OffersTab() {
         templateColumns="repeat(auto-fill, minmax(260px, 1fr))"
         autoRows="1fr"
       >
-        {offersQuery.data?.items.map((offer, index) => (
+        {offersQuery.data?.map((offer, index) => (
           <Skeleton key={index} isLoaded={!offersQuery.isPlaceholderData}>
             <OfferCard {...offer} onClick={handleSelect} />
           </Skeleton>

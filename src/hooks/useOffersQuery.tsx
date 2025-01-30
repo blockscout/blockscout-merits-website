@@ -1,20 +1,18 @@
-import React from "react";
+import { useQuery } from "@tanstack/react-query";
 
 import type { OffersResponse } from "~/types/api/offer";
 
 import { getApiUrl } from "~/config/app";
 import offersStub from "~/stubs/offers";
 
-import useQueryWithPages from "./useQueryWithPages";
-
-export default function useOffersQuery(
-  scrollRef?: React.RefObject<HTMLDivElement>,
-) {
-  return useQueryWithPages<OffersResponse>({
-    queryKey: "offers",
-    url: getApiUrl("/offers"),
-    params: { page_size: 50 },
+export default function useOffersQuery() {
+  return useQuery({
+    queryKey: ["offers"],
+    queryFn: async () => {
+      const response = await fetch(getApiUrl("/offers"));
+      const data = (await response.json()) as OffersResponse;
+      return data.items.sort((a, b) => Number(b.is_valid) - Number(a.is_valid));
+    },
     placeholderData: offersStub,
-    scrollRef,
   });
 }

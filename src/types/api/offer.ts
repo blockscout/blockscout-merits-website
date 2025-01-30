@@ -27,10 +27,4 @@ export interface Offer {
 
 export interface OffersResponse {
   items: Array<Offer>;
-  next_page_params: OffersPagination | null;
 }
-
-export type OffersPagination = {
-  page_token: string;
-  page_size: number;
-};
