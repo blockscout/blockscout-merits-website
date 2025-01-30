@@ -6,6 +6,7 @@ import {
   ModalCloseButton,
   ModalBody,
   Button,
+  Alert,
 } from "@chakra-ui/react";
 import React, { useCallback, useMemo } from "react";
 
@@ -42,6 +43,11 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
     number | undefined
   >();
 
+  const isInsufficientBalance = useMemo(
+    () => Number(balancesQuery.data?.total || 0) < Number(offer.price),
+    [balancesQuery, offer],
+  );
+
   const handleClose = useCallback(() => {
     onClose();
     setIsRedeemed(false);
@@ -65,16 +71,35 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
     setIsRedeeming(false);
   }, [offer, redeemOffer, balancesQuery, offersQuery]);
 
+  const alert = useMemo(
+    () =>
+      isInsufficientBalance ? (
+        <Alert status="warning" mb={4} py={2} px={3} borderRadius="base">
+          Insufficient balance of Merits
+        </Alert>
+      ) : null,
+    [isInsufficientBalance],
+  );
+
   const redeemButton = useMemo(
-    () => (
-      <Button
-        onClick={address ? handleRedeem : loginModal.onOpen}
-        isLoading={isRedeeming}
-      >
-        {address ? "Claim reward" : "Log in"}
-      </Button>
-    ),
-    [handleRedeem, isRedeeming, loginModal, address],
+    () =>
+      offer.is_valid ? (
+        <Button
+          onClick={address ? handleRedeem : loginModal.onOpen}
+          isLoading={isRedeeming}
+          isDisabled={isInsufficientBalance}
+        >
+          {address ? "Claim reward" : "Log in"}
+        </Button>
+      ) : null,
+    [
+      handleRedeem,
+      isRedeeming,
+      loginModal,
+      address,
+      isInsufficientBalance,
+      offer.is_valid,
+    ],
   );
 
   return (
@@ -86,7 +111,7 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
     >
       <ModalOverlay />
       <ModalContent width={isRedeemed ? "400px" : "560px"} p={6}>
-        <ModalHeader fontWeight="500" textStyle="h3" mb={3}>
+        <ModalHeader fontWeight="500" textStyle="h3" mb={4}>
           {isRedeemed ? "Congratulations" : offer.details.title}
         </ModalHeader>
         <ModalCloseButton top={6} right={6} />
@@ -106,14 +131,22 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
                   id: "description",
                   title: "Description",
                   component: (
-                    <Description offer={offer} redeemButton={redeemButton} />
+                    <Description
+                      offer={offer}
+                      alert={alert}
+                      redeemButton={redeemButton}
+                    />
                   ),
                 },
                 {
                   id: "how to use",
                   title: "How to use",
                   component: (
-                    <HowToUse offer={offer} redeemButton={redeemButton} />
+                    <HowToUse
+                      offer={offer}
+                      alert={alert}
+                      redeemButton={redeemButton}
+                    />
                   ),
                 },
                 {

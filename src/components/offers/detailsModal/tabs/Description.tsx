@@ -12,16 +12,18 @@ import { getBgColor } from "../../utils";
 
 type Props = {
   offer: Offer;
-  redeemButton: React.ReactNode;
+  alert: React.ReactNode | null;
+  redeemButton: React.ReactNode | null;
 };
 
-export default function Description({ offer, redeemButton }: Props) {
+export default function Description({ offer, alert, redeemButton }: Props) {
   const balancesQuery = useBalancesQuery();
   const bgColor = getBgColor(offer.details.type, offer.is_valid);
 
   return (
-    <Flex flexDir="column" gap={6}>
-      <Flex gap={4} alignItems="stretch">
+    <Flex flexDir="column" mt={-2}>
+      {alert}
+      <Flex gap={4} mb={6} alignItems="stretch">
         <Flex
           w="184px"
           alignItems="center"
@@ -100,7 +102,7 @@ export default function Description({ offer, redeemButton }: Props) {
           ))}
         </Flex>
       </Flex>
-      <Text>{offer.details.description}</Text>
+      <Text mb={6}>{offer.details.description}</Text>
       {redeemButton}
     </Flex>
   );

@@ -7,13 +7,15 @@ import type { Offer } from "~/types/api/offer";
 
 type Props = {
   offer: Offer;
-  redeemButton: React.ReactNode;
+  alert: React.ReactNode | null;
+  redeemButton: React.ReactNode | null;
 };
 
-export default function HowToUse({ offer, redeemButton }: Props) {
+export default function HowToUse({ offer, alert, redeemButton }: Props) {
   return (
-    <Flex flexDir="column" gap={6}>
-      <Box maxH="338px" overflowY="scroll">
+    <Flex flexDir="column" mt={-2}>
+      {alert}
+      <Box maxH="338px" overflowY="scroll" mb={6}>
         <Flex
           flexDir="column"
           border="1px solid"
