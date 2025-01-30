@@ -23,9 +23,15 @@ export default function Description({ offer, alert, redeemButton }: Props) {
   return (
     <Flex flexDir="column" mt={-2}>
       {alert}
-      <Flex gap={4} mb={6} alignItems="stretch">
+      <Flex
+        gap={4}
+        mb={6}
+        alignItems="stretch"
+        flexDir={{ base: "column", md: "row" }}
+      >
         <Flex
-          w="184px"
+          w={{ base: "full", md: "184px" }}
+          h={{ base: "184px", md: "auto" }}
           alignItems="center"
           justifyContent="center"
           borderRadius="lg"

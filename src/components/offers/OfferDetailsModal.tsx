@@ -113,7 +113,7 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
     >
       <ModalOverlay />
       <ModalContent width={isRedeemed ? "400px" : "560px"} p={6}>
-        <ModalHeader fontWeight="500" textStyle="h3" mb={4}>
+        <ModalHeader fontWeight="500" textStyle="h3" mb={4} pr={12}>
           {isRedeemed ? "Congratulations" : offer.details.title}
         </ModalHeader>
         <ModalCloseButton top={6} right={6} />

@@ -36,7 +36,7 @@ export default function Redemptions({ offer }: Props) {
           </Tr>
         </Thead>
         <Tbody>
-          {redemptionsQuery.data?.items.map((redemption, index) => (
+          {redemptionsQuery.data?.items?.map((redemption, index) => (
             <Tr key={index}>
               <Td>
                 <Skeleton
@@ -81,7 +81,7 @@ export default function Redemptions({ offer }: Props) {
           ))}
         </Tbody>
       </Table>
-      {!redemptionsQuery.data?.items.length && (
+      {!redemptionsQuery.data?.items?.length && (
         <Text textAlign="center" mt={4}>
           You have no redemptions yet.
         </Text>

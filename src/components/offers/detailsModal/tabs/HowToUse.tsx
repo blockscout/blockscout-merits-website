@@ -15,7 +15,7 @@ export default function HowToUse({ offer, alert, redeemButton }: Props) {
   return (
     <Flex flexDir="column" mt={-2}>
       {alert}
-      <Box maxH="338px" overflowY="scroll" mb={6}>
+      <Box maxH={{ base: "auto", md: "338px" }} overflowY="scroll" mb={6}>
         <Flex
           flexDir="column"
           border="1px solid"
