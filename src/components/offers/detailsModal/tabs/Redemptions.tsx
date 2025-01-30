@@ -1,19 +1,15 @@
 import { Table, Thead, Tbody, Tr, Th, Td, Text } from "@chakra-ui/react";
 import { format } from "date-fns";
 
-import type { Offer } from "~/types/api/offer";
-
 import Skeleton from "~/chakra/Skeleton";
 import CopyToClipboard from "~/components/shared/CopyToClipboard";
 import useOfferRedemptionsQuery from "~/hooks/useOfferRedemptions";
 
 type Props = {
-  offer: Offer;
+  redemptionsQuery: ReturnType<typeof useOfferRedemptionsQuery>;
 };
 
-export default function Redemptions({ offer }: Props) {
-  const redemptionsQuery = useOfferRedemptionsQuery(offer.offer_id);
-
+export default function Redemptions({ redemptionsQuery }: Props) {
   return (
     <>
       <Table>

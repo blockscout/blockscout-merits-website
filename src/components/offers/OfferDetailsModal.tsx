@@ -18,6 +18,7 @@ import useIsMobile from "~/hooks/useIsMobile";
 import useRedeemOffer from "~/hooks/useRedeemOffer";
 import useBalancesQuery from "~/hooks/useBalancesQuery";
 import useOffersQuery from "~/hooks/useOffersQuery";
+import useOfferRedemptionsQuery from "~/hooks/useOfferRedemptions";
 import { useAppContext } from "~/contexts/app";
 
 import Description from "./detailsModal/tabs/Description";
@@ -32,10 +33,13 @@ type Props = {
 
 const OfferDetailsModal = ({ offer, onClose }: Props) => {
   const isMobile = useIsMobile();
+  const { address, loginModal } = useAppContext();
+
   const balancesQuery = useBalancesQuery();
   const offersQuery = useOffersQuery();
+  const redemptionsQuery = useOfferRedemptionsQuery(offer.offer_id);
   const redeemOffer = useRedeemOffer();
-  const { address, loginModal } = useAppContext();
+
   const [isRedeeming, setIsRedeeming] = React.useState(false);
   const [isRedeemed, setIsRedeemed] = React.useState(false);
   const [promoCode, setPromoCode] = React.useState<string | undefined>();
@@ -48,6 +52,14 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
       Boolean(address) &&
       Number(balancesQuery.data?.total || 0) < Number(offer.price),
     [balancesQuery, offer, address],
+  );
+
+  const hasRedeemedUniqueOffer = useMemo(
+    () =>
+      offer.is_unique_per_address &&
+      !redemptionsQuery.isPlaceholderData &&
+      Boolean(redemptionsQuery.data?.items?.length),
+    [offer.is_unique_per_address, redemptionsQuery],
   );
 
   const handleClose = useCallback(() => {
@@ -75,12 +87,14 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
 
   const alert = useMemo(
     () =>
-      isInsufficientBalance ? (
+      isInsufficientBalance || hasRedeemedUniqueOffer ? (
         <Alert status="warning" mb={4} py={2} px={3} borderRadius="base">
-          Insufficient balance of Merits
+          {isInsufficientBalance
+            ? "Insufficient balance of Merits"
+            : "This offer is available one per address"}
         </Alert>
       ) : null,
-    [isInsufficientBalance],
+    [isInsufficientBalance, hasRedeemedUniqueOffer],
   );
 
   const redeemButton = useMemo(
@@ -88,8 +102,12 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
       offer.is_valid ? (
         <Button
           onClick={address ? handleRedeem : loginModal.onOpen}
-          isLoading={isRedeeming}
-          isDisabled={isInsufficientBalance}
+          isLoading={
+            isRedeeming ||
+            balancesQuery.isPlaceholderData ||
+            redemptionsQuery.isPlaceholderData
+          }
+          isDisabled={isInsufficientBalance || hasRedeemedUniqueOffer}
         >
           {address ? "Claim reward" : "Log in"}
         </Button>
@@ -101,6 +119,9 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
       address,
       isInsufficientBalance,
       offer.is_valid,
+      balancesQuery.isPlaceholderData,
+      redemptionsQuery.isPlaceholderData,
+      hasRedeemedUniqueOffer,
     ],
   );
 
@@ -154,7 +175,9 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
                 {
                   id: "redemptions",
                   title: "Redemptions",
-                  component: <Redemptions offer={offer} />,
+                  component: (
+                    <Redemptions redemptionsQuery={redemptionsQuery} />
+                  ),
                 },
               ].filter(Boolean)}
             />
