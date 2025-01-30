@@ -193,8 +193,8 @@ export default function Dashboard() {
               component: <CampaignsTab scrollRef={scrollRef} />,
             },
             {
-              id: "redeem",
-              title: "Redeem",
+              id: "rewards",
+              title: "Rewards",
               component: <OffersTab />,
             },
             {
