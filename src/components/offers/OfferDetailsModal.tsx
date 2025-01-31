@@ -115,6 +115,7 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
       onClose={handleClose}
       size={isMobile ? "full" : "md"}
       isCentered
+      autoFocus={false}
     >
       <ModalOverlay />
       <ModalContent width={isRedeemed ? "400px" : "560px"} p={6}>

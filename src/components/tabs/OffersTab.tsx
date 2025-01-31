@@ -1,5 +1,6 @@
 import { Grid } from "@chakra-ui/react";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 import type { Offer } from "~/types/api/offer";
 
@@ -10,20 +11,33 @@ import OfferCard from "~/components/offers/OfferCard";
 import OfferDetailsModal from "~/components/offers/OfferDetailsModal";
 
 export default function OffersTab() {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
   const offersQuery = useOffersQuery();
   const [selectedOffer, setSelectedOffer] = React.useState<Offer | undefined>();
 
   const handleSelect = useCallback(
-    (id: Offer["offer_id"]) => {
-      const offer = offersQuery.data?.find((offer) => offer.offer_id === id);
-      setSelectedOffer(offer);
+    (id?: Offer["offer_id"]) => {
+      const params = new URLSearchParams(searchParams.toString());
+      if (id) {
+        params.set("id", id);
+      } else {
+        params.delete("id");
+      }
+      router.replace(`${pathname}?${params}`);
     },
-    [offersQuery.data],
+    [searchParams, pathname, router],
   );
 
-  const handleReset = useCallback(() => {
-    setSelectedOffer(undefined);
-  }, []);
+  useEffect(() => {
+    const id = searchParams.get("id");
+    const offer =
+      id && !offersQuery.isPlaceholderData
+        ? offersQuery.data?.find((offer) => offer.offer_id === id)
+        : undefined;
+    setSelectedOffer(offer);
+  }, [searchParams, offersQuery]);
 
   return (
     <>
@@ -39,7 +53,7 @@ export default function OffersTab() {
         ))}
       </Grid>
       {selectedOffer && (
-        <OfferDetailsModal offer={selectedOffer} onClose={handleReset} />
+        <OfferDetailsModal offer={selectedOffer} onClose={handleSelect} />
       )}
     </>
   );
