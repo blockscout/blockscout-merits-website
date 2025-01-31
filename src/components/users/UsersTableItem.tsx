@@ -33,7 +33,7 @@ export default function UsersTableItem({
   return (
     <Tr
       sx={{
-        "> td:not(.rank)": {
+        "> td": {
           verticalAlign: "middle",
           borderBottom:
             indexInGroup < groupSize - 1 ? "1px solid transparent" : undefined,
@@ -51,6 +51,10 @@ export default function UsersTableItem({
               "linear(180deg, rgba(190, 227, 248, 0) 0%, rgba(190, 227, 248, 0.2) 100%)",
             pointerEvents: "none",
           },
+        },
+        "> td.rank": {
+          borderBottom: "1px solid",
+          borderColor: isSelf ? "blue.100" : "divider",
         },
       }}
     >
