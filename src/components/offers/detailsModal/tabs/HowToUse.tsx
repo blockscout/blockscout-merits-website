@@ -1,9 +1,9 @@
 import React from "react";
-import { Flex, Text, Link, Box } from "@chakra-ui/react";
-import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
+import { Flex, Text, Box } from "@chakra-ui/react";
 
 import type { Offer } from "~/types/api/offer";
+
+import Markdown from "~/components/shared/Markdown";
 
 type Props = {
   offer: Offer;
@@ -35,16 +35,7 @@ export default function HowToUse({ offer, alert, redeemButton }: Props) {
               <Text fontWeight="500">
                 {index + 1}. {step.title}
               </Text>
-              <Text fontSize="sm">
-                <ReactMarkdown
-                  rehypePlugins={[rehypeRaw]}
-                  components={{
-                    a: ({ node, ...props }) => <Link {...props} isExternal />,
-                  }}
-                >
-                  {step.description}
-                </ReactMarkdown>
-              </Text>
+              <Markdown fontSize="sm">{step.description}</Markdown>
             </Flex>
           ))}
         </Flex>
