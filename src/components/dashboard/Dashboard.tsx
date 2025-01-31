@@ -78,6 +78,17 @@ export default function Dashboard() {
               explorers.
             </>
           }
+          hint={
+            <>
+              Total number of Merits earned from all activities.{" "}
+              <Link
+                href="https://docs.blockscout.com/using-blockscout/merits"
+                isExternal
+              >
+                More info on Merits
+              </Link>
+            </>
+          }
           direction="column-reverse"
         >
           <RewardsDashboardCardValue
@@ -85,17 +96,6 @@ export default function Dashboard() {
             value={balancesQuery.data?.total || "N/A"}
             isLoading={balancesQuery.isPending}
             withIcon
-            hint={
-              <>
-                Total number of Merits earned from all activities.{" "}
-                <Link
-                  href="https://docs.blockscout.com/using-blockscout/merits"
-                  isExternal
-                >
-                  More info on Merits
-                </Link>
-              </>
-            }
           />
         </RewardsDashboardCard>
         <RewardsDashboardCard
@@ -130,6 +130,18 @@ export default function Dashboard() {
               </Link>
             </>
           }
+          hint={
+            <>
+              See the{" "}
+              <Link
+                href="https://docs.blockscout.com/using-blockscout/merits/streak-rewards"
+                isExternal
+              >
+                docs
+              </Link>{" "}
+              to learn how your streak number affects daily rewards
+            </>
+          }
           direction="column-reverse"
         >
           <RewardsDashboardCardValue
@@ -140,18 +152,6 @@ export default function Dashboard() {
                 : "N/A"
             }
             isLoading={dailyRewardQuery.isPending}
-            hint={
-              <>
-                See the{" "}
-                <Link
-                  href="https://docs.blockscout.com/using-blockscout/merits/streak-rewards"
-                  isExternal
-                >
-                  docs
-                </Link>{" "}
-                to learn how your streak number affects daily rewards
-              </>
-            }
           />
         </RewardsDashboardCard>
       </Flex>

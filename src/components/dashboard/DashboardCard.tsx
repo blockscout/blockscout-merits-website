@@ -1,25 +1,26 @@
 import { Flex, Text, useColorModeValue, Tag } from "@chakra-ui/react";
 import React from "react";
 
+import HintPopover from "~/components/shared/HintPopover";
+
 type Props = {
-  title?: string;
+  title: string;
   description: string | React.ReactNode;
+  hint?: string | React.ReactNode;
   availableSoon?: boolean;
   blurFilter?: boolean;
-  contentAfter?: React.ReactNode;
   direction?: "column" | "column-reverse" | "row";
-  reverse?: boolean;
   children?: React.ReactNode;
 };
 
 const DashboardCard = ({
   title,
   description,
+  hint,
   availableSoon,
-  contentAfter,
+  blurFilter,
   direction = "column",
   children,
-  blurFilter,
 }: Props) => {
   return (
     <Flex
@@ -44,25 +45,36 @@ const DashboardCard = ({
         p={{ base: 1.5, md: 3 }}
         w={{ base: "full", md: direction === "row" ? "340px" : "full" }}
       >
-        {title && (
-          <Flex alignItems="center" gap={2}>
-            <Text fontSize={{ base: "md", md: "lg" }} fontWeight="500">
-              {title}
-            </Text>
-            {availableSoon && <Tag colorScheme="blue">Available soon</Tag>}
-          </Flex>
-        )}
-        <Text as="div" fontSize="sm">
+        <Flex alignItems="center" gap={2}>
+          <Text fontSize={{ base: "sm", md: "lg" }} fontWeight="500">
+            {title}
+          </Text>
+          {hint && (
+            <HintPopover
+              label={hint}
+              popoverContentProps={{
+                maxW: { base: "calc(100vw - 8px)", lg: "210px" },
+              }}
+              popoverBodyProps={{ textAlign: "center" }}
+            />
+          )}
+          {availableSoon && (
+            <Tag colorScheme="blue" fontSize={{ base: "12px", md: "sm" }}>
+              Available soon
+            </Tag>
+          )}
+        </Flex>
+        <Text as="div" fontSize={{ base: "12px", md: "sm" }}>
           {description}
         </Text>
-        {contentAfter}
       </Flex>
       <Flex
         alignItems="center"
         justifyContent="space-around"
         borderRadius={{ base: "lg", md: "8px" }}
         backgroundColor={useColorModeValue("gray.50", "whiteAlpha.50")}
-        h={{ base: "80px", md: direction === "row" ? "auto" : "128px" }}
+        px={3}
+        py={{ base: 4, md: 6 }}
         filter="auto"
         blur={blurFilter ? "4px" : "0"}
         flex={direction === "row" ? 1 : "0 1 auto"}

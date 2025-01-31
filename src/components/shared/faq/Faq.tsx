@@ -13,7 +13,7 @@ type Props = {
 const Faq = ({ items }: Props) => {
   const sliceIndex = Math.ceil(items.length / 2);
   return (
-    <Box mt={{ base: 0, md: 10 }}>
+    <Box mt={{ base: 6, md: 10 }}>
       <Heading
         as="h2"
         lineHeight="32px"

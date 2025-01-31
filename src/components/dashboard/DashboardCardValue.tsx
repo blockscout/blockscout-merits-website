@@ -3,33 +3,17 @@ import React from "react";
 
 import Skeleton from "~/chakra/Skeleton";
 
-import HintPopover from "~/components/shared/HintPopover";
 import MeritsIcon from "~/components/MeritsIcon";
 
 type Props = {
   label: string;
   value: number | string | undefined;
   withIcon?: boolean;
-  hint?: string | React.ReactNode;
   isLoading?: boolean;
 };
 
-const DashboardCard = ({ label, value, withIcon, hint, isLoading }: Props) => (
-  <Flex key={label} flexDirection="column" alignItems="center" gap={2}>
-    <Flex alignItems="center" gap={1}>
-      {hint && (
-        <HintPopover
-          label={hint}
-          popoverContentProps={{
-            maxW: { base: "calc(100vw - 8px)", lg: "210px" },
-          }}
-          popoverBodyProps={{ textAlign: "center" }}
-        />
-      )}
-      <Text fontSize="xs" fontWeight="500" variant="secondary">
-        {label}
-      </Text>
-    </Flex>
+const DashboardCard = ({ value, withIcon, isLoading }: Props) => (
+  <Flex key={value} flexDirection="column" alignItems="center" gap={2}>
     <Skeleton
       isLoaded={!isLoading}
       display="flex"
@@ -40,8 +24,8 @@ const DashboardCard = ({ label, value, withIcon, hint, isLoading }: Props) => (
     >
       {withIcon && <MeritsIcon boxSize={8} />}
       <Text
-        fontSize={{ base: "24px", md: "32px" }}
-        lineHeight={{ base: "24px", md: 1.5 }}
+        fontSize={{ base: "18px", md: "32px" }}
+        lineHeight={{ base: "24px", md: 1.25 }}
         fontWeight="500"
       >
         {value}
