@@ -1,13 +1,13 @@
 import { Flex, Text, Button, Image, useBoolean, Link } from "@chakra-ui/react";
 import React from "react";
 import { format } from "date-fns";
+import { upperFirst } from "lodash";
 
 import type { Campaign } from "~/types/campaign";
 
 import SpriteIcon from "~/components/shared/SpriteIcon";
 import LabelWithIcon from "~/components/shared/LabelWithIcon";
 import Skeleton from "~/chakra/Skeleton";
-import capitalizeFirstLetter from "~/lib/capitalizeFirstLetter";
 
 import StatusLabel from "./StatusLabel";
 
@@ -111,7 +111,7 @@ export default function CampaignDetails({
               text={
                 rewardType === "merits"
                   ? `${rewardValue} Merits`
-                  : capitalizeFirstLetter(rewardType)
+                  : upperFirst(rewardType)
               }
               position="absolute"
               right="12px"

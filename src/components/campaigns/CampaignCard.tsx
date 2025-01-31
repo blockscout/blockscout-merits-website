@@ -1,10 +1,10 @@
 import { Flex, Text, Image, Link } from "@chakra-ui/react";
 import React, { useCallback } from "react";
+import { upperFirst } from "lodash";
 
 import type { Campaign } from "~/types/campaign";
 
 import LabelWithIcon from "~/components/shared/LabelWithIcon";
-import capitalizeFirstLetter from "~/lib/capitalizeFirstLetter";
 
 import StatusLabel from "./StatusLabel";
 
@@ -74,7 +74,7 @@ export default function CampaignCard({
           text={
             rewardType === "merits"
               ? `${rewardValue} Merits`
-              : capitalizeFirstLetter(rewardType)
+              : upperFirst(rewardType)
           }
           position="absolute"
           right="12px"

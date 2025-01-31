@@ -1,11 +1,11 @@
 import { Flex, Text, Image, Link } from "@chakra-ui/react";
 import React, { useCallback } from "react";
+import { upperFirst } from "lodash";
 
 import type { Offer } from "~/types/api/offer";
 
 import SpriteIcon from "~/components/shared/SpriteIcon";
 import LabelWithIcon from "~/components/shared/LabelWithIcon";
-import capitalizeFirstLetter from "~/lib/capitalizeFirstLetter";
 
 import { getBgColor } from "./utils";
 
@@ -69,7 +69,7 @@ export default function OfferCard({
         />
         <LabelWithIcon
           icon="present"
-          text={capitalizeFirstLetter(details.type)}
+          text={upperFirst(details.type)}
           position="absolute"
           right="12px"
           top="12px"

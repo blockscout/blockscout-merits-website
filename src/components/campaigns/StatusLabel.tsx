@@ -1,9 +1,8 @@
 import { Flex, Box, Text, chakra } from "@chakra-ui/react";
 import React from "react";
+import { upperFirst } from "lodash";
 
 import type { Campaign } from "~/types/campaign";
-
-import capitalizeFirstLetter from "~/lib/capitalizeFirstLetter";
 
 type Props = {
   status: Campaign["status"];
@@ -27,7 +26,7 @@ const StatusLabel = ({ status, className }: Props) => (
     bgColor="white"
   >
     <Box w={2} h={2} borderRadius="full" bgColor={colors[status]} />
-    <Text fontSize="sm">{capitalizeFirstLetter(status)}</Text>
+    <Text fontSize="sm">{upperFirst(status)}</Text>
   </Flex>
 );
 
