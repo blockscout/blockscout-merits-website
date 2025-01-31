@@ -94,7 +94,7 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
             checkRedeemQuery.data && !checkRedeemQuery.data?.is_redeemable
           }
         >
-          {address ? "Claim reward" : "Log in"}
+          {address ? "Redeem" : "Log in"}
         </Button>
       ) : null,
     [
