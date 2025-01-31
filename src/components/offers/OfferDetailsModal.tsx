@@ -6,7 +6,6 @@ import {
   ModalCloseButton,
   ModalBody,
   Button,
-  Alert,
 } from "@chakra-ui/react";
 import React, { useCallback, useMemo } from "react";
 
@@ -19,12 +18,14 @@ import useRedeemOffer from "~/hooks/useRedeemOffer";
 import useBalancesQuery from "~/hooks/useBalancesQuery";
 import useOffersQuery from "~/hooks/useOffersQuery";
 import useOfferRedemptionsQuery from "~/hooks/useOfferRedemptions";
+import useCheckRedeemQuery from "~/hooks/useCheckRedeemQuery";
 import { useAppContext } from "~/contexts/app";
 
 import Description from "./detailsModal/tabs/Description";
 import HowToUse from "./detailsModal/tabs/HowToUse";
 import Redemptions from "./detailsModal/tabs/Redemptions";
 import CongratsScreen from "./detailsModal/CongratsScreen";
+import RedeemAlert from "./detailsModal/RedeemAlert";
 
 type Props = {
   offer: Offer;
@@ -38,6 +39,7 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
   const balancesQuery = useBalancesQuery();
   const offersQuery = useOffersQuery();
   const redemptionsQuery = useOfferRedemptionsQuery(offer.offer_id);
+  const checkRedeemQuery = useCheckRedeemQuery(offer);
   const redeemOffer = useRedeemOffer();
 
   const [isRedeeming, setIsRedeeming] = React.useState(false);
@@ -46,21 +48,6 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
   const [defaultTabIndex, setDefaultTabIndex] = React.useState<
     number | undefined
   >();
-
-  const isInsufficientBalance = useMemo(
-    () =>
-      Boolean(address) &&
-      Number(balancesQuery.data?.total || 0) < Number(offer.price),
-    [balancesQuery, offer, address],
-  );
-
-  const hasRedeemedUniqueOffer = useMemo(
-    () =>
-      offer.is_unique_per_address &&
-      !redemptionsQuery.isPlaceholderData &&
-      Boolean(redemptionsQuery.data?.items?.length),
-    [offer.is_unique_per_address, redemptionsQuery],
-  );
 
   const handleClose = useCallback(() => {
     onClose();
@@ -80,34 +67,32 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
       const { secret } = await redeemOffer(offer);
       setPromoCode(secret);
       setIsRedeemed(true);
-      await Promise.all([balancesQuery.refetch(), offersQuery.refetch()]);
+      await Promise.all([
+        balancesQuery.refetch(),
+        offersQuery.refetch(),
+        redemptionsQuery.refetch(),
+        checkRedeemQuery.refetch(),
+      ]);
     } catch (error) {} // eslint-disable-line no-empty
     setIsRedeeming(false);
-  }, [offer, redeemOffer, balancesQuery, offersQuery]);
-
-  const alert = useMemo(
-    () =>
-      isInsufficientBalance || hasRedeemedUniqueOffer ? (
-        <Alert status="warning" mb={4} py={2} px={3} borderRadius="base">
-          {isInsufficientBalance
-            ? "Insufficient balance of Merits"
-            : "This offer is available one per address"}
-        </Alert>
-      ) : null,
-    [isInsufficientBalance, hasRedeemedUniqueOffer],
-  );
+  }, [
+    offer,
+    redeemOffer,
+    balancesQuery,
+    offersQuery,
+    redemptionsQuery,
+    checkRedeemQuery,
+  ]);
 
   const redeemButton = useMemo(
     () =>
       offer.is_valid ? (
         <Button
           onClick={address ? handleRedeem : loginModal.onOpen}
-          isLoading={
-            isRedeeming ||
-            balancesQuery.isPlaceholderData ||
-            redemptionsQuery.isPlaceholderData
+          isLoading={isRedeeming || checkRedeemQuery.isPending}
+          isDisabled={
+            checkRedeemQuery.data && !checkRedeemQuery.data?.is_redeemable
           }
-          isDisabled={isInsufficientBalance || hasRedeemedUniqueOffer}
         >
           {address ? "Claim reward" : "Log in"}
         </Button>
@@ -117,13 +102,12 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
       isRedeeming,
       loginModal,
       address,
-      isInsufficientBalance,
       offer.is_valid,
-      balancesQuery.isPlaceholderData,
-      redemptionsQuery.isPlaceholderData,
-      hasRedeemedUniqueOffer,
+      checkRedeemQuery,
     ],
   );
+
+  const alert = <RedeemAlert checkRedeemQuery={checkRedeemQuery} />;
 
   return (
     <Modal
