@@ -89,7 +89,7 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
       offer.is_valid ? (
         <Button
           onClick={address ? handleRedeem : loginModal.onOpen}
-          isLoading={isRedeeming || checkRedeemQuery.isPending}
+          isLoading={isRedeeming || checkRedeemQuery.isLoading}
           isDisabled={
             checkRedeemQuery.data && !checkRedeemQuery.data?.is_redeemable
           }
