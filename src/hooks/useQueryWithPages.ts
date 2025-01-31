@@ -48,6 +48,7 @@ type Props = {
   headers?: Record<string, string>;
   placeholderData?: unknown;
   scrollRef?: React.RefObject<HTMLDivElement>;
+  enabled?: boolean;
 };
 
 export default function useQueryWithPages<Response>({
@@ -57,6 +58,7 @@ export default function useQueryWithPages<Response>({
   headers,
   placeholderData,
   scrollRef,
+  enabled = true,
 }: Props): QueryWithPagesResult<Response> {
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -109,6 +111,7 @@ export default function useQueryWithPages<Response>({
       return response.json();
     },
     placeholderData,
+    enabled,
   });
   const { data } = queryResult;
   const nextPageParams = getNextPageParams(data);

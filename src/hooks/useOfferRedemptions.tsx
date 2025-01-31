@@ -15,5 +15,6 @@ export default function useOfferRedemptionsQuery(offerId: Offer["offer_id"]) {
     params: { page_size: 50, offer_id: offerId },
     headers: { Authorization: `Bearer ${apiToken}` },
     placeholderData: offerRedemptionsStub,
+    enabled: Boolean(apiToken),
   });
 }
