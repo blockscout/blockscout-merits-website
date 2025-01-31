@@ -3,7 +3,7 @@ import React, { useCallback } from "react";
 
 import * as mixpanel from "~/lib/mixpanel";
 
-export default function DashboardBanner() {
+export default function Banner() {
   const handleClick = useCallback(() => {
     mixpanel.logEvent(mixpanel.EventTypes.ACTION, { Source: "Banner" });
   }, []);
