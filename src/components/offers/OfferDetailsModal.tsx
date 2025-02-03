@@ -157,13 +157,15 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
                     />
                   ),
                 },
-                {
-                  id: "redemptions",
-                  title: "Redemptions",
-                  component: (
-                    <Redemptions redemptionsQuery={redemptionsQuery} />
-                  ),
-                },
+                address
+                  ? {
+                      id: "redemptions",
+                      title: "Redemptions",
+                      component: (
+                        <Redemptions redemptionsQuery={redemptionsQuery} />
+                      ),
+                    }
+                  : null,
               ].filter(Boolean)}
             />
           )}
