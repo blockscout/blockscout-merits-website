@@ -53,6 +53,8 @@ export default function OfferCard({
         <Image
           src={details.image_url}
           alt={`${details.title} image`}
+          maxW="200px"
+          maxH="200px"
           opacity={!is_valid ? 0.3 : 1}
           filter={!is_valid ? "grayscale(1)" : "none"}
           transitionProperty="transform"
