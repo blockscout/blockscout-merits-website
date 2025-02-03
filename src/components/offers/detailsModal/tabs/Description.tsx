@@ -1,4 +1,4 @@
-import { Flex, Image, Text } from "@chakra-ui/react";
+import { Flex, Image, Text, Link } from "@chakra-ui/react";
 import { upperFirst } from "lodash";
 import { format } from "date-fns";
 import React from "react";
@@ -108,7 +108,10 @@ export default function Description({ offer, alert, redeemButton }: Props) {
           ))}
         </Flex>
       </Flex>
-      <Text mb={6}>{offer.details.description}</Text>
+      <Text mb={2}>{offer.details.description}</Text>
+      <Link href="https://discord.gg/blockscout" isExternal mb={6}>
+        Faced any issues? Contact us on Discord
+      </Link>
       {redeemButton}
     </Flex>
   );
