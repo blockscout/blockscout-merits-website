@@ -40,9 +40,10 @@ export default function Description({ offer, alert, redeemButton }: Props) {
           <Image
             src={offer.details.image_url}
             alt={`${offer.details.title} image`}
+            maxW="150px"
+            maxH="150px"
             opacity={!offer.is_valid ? 0.3 : 1}
             filter={!offer.is_valid ? "grayscale(1)" : "none"}
-            transform="scale(0.75)"
           />
         </Flex>
         <Flex
