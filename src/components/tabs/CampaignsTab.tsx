@@ -1,8 +1,6 @@
 import { Grid } from "@chakra-ui/react";
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-
-import type { Campaign } from "~/types/campaign";
 
 import Skeleton from "~/chakra/Skeleton";
 import useCampaignsQuery from "~/hooks/useCampaignsQuery";
@@ -21,9 +19,12 @@ export default function BadgesTab({ scrollRef }: Props) {
   const pathname = usePathname();
   const router = useRouter();
 
-  const [selectedCampaign, setSelectedCampaign] = useState<
-    Campaign | undefined
-  >();
+  const [campaignId, setCampaignId] = useState(() => searchParams.get("id"));
+
+  useEffect(() => {
+    const newId = searchParams.get("id");
+    setCampaignId(newId);
+  }, [searchParams]);
 
   const scrollToTop = useCallback(() => {
     if (scrollRef?.current) {
@@ -38,6 +39,8 @@ export default function BadgesTab({ scrollRef }: Props) {
 
   const handleSelect = useCallback(
     (id?: string, isReplace?: boolean) => {
+      setCampaignId(id ?? null);
+
       const params = new URLSearchParams(searchParams.toString());
       if (id) {
         params.set("id", id);
@@ -54,21 +57,18 @@ export default function BadgesTab({ scrollRef }: Props) {
 
   const handleClose = useCallback(() => handleSelect(), [handleSelect]);
 
-  useEffect(() => {
-    if (campaignsQuery.isPlaceholderData) return;
-
-    const id = searchParams.get("id");
-    const campaign = id
-      ? campaignsQuery.data?.find((c) => c.id === id)
-      : undefined;
-    setSelectedCampaign(campaign);
-
-    if (id && !campaign) {
+  const selectedCampaign = useMemo(() => {
+    if (!campaignId || campaignsQuery.isPlaceholderData) {
+      return undefined;
+    }
+    const campaign = campaignsQuery.data?.find((c) => c.id === campaignId);
+    if (!campaign) {
       handleSelect(undefined, true);
     }
-  }, [campaignsQuery, searchParams, handleSelect]);
+    return campaign;
+  }, [campaignId, campaignsQuery, handleSelect]);
 
-  return searchParams.get("id") ? (
+  return campaignId ? (
     <CampaignDetails
       {...(selectedCampaign || campaignsStub[0])}
       isLoading={!selectedCampaign}

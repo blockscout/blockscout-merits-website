@@ -1,5 +1,5 @@
 import { Grid } from "@chakra-ui/react";
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
 import type { Offer } from "~/types/api/offer";
@@ -15,29 +15,41 @@ export default function OffersTab() {
   const pathname = usePathname();
   const router = useRouter();
   const offersQuery = useOffersQuery();
-  const [selectedOffer, setSelectedOffer] = React.useState<Offer | undefined>();
+
+  const [offerId, setOfferId] = useState(() => searchParams.get("id"));
+
+  useEffect(() => {
+    const newId = searchParams.get("id");
+    setOfferId(newId);
+  }, [searchParams]);
 
   const handleSelect = useCallback(
     (id?: Offer["offer_id"]) => {
+      setOfferId(id ?? null);
+
       const params = new URLSearchParams(searchParams.toString());
       if (id) {
         params.set("id", id);
       } else {
         params.delete("id");
       }
-      router.replace(`${pathname}?${params}`);
+      router.replace(`${pathname}?${params}`, { scroll: false });
     },
     [searchParams, pathname, router],
   );
 
-  useEffect(() => {
-    const id = searchParams.get("id");
-    const offer =
-      id && !offersQuery.isPlaceholderData
-        ? offersQuery.data?.find((offer) => offer.offer_id === id)
-        : undefined;
-    setSelectedOffer(offer);
-  }, [searchParams, offersQuery]);
+  const handleClose = useCallback(() => handleSelect(), [handleSelect]);
+
+  const selectedOffer = useMemo(() => {
+    if (!offerId || offersQuery.isPlaceholderData) {
+      return undefined;
+    }
+    const offer = offersQuery.data?.find((offer) => offer.offer_id === offerId);
+    if (!offer) {
+      handleSelect();
+    }
+    return offer;
+  }, [offerId, offersQuery, handleSelect]);
 
   return (
     <>
@@ -52,8 +64,9 @@ export default function OffersTab() {
           </Skeleton>
         ))}
       </Grid>
+
       {selectedOffer && (
-        <OfferDetailsModal offer={selectedOffer} onClose={handleSelect} />
+        <OfferDetailsModal offer={selectedOffer} onClose={handleClose} />
       )}
     </>
   );
