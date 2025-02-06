@@ -11,6 +11,11 @@ export default function useUserQuery(address?: string) {
     queryKey: ["user", address],
     queryFn: async () => {
       const response = await fetch(getApiUrl(`/leaderboard/users/${address}`));
+
+      if (!response.ok) {
+        return undefined;
+      }
+
       return (await response.json()) as User;
     },
     enabled: Boolean(address),
