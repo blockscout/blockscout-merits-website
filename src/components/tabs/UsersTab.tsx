@@ -25,7 +25,7 @@ export default function UsersTab() {
   );
 
   const handleSearchAddressChange = useCallback((value: string) => {
-    setSearchAddress(value);
+    setSearchAddress(value.toLowerCase());
   }, []);
 
   return (
