@@ -134,6 +134,7 @@ const AdaptiveTabsList = (props: Props) => {
             {...(index === props.activeTabIndex
               ? { "data-selected": true }
               : {})}
+            onClick={() => props.onItemClick(index)}
           >
             <Skeleton isLoaded={!props.isLoading}>
               {typeof tab.title === "function" ? tab.title() : tab.title}
