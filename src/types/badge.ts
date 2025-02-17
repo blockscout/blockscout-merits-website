@@ -8,4 +8,6 @@ export interface Badge {
   name: string;
   description: string;
   rarity: "regular" | "rare" | "super-rare" | "legend" | "epic";
+  isAnimated?: boolean;
+  explorerUrl: string;
 }

@@ -1,10 +1,9 @@
-import { Flex, Text, Image, Link, useBoolean } from "@chakra-ui/react";
+import { Flex, Text, Image, Link, useBoolean, Box } from "@chakra-ui/react";
 import React from "react";
 
 import type { Badge } from "~/types/badge";
 
 import config from "~/config/app";
-import chains from "~/config/chains";
 
 import SpriteIcon from "~/components/shared/SpriteIcon";
 
@@ -14,35 +13,36 @@ type Props = Badge;
 
 const colors: Record<Badge["rarity"], { bg: string; text: string }> = {
   regular: {
-    bg: "#DFE8F5",
+    bg: "#d9e3f3",
     text: "#607793",
   },
   rare: {
-    bg: "#D2E5FE",
+    bg: "#cce0fd",
     text: "#0E3FA7",
   },
   "super-rare": {
-    bg: "#C8EBDF",
+    bg: "#bee7d9",
     text: "#136F4F",
   },
   legend: {
-    bg: "#EFE1FF",
+    bg: "#eddcfd",
     text: "#6B3EA3",
   },
   epic: {
-    bg: "#FCE4AF",
+    bg: "#fde1b4",
     text: "#A64B00",
   },
 };
 
 export default function BadgeCard({
-  chainId,
   id,
   collectionId,
   address,
   name,
   description,
   rarity,
+  isAnimated,
+  explorerUrl,
 }: Props) {
   const isMobile = useIsMobile();
   const [isHovered, setIsHovered] = useBoolean(false);
@@ -53,7 +53,7 @@ export default function BadgeCard({
     <>
       <Flex flexDir="column" gap={2} px={3}>
         <Link
-          href={`${chains[chainId].explorerUrl}/token/${address}?${utmParams}`}
+          href={`${explorerUrl}/token/${address}?${utmParams}`}
           isExternal
           fontWeight="500"
         >
@@ -62,7 +62,7 @@ export default function BadgeCard({
         <Text fontSize="sm">
           Token ID:{" "}
           <Link
-            href={`${chains[chainId].explorerUrl}/token/${address}/instance/${id}?${utmParams}`}
+            href={`${explorerUrl}/token/${address}/instance/${id}?${utmParams}`}
             isExternal
           >
             #{id}
@@ -84,11 +84,21 @@ export default function BadgeCard({
         bgColor={colors[rarity].bg}
         position="relative"
       >
-        <Image
-          src={`${config.images.baseUrl}/${collectionId}/${rarity}.png`}
-          alt={`${name} badge`}
-          width="130px"
-        />
+        {isAnimated ? (
+          <Box as="video" autoPlay loop muted playsInline width="130px">
+            <source
+              src={`${config.images.baseUrl}/${collectionId}/${rarity}.webm`}
+              type="video/webm"
+            />
+            Your browser does not support the video tag.
+          </Box>
+        ) : (
+          <Image
+            src={`${config.images.baseUrl}/${collectionId}/${rarity}.png`}
+            alt={`${name} badge`}
+            width="130px"
+          />
+        )}
         <Flex
           position="absolute"
           top="12px"
