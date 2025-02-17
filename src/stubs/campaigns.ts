@@ -21,7 +21,7 @@ export default Array.from({ length: 4 }, (_, i) => ({
       buttonLink: "https://example.com",
     },
     {
-      title: "Follow @blockscoutcom on twitter",
+      title: "Follow @blockscout on twitter",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do.",
       buttonText: "Follow",

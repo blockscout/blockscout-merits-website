@@ -106,7 +106,7 @@ export default function DashboardLayout({
               <Link href="https://github.com/blockscout" isExternal h={5}>
                 <SpriteIcon name="social/github-circle" boxSize={5} />
               </Link>
-              <Link href="https://x.com/blockscoutcom" isExternal h={5}>
+              <Link href="https://x.com/blockscout" isExternal h={5}>
                 <SpriteIcon name="social/x-circle" boxSize={5} />
               </Link>
               <Link href="https://discord.gg/blockscout" isExternal h={5}>

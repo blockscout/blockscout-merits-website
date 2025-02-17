@@ -42,7 +42,7 @@ export default function Dashboard() {
     mixpanel.logEvent(mixpanel.EventTypes.ACTION, { Source: "Share button" });
   }, []);
 
-  let shareText = `Claim your free @blockscoutcom #Merits and start building your daily streak today! #Blockscout #Merits #IYKYK\n\nBoost your rewards instantly by using my referral code: ${referralsQuery.data?.link}`;
+  let shareText = `Claim your free @blockscout #Merits and start building your daily streak today! #Blockscout #Merits #IYKYK\n\nBoost your rewards instantly by using my referral code: ${referralsQuery.data?.link}`;
   if (Number(dailyRewardQuery.data?.streak) > 0) {
     const days = `day${Number(dailyRewardQuery.data?.streak) === 1 ? "" : "s"}`;
     shareText =
