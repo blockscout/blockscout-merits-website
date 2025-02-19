@@ -22,11 +22,11 @@ export default function Redemptions({ redemptionsQuery }: Props) {
             }}
           >
             <Th w="10%">#</Th>
-            <Th w="30%">Code</Th>
-            <Th isNumeric w="30%">
+            <Th w={{ base: "30%", md: "40%" }}>Code</Th>
+            <Th isNumeric w={{ base: "30%", md: "25%" }}>
               Date
             </Th>
-            <Th isNumeric w="30%">
+            <Th isNumeric w={{ base: "30%", md: "25%" }}>
               Price
             </Th>
           </Tr>
@@ -46,6 +46,7 @@ export default function Redemptions({ redemptionsQuery }: Props) {
                 <Skeleton
                   isLoaded={!redemptionsQuery.isPlaceholderData}
                   display="inline-block"
+                  wordBreak="break-all"
                 >
                   {redemption.secret ? (
                     <>
