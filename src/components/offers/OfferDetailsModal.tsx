@@ -6,6 +6,7 @@ import {
   ModalCloseButton,
   ModalBody,
   Button,
+  useBoolean,
 } from "@chakra-ui/react";
 import React, { useCallback, useMemo } from "react";
 
@@ -25,6 +26,7 @@ import Description from "./detailsModal/tabs/Description";
 import HowToUse from "./detailsModal/tabs/HowToUse";
 import Redemptions from "./detailsModal/tabs/Redemptions";
 import CongratsScreen from "./detailsModal/CongratsScreen";
+import ConfirmScreen from "./detailsModal/ConfirmScreen";
 import RedeemAlert from "./detailsModal/RedeemAlert";
 
 type Props = {
@@ -48,6 +50,7 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
   const [defaultTabIndex, setDefaultTabIndex] = React.useState<
     number | undefined
   >();
+  const [showConfirmation, setShowConfirmation] = useBoolean(false);
 
   const handleClose = useCallback(() => {
     onClose();
@@ -88,7 +91,7 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
     () =>
       offer.is_valid ? (
         <Button
-          onClick={address ? handleRedeem : loginModal.onOpen}
+          onClick={address ? setShowConfirmation.on : loginModal.onOpen}
           isLoading={isRedeeming || checkRedeemQuery.isLoading}
           isDisabled={
             checkRedeemQuery.data && !checkRedeemQuery.data?.is_redeemable
@@ -98,7 +101,7 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
         </Button>
       ) : null,
     [
-      handleRedeem,
+      setShowConfirmation.on,
       isRedeeming,
       loginModal,
       address,
@@ -109,6 +112,71 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
 
   const alert = <RedeemAlert checkRedeemQuery={checkRedeemQuery} />;
 
+  let content = null;
+  let contentWidth = "400px";
+  let title;
+
+  if (isRedeemed) {
+    title = "Congratulations";
+    content = (
+      <CongratsScreen
+        offer={offer}
+        promoCode={promoCode}
+        onClose={handleClose}
+        onOpenInstructions={handleOpenInstructions}
+      />
+    );
+  } else if (showConfirmation) {
+    title = "Are you sure?";
+    content = (
+      <ConfirmScreen
+        confirm={handleRedeem}
+        cancel={setShowConfirmation.off}
+        isLoading={isRedeeming}
+        price={offer.price}
+      />
+    );
+  } else {
+    contentWidth = "560px";
+    title = offer.details.title;
+    content = (
+      <TabsWithScroll
+        defaultTabIndex={defaultTabIndex}
+        tabs={[
+          {
+            id: "description",
+            title: "Description",
+            component: (
+              <Description
+                offer={offer}
+                alert={alert}
+                redeemButton={redeemButton}
+              />
+            ),
+          },
+          {
+            id: "how to use",
+            title: "How to use",
+            component: (
+              <HowToUse
+                offer={offer}
+                alert={alert}
+                redeemButton={redeemButton}
+              />
+            ),
+          },
+          address
+            ? {
+                id: "redemptions",
+                title: "Redemptions",
+                component: <Redemptions redemptionsQuery={redemptionsQuery} />,
+              }
+            : null,
+        ].filter(Boolean)}
+      />
+    );
+  }
+
   return (
     <Modal
       isOpen={!loginModal.isOpen}
@@ -118,58 +186,12 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
       autoFocus={false}
     >
       <ModalOverlay />
-      <ModalContent width={isRedeemed ? "400px" : "560px"} p={6}>
+      <ModalContent width={contentWidth} p={6}>
         <ModalHeader fontWeight="500" textStyle="h3" mb={4} pr={12}>
-          {isRedeemed ? "Congratulations" : offer.details.title}
+          {title}
         </ModalHeader>
         <ModalCloseButton top={6} right={6} />
-        <ModalBody mb={0}>
-          {isRedeemed ? (
-            <CongratsScreen
-              offer={offer}
-              promoCode={promoCode}
-              onClose={handleClose}
-              onOpenInstructions={handleOpenInstructions}
-            />
-          ) : (
-            <TabsWithScroll
-              defaultTabIndex={defaultTabIndex}
-              tabs={[
-                {
-                  id: "description",
-                  title: "Description",
-                  component: (
-                    <Description
-                      offer={offer}
-                      alert={alert}
-                      redeemButton={redeemButton}
-                    />
-                  ),
-                },
-                {
-                  id: "how to use",
-                  title: "How to use",
-                  component: (
-                    <HowToUse
-                      offer={offer}
-                      alert={alert}
-                      redeemButton={redeemButton}
-                    />
-                  ),
-                },
-                address
-                  ? {
-                      id: "redemptions",
-                      title: "Redemptions",
-                      component: (
-                        <Redemptions redemptionsQuery={redemptionsQuery} />
-                      ),
-                    }
-                  : null,
-              ].filter(Boolean)}
-            />
-          )}
-        </ModalBody>
+        <ModalBody mb={0}>{content}</ModalBody>
       </ModalContent>
     </Modal>
   );
