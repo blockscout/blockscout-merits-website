@@ -34,8 +34,8 @@ export default function DashboardPage() {
               component: <UsersTab />,
             },
             {
-              id: "referral program",
-              title: "Referral program",
+              id: "referrals",
+              title: "Referrals",
               component: <ReferralProgramTab />,
             },
             {
@@ -49,8 +49,8 @@ export default function DashboardPage() {
               component: <CampaignsTab scrollRef={scrollRef} />,
             },
             {
-              id: "redeem",
-              title: "Redeem",
+              id: "spend",
+              title: "Spend Merits",
               component: <OffersTab />,
             },
             {

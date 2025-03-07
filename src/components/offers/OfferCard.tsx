@@ -1,4 +1,4 @@
-import { Flex, Text, Image, Link } from "@chakra-ui/react";
+import { Flex, Text, Image, Link, Tooltip } from "@chakra-ui/react";
 import React, { useCallback } from "react";
 import { upperFirst } from "lodash";
 
@@ -62,13 +62,18 @@ export default function OfferCard({
           transitionTimingFunction="ease"
           _groupHover={{ base: {}, lg: { transform: "scale(1.1)" } }}
         />
-        <LabelWithIcon
-          icon="cards"
-          text={`${redemptions_limit - redemptions_count}/${redemptions_limit}`}
-          position="absolute"
-          left="12px"
-          top="12px"
-        />
+        <Tooltip
+          label={`Total available ${redemptions_limit - redemptions_count}`}
+          placement="top"
+          hasArrow
+        >
+          <Flex position="absolute" left="12px" top="12px">
+            <LabelWithIcon
+              icon="cards"
+              text={`${redemptions_limit - redemptions_count}/${redemptions_limit}`}
+            />
+          </Flex>
+        </Tooltip>
         <LabelWithIcon
           icon="present"
           text={upperFirst(details.type)}
