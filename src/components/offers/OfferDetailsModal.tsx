@@ -70,6 +70,7 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
       const { secret } = await redeemOffer(offer);
       setPromoCode(secret);
       setIsRedeemed(true);
+      setShowConfirmation.off();
       await Promise.all([
         balancesQuery.refetch(),
         offersQuery.refetch(),
@@ -85,6 +86,7 @@ const OfferDetailsModal = ({ offer, onClose }: Props) => {
     offersQuery,
     redemptionsQuery,
     checkRedeemQuery,
+    setShowConfirmation,
   ]);
 
   const redeemButton = useMemo(
