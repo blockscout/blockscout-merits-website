@@ -30,10 +30,8 @@ const RewardsLoginModal = ({ onClose }: Props) => {
 
   const goNext = useCallback(
     (isReferral: boolean, reward: string | null) => {
-      if (isReferral) {
-        setIsReferral(true);
-        setCustomReferralReward(reward);
-      }
+      setIsReferral(isReferral);
+      setCustomReferralReward(reward);
       setIsLoginStep(false);
     },
     [setIsLoginStep, setIsReferral],
