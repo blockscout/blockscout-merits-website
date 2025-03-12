@@ -14,5 +14,7 @@ export default function logEvent<EventType extends EventTypes>(
 ) {
   if (!config.mixpanel.projectToken) return;
 
-  mixpanel.track(type, properties, optionsOrCallback, callback);
+  try {
+    mixpanel.track(type, properties, optionsOrCallback, callback);
+  } catch {} // eslint-disable-line no-empty
 }

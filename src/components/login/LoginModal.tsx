@@ -5,9 +5,8 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
-  useBoolean,
 } from "@chakra-ui/react";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useAppKitState } from "@reown/appkit/react";
 
 import useIsMobile from "~/hooks/useIsMobile";
@@ -23,15 +22,19 @@ const RewardsLoginModal = ({ onClose }: Props) => {
   const isMobile = useIsMobile();
   const { open: isWalletModalOpen } = useAppKitState();
 
-  const [isLoginStep, setIsLoginStep] = useBoolean(true);
-  const [isReferral, setIsReferral] = useBoolean(false);
+  const [isLoginStep, setIsLoginStep] = useState(true);
+  const [isReferral, setIsReferral] = useState(false);
+  const [customReferralReward, setCustomReferralReward] = useState<
+    string | null
+  >(null);
 
   const goNext = useCallback(
-    (isReferral: boolean) => {
+    (isReferral: boolean, reward: string | null) => {
       if (isReferral) {
-        setIsReferral.on();
+        setIsReferral(true);
+        setCustomReferralReward(reward);
       }
-      setIsLoginStep.off();
+      setIsLoginStep(false);
     },
     [setIsLoginStep, setIsReferral],
   );
@@ -53,7 +56,11 @@ const RewardsLoginModal = ({ onClose }: Props) => {
           {isLoginStep ? (
             <LoginStepContent goNext={goNext} closeModal={onClose} />
           ) : (
-            <CongratsStepContent isReferral={isReferral} closeModal={onClose} />
+            <CongratsStepContent
+              isReferral={isReferral}
+              customReferralReward={customReferralReward}
+              closeModal={onClose}
+            />
           )}
         </ModalBody>
       </ModalContent>

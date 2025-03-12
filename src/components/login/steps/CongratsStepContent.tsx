@@ -18,18 +18,23 @@ import useConfigQuery from "~/hooks/useConfigQuery";
 
 type Props = {
   isReferral: boolean;
+  customReferralReward: string | null;
   closeModal: () => void;
 };
 
-const CongratsStepContent = ({ isReferral, closeModal }: Props) => {
+const CongratsStepContent = ({
+  isReferral,
+  customReferralReward,
+  closeModal,
+}: Props) => {
   const configQuery = useConfigQuery();
   const referralsQuery = useReferralsQuery();
 
-  const registrationReward = configQuery.data?.rewards.registration;
-  const registrationWithReferralReward =
-    configQuery.data?.rewards.registration_with_referral;
-  const referralReward =
-    Number(registrationWithReferralReward) - Number(registrationReward);
+  const registrationReward = Number(configQuery.data?.rewards.registration);
+  const registrationWithReferralReward = customReferralReward
+    ? Number(customReferralReward) + registrationReward
+    : Number(configQuery.data?.rewards.registration_with_referral);
+  const referralReward = registrationWithReferralReward - registrationReward;
 
   const refLink = referralsQuery.data?.link || "N/A";
   const shareText = `I joined the @blockscout Merits Program and got my first ${registrationReward || "N/A"} #Merits! Use this link for a sign-up bonus and start earning rewards with @blockscout block explorer.\n\n${refLink}`; // eslint-disable-line max-len
@@ -62,9 +67,9 @@ const CongratsStepContent = ({ isReferral, closeModal }: Props) => {
             color={textColor}
           >
             +
-            {configQuery.data?.rewards[
-              isReferral ? "registration_with_referral" : "registration"
-            ] || "N/A"}
+            {(isReferral
+              ? registrationWithReferralReward
+              : registrationReward) || "N/A"}
           </Text>
         </Skeleton>
         {isReferral && (

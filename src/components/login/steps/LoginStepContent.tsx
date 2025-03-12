@@ -24,7 +24,7 @@ import useLogin from "~/hooks/useLogin";
 import * as mixpanel from "~/lib/mixpanel";
 
 type Props = {
-  goNext: (isReferral: boolean) => void;
+  goNext: (isReferral: boolean, reward: string | null) => void;
   closeModal: () => void;
 };
 
@@ -62,14 +62,14 @@ const LoginStepContent = ({ goNext, closeModal }: Props) => {
       mixpanel.logEvent(mixpanel.EventTypes.WALLET, { Action: "Sign" });
       setRefCodeError.off();
       setIsLoading.on();
-      const { isNewUser, invalidRefCodeError } = await login(
+      const { isNewUser, reward, invalidRefCodeError } = await login(
         isSignUp && isRefCodeUsed ? refCode : "",
       );
       if (invalidRefCodeError) {
         setRefCodeError.on();
       } else {
         if (isNewUser) {
-          goNext(Boolean(refCode));
+          goNext(Boolean(refCode), reward);
         } else {
           closeModal();
         }
@@ -92,7 +92,8 @@ const LoginStepContent = ({ goNext, closeModal }: Props) => {
       isSignUp &&
       isRefCodeUsed &&
       refCode.length > 0 &&
-      refCode.length !== 6
+      refCode.length !== 6 &&
+      refCode.length !== 12
     ) {
       setRefCodeError.on();
     } else {
@@ -158,7 +159,7 @@ const LoginStepContent = ({ goNext, closeModal }: Props) => {
                 color={refCodeError ? "red.500" : undefined}
               >
                 {refCodeError
-                  ? "Incorrect code or format"
+                  ? "Incorrect code or format (6 or 12 characters)"
                   : "The code should be in format XXXXXX"}
               </Text>
             </>

@@ -65,8 +65,9 @@ export default function useLogin() {
                 response.json(),
               ) as Promise<{
                 valid: boolean;
+                reward: string | null;
               }>)
-            : Promise.resolve({ valid: true }),
+            : Promise.resolve({ valid: true, reward: null }),
         ]);
         if (!checkCodeResponse.valid) {
           return { invalidRefCodeError: true };
@@ -93,7 +94,10 @@ export default function useLogin() {
           created: boolean;
         }>);
         saveApiToken(loginResponse.token);
-        return { isNewUser: loginResponse.created };
+        return {
+          isNewUser: loginResponse.created,
+          reward: checkCodeResponse.reward,
+        };
       } catch (_error) {
         const apiError = getErrorObjPayload<{ message: string }>(_error);
         toast({
