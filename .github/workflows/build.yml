@@ -35,7 +35,7 @@ jobs:
           (if ! [[ "$t" == "" ]]; then echo tags=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$t, ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest; elif ! [[ "$m" == "" ]]; then echo tags=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:$m; else echo tags=; fi) >> $GITHUB_OUTPUT
 
       - name: Setup repo
-        uses: blockscout/blockscout-ci-cd/.github/actions/setup-multiarch-buildx@master
+        uses: blockscout/actions/.github/actions/setup-multiarch-buildx@main
         id: setup
         with:
           docker-image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
