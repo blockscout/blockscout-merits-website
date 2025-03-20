@@ -4,16 +4,43 @@ import React from "react";
 import Skeleton from "~/chakra/Skeleton";
 
 import MeritsIcon from "~/components/MeritsIcon";
+import HintPopover from "~/components/shared/HintPopover";
 
 type Props = {
-  label: string;
+  label?: string;
   value: number | string | undefined;
   withIcon?: boolean;
+  hint?: string | React.ReactNode;
   isLoading?: boolean;
+  bottomText?: string;
 };
 
-const DashboardCard = ({ value, withIcon, isLoading }: Props) => (
+const DashboardCard = ({
+  label,
+  value,
+  withIcon,
+  hint,
+  isLoading,
+  bottomText,
+}: Props) => (
   <Flex key={value} flexDirection="column" alignItems="center" gap={2}>
+    {label && (
+      <Flex alignItems="center" gap={1}>
+        {hint && (
+          <HintPopover
+            label={hint}
+            popoverContentProps={{
+              w: "fit-content",
+              maxW: { base: "calc(100vw - 8px)", lg: "210px" },
+            }}
+            popoverBodyProps={{ textAlign: "center" }}
+          />
+        )}
+        <Text fontSize="xs" fontWeight="500" variant="secondary">
+          {label}
+        </Text>
+      </Flex>
+    )}
     <Skeleton
       isLoaded={!isLoading}
       display="flex"
@@ -31,6 +58,11 @@ const DashboardCard = ({ value, withIcon, isLoading }: Props) => (
         {value}
       </Text>
     </Skeleton>
+    {bottomText && (
+      <Text fontSize="xs" fontWeight="500" variant="secondary">
+        {bottomText}
+      </Text>
+    )}
   </Flex>
 );
 

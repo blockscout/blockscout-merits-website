@@ -90,9 +90,9 @@ export default function Dashboard() {
             </>
           }
           direction="column-reverse"
+          cardValueStyle={{ h: { base: "64px", md: "88px" } }}
         >
           <RewardsDashboardCardValue
-            label="Total balance"
             value={balancesQuery.data?.total || "N/A"}
             isLoading={balancesQuery.isPending}
             withIcon
@@ -102,9 +102,9 @@ export default function Dashboard() {
           title="Referrals"
           description="Total number of users who have joined the program using your code or referral link."
           direction="column-reverse"
+          cardValueStyle={{ h: { base: "64px", md: "88px" } }}
         >
           <RewardsDashboardCardValue
-            label="Referrals"
             value={
               referralsQuery.data?.referrals
                 ? `${referralsQuery.data?.referrals} user${Number(referralsQuery.data?.referrals) === 1 ? "" : "s"}`
@@ -143,9 +143,9 @@ export default function Dashboard() {
             </>
           }
           direction="column-reverse"
+          cardValueStyle={{ h: { base: "64px", md: "88px" } }}
         >
           <RewardsDashboardCardValue
-            label="Streak"
             value={
               dailyRewardQuery.data?.streak
                 ? `${dailyRewardQuery.data?.streak} day${Number(dailyRewardQuery.data?.streak) === 1 ? "" : "s"}`

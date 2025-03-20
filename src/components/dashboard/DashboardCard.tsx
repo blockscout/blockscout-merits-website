@@ -1,4 +1,10 @@
-import { Flex, Text, useColorModeValue, Tag } from "@chakra-ui/react";
+import {
+  Flex,
+  Text,
+  useColorModeValue,
+  Tag,
+  ChakraStyledOptions,
+} from "@chakra-ui/react";
 import React from "react";
 
 import HintPopover from "~/components/shared/HintPopover";
@@ -11,6 +17,8 @@ type Props = {
   blurFilter?: boolean;
   direction?: "column" | "column-reverse" | "row";
   children?: React.ReactNode;
+  label?: string;
+  cardValueStyle?: ChakraStyledOptions;
 };
 
 const DashboardCard = ({
@@ -21,6 +29,8 @@ const DashboardCard = ({
   blurFilter,
   direction = "column",
   children,
+  label,
+  cardValueStyle,
 }: Props) => {
   return (
     <Flex
@@ -45,6 +55,7 @@ const DashboardCard = ({
         p={{ base: 1.5, md: 3 }}
         w={{ base: "full", md: direction === "row" ? "340px" : "full" }}
       >
+        {label && <Tag w="fit-content">{label}</Tag>}
         <Flex alignItems="center" gap={2}>
           <Text fontSize={{ base: "sm", md: "lg" }} fontWeight="500">
             {title}
@@ -53,6 +64,7 @@ const DashboardCard = ({
             <HintPopover
               label={hint}
               popoverContentProps={{
+                w: "fit-content",
                 maxW: { base: "calc(100vw - 8px)", lg: "210px" },
               }}
               popoverBodyProps={{ textAlign: "center" }}
@@ -74,10 +86,11 @@ const DashboardCard = ({
         borderRadius={{ base: "lg", md: "8px" }}
         backgroundColor={useColorModeValue("gray.50", "whiteAlpha.50")}
         px={3}
-        py={{ base: 4, md: 6 }}
+        h={{ base: "104px", md: "128px" }}
         filter="auto"
         blur={blurFilter ? "4px" : "0"}
         flex={direction === "row" ? 1 : "0 1 auto"}
+        {...cardValueStyle}
       >
         {children}
       </Flex>

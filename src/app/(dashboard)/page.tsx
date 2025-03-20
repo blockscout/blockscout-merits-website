@@ -57,7 +57,6 @@ export default function DashboardPage() {
               id: "tasks",
               title: "Tasks",
               component: <TasksTab />,
-              count: "(Soon)",
             },
             {
               id: "dapps",
