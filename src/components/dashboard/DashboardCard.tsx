@@ -6,6 +6,7 @@ import {
   ChakraStyledOptions,
 } from "@chakra-ui/react";
 import React from "react";
+import Skeleton from "~/chakra/Skeleton";
 
 import HintPopover from "~/components/shared/HintPopover";
 
@@ -19,6 +20,7 @@ type Props = {
   children?: React.ReactNode;
   label?: string;
   cardValueStyle?: ChakraStyledOptions;
+  isLoading?: boolean;
 };
 
 const DashboardCard = ({
@@ -31,6 +33,7 @@ const DashboardCard = ({
   children,
   label,
   cardValueStyle,
+  isLoading,
 }: Props) => {
   return (
     <Flex
@@ -55,7 +58,11 @@ const DashboardCard = ({
         p={{ base: 1.5, md: 3 }}
         w={{ base: "full", md: direction === "row" ? "340px" : "full" }}
       >
-        {label && <Tag w="fit-content">{label}</Tag>}
+        {label && (
+          <Skeleton isLoaded={!isLoading} w="fit-content">
+            <Tag>{label}</Tag>
+          </Skeleton>
+        )}
         <Flex alignItems="center" gap={2}>
           <Text fontSize={{ base: "sm", md: "lg" }} fontWeight="500">
             {title}
@@ -86,6 +93,7 @@ const DashboardCard = ({
         borderRadius={{ base: "lg", md: "8px" }}
         backgroundColor={useColorModeValue("gray.50", "whiteAlpha.50")}
         px={3}
+        mt={direction === "column" ? "auto" : 0}
         h={{ base: "104px", md: "128px" }}
         filter="auto"
         blur={blurFilter ? "4px" : "0"}
