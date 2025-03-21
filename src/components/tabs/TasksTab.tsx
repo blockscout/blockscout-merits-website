@@ -12,6 +12,8 @@ import {
   Text,
   Image,
   Box,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import { format } from "date-fns";
 import { useMemo } from "react";
@@ -19,6 +21,7 @@ import { useMemo } from "react";
 import DashboardCard from "~/components/dashboard/DashboardCard";
 import DashboardCardValue from "~/components/dashboard/DashboardCardValue";
 import Markdown from "~/components/shared/Markdown";
+import { apos } from "~/lib/htmlEntities";
 
 import { useAppContext } from "~/contexts/app";
 import useActivityQuery from "~/hooks/useActivityQuery";
@@ -76,6 +79,24 @@ export default function TasksTab() {
 
   return (
     <>
+      {apiToken && (
+        <Alert
+          status="info"
+          size="xs"
+          colorScheme="gray"
+          mb={6}
+          px={3}
+          py={2}
+          w="fit-content"
+          borderRadius="base"
+        >
+          <AlertIcon boxSize={4} />
+          <Text fontWeight="600" fontSize={{ base: "sm", md: "md" }}>
+            Ensure you{apos}re logged into your Merits account on the Blockscout
+            Explorer to receive Merits for all your activities
+          </Text>
+        </Alert>
+      )}
       <Flex gap={6} flexDirection={{ base: "column", md: "row" }}>
         {[
           {
