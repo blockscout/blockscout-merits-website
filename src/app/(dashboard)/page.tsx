@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex } from "@chakra-ui/react";
+import { Flex, Box } from "@chakra-ui/react";
 import { useRef } from "react";
 
 import Dashboard from "~/components/dashboard/Dashboard";
@@ -24,7 +24,7 @@ export default function DashboardPage() {
     <Flex flexDirection="column" w="full" gap={8}>
       <Banner />
       <Dashboard />
-      <div ref={scrollRef}></div>
+      <Box ref={scrollRef} mt={-8} />
       {isInitialized && (
         <RoutedTabs
           tabs={[
