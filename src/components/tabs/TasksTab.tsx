@@ -21,6 +21,7 @@ import { useMemo } from "react";
 import DashboardCard from "~/components/dashboard/DashboardCard";
 import DashboardCardValue from "~/components/dashboard/DashboardCardValue";
 import Markdown from "~/components/shared/Markdown";
+import TasksFaq from "~/components/tasks/TasksFaq";
 import { apos } from "~/lib/htmlEntities";
 
 import { useAppContext } from "~/contexts/app";
@@ -174,6 +175,7 @@ export default function TasksTab() {
           </DashboardCard>
         ))}
       </Flex>
+      <TasksFaq />
       <Modal
         isOpen={explorersModal.isOpen}
         onClose={explorersModal.onClose}
