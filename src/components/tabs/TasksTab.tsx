@@ -64,7 +64,7 @@ export default function TasksTab() {
     };
 
     return {
-      usage: calcActivity("blockscout_usage"),
+      transactions: calcActivity("sent_transactions"),
       contracts: calcActivity("verified_contracts"),
     };
   }, [activityQuery.data]);
@@ -100,10 +100,10 @@ export default function TasksTab() {
               or [interact with smart contracts](https://base.blockscout.com/address/0xd454688D0185aB166D0c4b28D57edeb475b416A8?tab=read_write_proxy&utm_source=merits-website&utm_medium=transactions-task)
               to earn extra Merits each week.
           `.trim(),
-            percentile: activities.usage?.percentile,
-            percentileDiff: activities.usage?.percentileDiff,
-            amount: activities.usage?.amount,
-            amountDiff: activities.usage?.amountDiff,
+            percentile: activities.transactions?.percentile,
+            percentileDiff: activities.transactions?.percentileDiff,
+            amount: activities.transactions?.amount,
+            amountDiff: activities.transactions?.amountDiff,
           },
           {
             title: "Weekly contracts verification",
