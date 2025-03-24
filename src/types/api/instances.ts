@@ -2,9 +2,12 @@ export interface Instance {
   chain_id: "string";
   name: "string";
   domain: "string";
-  logo_url: "string";
+  details: {
+    icon_url: "string";
+    is_mainnet: "boolean";
+  };
 }
 
 export interface InstancesResponse {
-  instances: Array<Instance>;
+  items: Array<Instance>;
 }

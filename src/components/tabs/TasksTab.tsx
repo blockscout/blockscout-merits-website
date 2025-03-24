@@ -194,7 +194,7 @@ export default function TasksTab() {
                 earn Merits
               </Text>
               <Flex flexWrap="wrap" gap={2}>
-                {instancesQuery.data?.instances.map((instance) => (
+                {instancesQuery.data?.items.map((instance) => (
                   <Link
                     key={instance.chain_id}
                     href={instance.domain}
@@ -209,7 +209,7 @@ export default function TasksTab() {
                       borderRadius="base"
                     >
                       <Image
-                        src={instance.logo_url}
+                        src={instance.details.icon_url}
                         alt={instance.name}
                         boxSize={5}
                         flexShrink={0}
