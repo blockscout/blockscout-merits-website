@@ -69,6 +69,8 @@ export default function TasksTab() {
     };
   }, [activityQuery.data]);
 
+  const activityPassUrl = `${window.location.origin}/?tab=spend&id=activity-pass&utm_source=merits-website`;
+
   return (
     <>
       {apiToken && (
@@ -94,7 +96,7 @@ export default function TasksTab() {
           {
             title: "Weekly Blockscout activity",
             description: `
-              Grab your [Activity pass](https://merits.blockscout.com/?tab=redeem&id=activity-pass&utm_source=merits-website&utm_medium=transactions-task)
+              Grab your [Activity pass](${activityPassUrl}&utm_medium=transactions-task)
               then use [Revokescout](https://revoke.blockscout.com?utm_source=merits-website&utm_medium=transactions-task),
               [Swapscout](https://swap.blockscout.com?utm_source=merits-website&utm_medium=transactions-task),
               or [interact with smart contracts](https://base.blockscout.com/address/0xd454688D0185aB166D0c4b28D57edeb475b416A8?tab=read_write_proxy&utm_source=merits-website&utm_medium=transactions-task)
@@ -108,9 +110,9 @@ export default function TasksTab() {
           {
             title: "Weekly contracts verification",
             description: `
-              Verified contracts are so important for transparency. Grab your
-              [Activity pass](https://merits.blockscout.com/?tab=redeem&id=activity-pass&utm_source=merits-website&utm_medium=transactions-task)
-              and start verifying contracts on Blockscout to receive Merits!
+              Grab your [Activity pass](${activityPassUrl}&utm_medium=verify-contracts-task)
+              then [verify smart contracts](https://eth.blockscout.com/contract-verification?utm_source=merits-website&utm_medium=verify-contracts-task)
+              manually on Blockscout for different chains and earn extra Merits every week.
             `.trim(),
             percentile: activities.contracts?.percentile,
             percentileDiff: activities.contracts?.percentileDiff,
