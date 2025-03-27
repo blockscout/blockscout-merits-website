@@ -40,6 +40,7 @@ const RewardsLoginModal = ({ onClose }: Props) => {
       onClose={onClose}
       size={isMobile ? "full" : "sm"}
       isCentered
+      autoFocus={false}
     >
       <ModalOverlay />
       <ModalContent width={isLoginStep ? "400px" : "560px"} p={6}>
