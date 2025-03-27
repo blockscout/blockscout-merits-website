@@ -22,7 +22,7 @@ export default function DashboardLayout({
   const { isInitialized, apiToken, address, loginModal } = useAppContext();
 
   useEffect(() => {
-    if (!router) {
+    if (!router || !isInitialized) {
       return;
     }
     const params = new URLSearchParams(searchParams.toString());
@@ -35,7 +35,7 @@ export default function DashboardLayout({
         loginModal.onOpen();
       }
     }
-  }, [router, apiToken, loginModal, searchParams, pathname]);
+  }, [router, apiToken, loginModal, searchParams, pathname, isInitialized]);
 
   return (
     <Flex direction="column" minH="100vh">
