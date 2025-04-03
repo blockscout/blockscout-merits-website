@@ -6,6 +6,7 @@ import {
   Text,
   Alert,
   AlertIcon,
+  Box,
 } from "@chakra-ui/react";
 import { format } from "date-fns";
 import { useMemo } from "react";
@@ -48,6 +49,8 @@ export default function TasksTab() {
       const current = items?.find((item) => item.activity === type);
       const previous = last_week?.find((item) => item.activity === type);
 
+      console.log(current, previous);
+
       const currentAmount = Number(current?.amount || 0);
       const previousAmount = Number(previous?.amount || 0);
       const currentPercentile = Number(current?.percentile || 0);
@@ -66,6 +69,7 @@ export default function TasksTab() {
     return {
       transactions: calcActivity("sent_transactions"),
       contracts: calcActivity("verified_contracts"),
+      usage: calcActivity("blockscout_usage"),
     };
   }, [activityQuery.data]);
 
@@ -91,7 +95,7 @@ export default function TasksTab() {
           </Text>
         </Alert>
       )}
-      <Flex gap={6} flexDirection={{ base: "column", md: "row" }}>
+      <Flex gap={6} flexWrap="wrap">
         {[
           {
             title: "Weekly Blockscout activity",
@@ -118,6 +122,17 @@ export default function TasksTab() {
             percentileDiff: activities.contracts?.percentileDiff,
             amount: activities.contracts?.amount,
             amountDiff: activities.contracts?.amountDiff,
+          },
+          {
+            title: "Weekly Blockscout usage",
+            description: `
+              Grab your [Activity pass](${activityPassUrl}&utm_medium=verify-contracts-task)
+              then just use Blockscout explorers in your every day routine.
+            `.trim(),
+            percentile: activities.usage?.percentile,
+            percentileDiff: activities.usage?.percentileDiff,
+            amount: activities.usage?.amount,
+            amountDiff: activities.usage?.amountDiff,
           },
         ].map((item, index) => (
           <DashboardCard
@@ -149,6 +164,7 @@ export default function TasksTab() {
             }
             blurFilter={!apiToken}
             isLoading={isLoading}
+            flex={{ base: "1 1 100%", md: "1 1 calc(50% - 12px)" }}
           >
             <DashboardCardValue
               label="Performance rank"
@@ -167,6 +183,10 @@ export default function TasksTab() {
             />
           </DashboardCard>
         ))}
+        <Box
+          flex="1 1 calc(50% - 12px)"
+          display={{ base: "none", md: "block" }}
+        />
       </Flex>
       <TasksFaq />
       <ExplorersModal

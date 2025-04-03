@@ -4,6 +4,7 @@ import {
   useColorModeValue,
   Tag,
   ChakraStyledOptions,
+  chakra,
 } from "@chakra-ui/react";
 import React from "react";
 import Skeleton from "~/chakra/Skeleton";
@@ -21,6 +22,7 @@ type Props = {
   label?: string;
   cardValueStyle?: ChakraStyledOptions;
   isLoading?: boolean;
+  className?: string;
 };
 
 const DashboardCard = ({
@@ -34,6 +36,7 @@ const DashboardCard = ({
   label,
   cardValueStyle,
   isLoading,
+  className,
 }: Props) => {
   return (
     <Flex
@@ -51,6 +54,7 @@ const DashboardCard = ({
       gap={{ base: 1, md: direction === "row" ? 10 : 1 }}
       w={direction === "row" ? "full" : "auto"}
       flex={direction !== "row" ? 1 : "0 1 auto"}
+      className={className}
     >
       <Flex
         flexDirection="column"
@@ -106,4 +110,4 @@ const DashboardCard = ({
   );
 };
 
-export default DashboardCard;
+export default chakra(DashboardCard);

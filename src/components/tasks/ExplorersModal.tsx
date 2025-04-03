@@ -14,6 +14,7 @@ import {
 
 import type { Instance } from "~/types/api/instances";
 
+import getDefaultTransitionProps from "~/chakra/utils/getDefaultTransitionProps";
 import useIsMobile from "~/hooks/useIsMobile";
 
 type Props = {
@@ -52,6 +53,7 @@ export default function ExplorersModal({ isOpen, onClose, items }: Props) {
                   href={instance.domain}
                   isExternal
                   _hover={{ textDecoration: "none" }}
+                  role="group"
                 >
                   <Flex
                     gap={2}
@@ -74,7 +76,12 @@ export default function ExplorersModal({ isOpen, onClose, items }: Props) {
                         />
                       }
                     />
-                    <Text fontSize="sm" fontWeight="500">
+                    <Text
+                      fontSize="sm"
+                      fontWeight="500"
+                      _groupHover={{ color: "link_hovered" }}
+                      {...getDefaultTransitionProps()}
+                    >
                       {instance.name}
                     </Text>
                   </Flex>
