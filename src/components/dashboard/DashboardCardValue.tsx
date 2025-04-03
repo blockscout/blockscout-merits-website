@@ -31,7 +31,7 @@ const DashboardCard = ({
             label={hint}
             popoverContentProps={{
               w: "fit-content",
-              maxW: { base: "calc(100vw - 8px)", lg: "210px" },
+              maxW: { base: "calc(100vw - 8px)", lg: "400px" },
             }}
             popoverBodyProps={{ textAlign: "center" }}
           />

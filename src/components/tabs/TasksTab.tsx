@@ -106,6 +106,10 @@ export default function TasksTab() {
               or [interact with smart contracts](https://base.blockscout.com/address/0xd454688D0185aB166D0c4b28D57edeb475b416A8?tab=read_write_proxy&utm_source=merits-website&utm_medium=transactions-task)
               to earn extra Merits each week.
           `.trim(),
+            percentileHint:
+              "Measures your performance relative to other Merit program participants. Complete additional transactions to increase your weekly performance rank.",
+            amountHint:
+              "The number of extra Merits you have earned this week from your transactions. Complete additional transactions to earn additional Merits.",
             percentile: activities.transactions?.percentile,
             percentileDiff: activities.transactions?.percentileDiff,
             amount: activities.transactions?.amount,
@@ -118,6 +122,10 @@ export default function TasksTab() {
               then [verify smart contracts](https://eth.blockscout.com/contract-verification?utm_source=merits-website&utm_medium=verify-contracts-task)
               manually on Blockscout for different chains and earn extra Merits every week.
             `.trim(),
+            percentileHint:
+              "Measures your performance relative to other Merit program participants. Verify more contracts to increase your weekly performance rank.",
+            amountHint:
+              "The number of extra Merits you have earned this week from your contract verifications. Verify more contracts to earn additional Merits.",
             percentile: activities.contracts?.percentile,
             percentileDiff: activities.contracts?.percentileDiff,
             amount: activities.contracts?.amount,
@@ -129,6 +137,10 @@ export default function TasksTab() {
               Grab your [Activity pass](${activityPassUrl}&utm_medium=verify-contracts-task)
               then just use Blockscout explorers in your every day routine.
             `.trim(),
+            percentileHint:
+              "Measures your performance relative to other Merit program participants. Use Blockscout explorers and add them to a MetaMask wallet to increase your weekly performance rank.",
+            amountHint:
+              "The number of extra Merits you have earned this week from your Blockscout usage. Use Blockscout explorers and add them to a MetaMask wallet to earn additional Merits.",
             percentile: activities.usage?.percentile,
             percentileDiff: activities.usage?.percentileDiff,
             amount: activities.usage?.amount,
@@ -169,7 +181,7 @@ export default function TasksTab() {
             <DashboardCardValue
               label="Performance rank"
               value={item.percentile}
-              hint="Performance rank"
+              hint={item.percentileHint}
               bottomText={`${item.percentileDiff} vs previous week`}
               isLoading={isLoading}
             />
@@ -177,7 +189,7 @@ export default function TasksTab() {
               label="Merits earned"
               value={item.amount}
               withIcon
-              hint="Merits earned"
+              hint={item.amountHint}
               bottomText={`${item.amountDiff} vs previous week`}
               isLoading={isLoading}
             />
