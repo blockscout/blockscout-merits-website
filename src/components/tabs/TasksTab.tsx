@@ -276,7 +276,8 @@ export default function TasksTab() {
         >
           <Flex flexDirection="column" p={{ base: 1.5, md: 0 }} pb={0}>
             <Heading
-              fontSize={{ base: "md", md: "lg" }}
+              fontSize={{ base: "sm", md: "lg" }}
+              fontWeight={{ base: "600", md: "500" }}
               lineHeight={1.5}
               mb={2}
             >
@@ -395,7 +396,8 @@ export default function TasksTab() {
                     </Flex>
                     <Skeleton isLoaded={!isActivityDataLoading}>
                       <Heading
-                        fontSize={{ base: "md", md: "lg" }}
+                        fontSize={{ base: "sm", md: "lg" }}
+                        fontWeight={{ base: "600", md: "500" }}
                         lineHeight={1.5}
                       >
                         {item.percentile}
@@ -428,7 +430,8 @@ export default function TasksTab() {
                     >
                       <MeritsIcon boxSize={6} mr={2} />
                       <Heading
-                        fontSize={{ base: "md", md: "lg" }}
+                        fontSize={{ base: "sm", md: "lg" }}
+                        fontWeight={{ base: "600", md: "500" }}
                         lineHeight={1.5}
                         mr={{ base: 0, md: 2 }}
                       >
@@ -444,7 +447,8 @@ export default function TasksTab() {
                         /{item.maxAmount}
                       </Text>
                       <Heading
-                        fontSize="md"
+                        fontSize="sm"
+                        fontWeight="600"
                         lineHeight={1.5}
                         display={{ base: "inline", md: "none" }}
                         color="text_secondary"

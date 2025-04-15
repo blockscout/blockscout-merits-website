@@ -3,8 +3,8 @@ import {
   AccordionButton,
   AccordionPanel,
   Box,
-  chakra,
   Flex,
+  Heading,
 } from "@chakra-ui/react";
 import React from "react";
 
@@ -40,10 +40,12 @@ const FaqItem = ({ index, question, answer }: Props) => {
                 transition="colors"
               />
             </Flex>
-            <chakra.h3>{index + 1}.</chakra.h3>
-            <chakra.h3 flex="1" textAlign="left">
+            <Heading fontSize="lg" lineHeight={1.5}>
+              {index + 1}.
+            </Heading>
+            <Heading fontSize="lg" lineHeight={1.5} flex="1" textAlign="left">
               {question}
-            </chakra.h3>
+            </Heading>
           </AccordionButton>
           <AccordionPanel pb={6} pt={0} px={0}>
             <Box color="text_secondary" pl={9}>

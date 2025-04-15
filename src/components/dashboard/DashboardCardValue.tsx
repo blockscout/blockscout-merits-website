@@ -1,4 +1,4 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Text, Heading } from "@chakra-ui/react";
 import React from "react";
 
 import Skeleton from "~/chakra/Skeleton";
@@ -50,13 +50,13 @@ const DashboardCard = ({
       minW="100px"
     >
       {withIcon && <MeritsIcon boxSize={8} />}
-      <Text
-        fontSize={{ base: "18px", md: "32px" }}
-        lineHeight={{ base: "24px", md: 1.25 }}
+      <Heading
+        fontSize={{ base: "lg", md: "32px" }}
+        lineHeight={1.5}
         fontWeight="500"
       >
         {value}
-      </Text>
+      </Heading>
     </Skeleton>
     {bottomText && (
       <Text fontSize="xs" fontWeight="500" variant="secondary">

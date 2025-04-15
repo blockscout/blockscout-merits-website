@@ -5,6 +5,7 @@ import {
   Tag,
   ChakraStyledOptions,
   chakra,
+  Heading,
 } from "@chakra-ui/react";
 import React from "react";
 import Skeleton from "~/chakra/Skeleton";
@@ -40,6 +41,7 @@ const DashboardCard = ({
 }: Props) => {
   return (
     <Flex
+      as="section"
       flexDirection={{
         base: direction === "row" ? "column" : direction,
         md: direction,
@@ -68,9 +70,13 @@ const DashboardCard = ({
           </Skeleton>
         )}
         <Flex alignItems="center" gap={2}>
-          <Text fontSize={{ base: "sm", md: "lg" }} fontWeight="500">
+          <Heading
+            fontSize={{ base: "sm", md: "lg" }}
+            fontWeight={{ base: "600", md: "500" }}
+            lineHeight={1.5}
+          >
             {title}
-          </Text>
+          </Heading>
           {hint && (
             <HintPopover
               label={hint}
@@ -82,12 +88,12 @@ const DashboardCard = ({
             />
           )}
           {availableSoon && (
-            <Tag colorScheme="blue" fontSize={{ base: "12px", md: "sm" }}>
+            <Tag colorScheme="blue" fontSize="sm">
               Available soon
             </Tag>
           )}
         </Flex>
-        <Text as="div" fontSize={{ base: "12px", md: "sm" }}>
+        <Text as="div" fontSize="sm">
           {description}
         </Text>
       </Flex>
