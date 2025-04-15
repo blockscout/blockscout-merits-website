@@ -32,6 +32,10 @@ const colors: Record<Badge["rarity"], { bg: string; text: string }> = {
     bg: "#fde1b4",
     text: "#A64B00",
   },
+  mythic: {
+    bg: "linear-gradient(126deg, #FFEFD3 20%, #E5CEFF 80%)",
+    text: "#9C630C",
+  },
 };
 
 export default function BadgeCard({
@@ -81,7 +85,7 @@ export default function BadgeCard({
         alignItems="center"
         justifyContent="center"
         borderRadius="base"
-        bgColor={colors[rarity].bg}
+        bg={colors[rarity].bg}
         position="relative"
       >
         {isAnimated ? (

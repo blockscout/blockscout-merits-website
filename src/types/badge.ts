@@ -7,7 +7,7 @@ export interface Badge {
   address: string;
   name: string;
   description: string;
-  rarity: "regular" | "rare" | "super-rare" | "legend" | "epic";
+  rarity: "regular" | "rare" | "super-rare" | "legend" | "epic" | "mythic";
   isAnimated?: boolean;
   explorerUrl: string;
 }
