@@ -1,10 +1,10 @@
 import {
   Flex,
-  Text,
   Heading,
   Image,
   Link,
   useColorModeValue,
+  Box,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 
@@ -31,7 +31,7 @@ export default function RewardsActivityPassCard() {
         <Heading fontSize={{ base: "md", md: "lg" }} lineHeight={1.5}>
           Activity pass
         </Heading>
-        <Text fontSize="sm">
+        <Box fontSize="sm">
           Grab your{" "}
           <Skeleton isLoaded={!configQuery.isLoading} display="inline">
             <NextLink
@@ -50,7 +50,7 @@ export default function RewardsActivityPassCard() {
           >
             Learn more
           </Link>
-        </Text>
+        </Box>
       </Flex>
       <Flex
         flex={{ base: "none", md: 1 }}
