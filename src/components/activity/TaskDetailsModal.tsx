@@ -44,7 +44,7 @@ export default function ExplorersModal({
         <ModalBody mb={0}>
           <Flex flexDir="column" gap={3}>
             <Text>{children}</Text>
-            <Text fontSize="sm" color="secondary">
+            <Text fontSize="sm" variant="secondary">
               Note: Merits are only earned on supported networks where the
               program is active.
             </Text>

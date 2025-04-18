@@ -7,7 +7,7 @@ import Dashboard from "~/components/dashboard/Dashboard";
 import Banner from "~/components/Banner";
 import ReferralProgramTab from "~/components/tabs/ReferralProgramTab";
 import BadgesTab from "~/components/tabs/BadgesTab";
-import TasksTab from "~/components/tabs/TasksTab";
+import ActivityTab from "~/components/tabs/ActivityTab";
 import DappsTab from "~/components/tabs/DappsTab";
 import UsersTab from "~/components/tabs/UsersTab";
 import CampaignsTab from "~/components/tabs/CampaignsTab";
@@ -34,6 +34,11 @@ export default function DashboardPage() {
               component: <UsersTab />,
             },
             {
+              id: "activity",
+              title: "Activity",
+              component: <ActivityTab />,
+            },
+            {
               id: "referrals",
               title: "Referrals",
               component: <ReferralProgramTab />,
@@ -52,11 +57,6 @@ export default function DashboardPage() {
               id: "spend",
               title: "Spend Merits",
               component: <OffersTab />,
-            },
-            {
-              id: "tasks",
-              title: "Tasks",
-              component: <TasksTab />,
             },
             {
               id: "dapps",

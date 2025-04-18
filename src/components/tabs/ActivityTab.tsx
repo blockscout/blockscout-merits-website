@@ -14,10 +14,10 @@ import { format } from "date-fns";
 import { useMemo, useCallback, useState } from "react";
 
 import Skeleton from "~/chakra/Skeleton";
-import TasksFaq from "~/components/tasks/TasksFaq";
-import ExplorersModal from "~/components/tasks/ExplorersModal";
-import TaskDetailsModal from "~/components/tasks/TaskDetailsModal";
-import ActivityPassCard from "~/components/tasks/ActivityPassCard";
+import TasksFaq from "~/components/activity/TasksFaq";
+import ExplorersModal from "~/components/activity/ExplorersModal";
+import TaskDetailsModal from "~/components/activity/TaskDetailsModal";
+import ActivityPassCard from "~/components/activity/ActivityPassCard";
 import HintPopover from "~/components/shared/HintPopover";
 import { apos, mdash } from "~/lib/htmlEntities";
 
@@ -44,7 +44,7 @@ function getMaxAmount(rewards: Record<string, string> | undefined) {
   return Math.max(...values);
 }
 
-export default function TasksTab() {
+export default function ActivityTab() {
   const { apiToken } = useAppContext();
   const activityQuery = useActivityQuery();
   const instancesQuery = useInstancesQuery();
@@ -80,8 +80,10 @@ export default function TasksTab() {
       const previousAmount = Number(previous?.amount || 0);
       const currentPercentile = Number(current?.percentile || 0);
       const previousPercentile = Number(previous?.percentile || 0);
-      const amountDiff = currentAmount - previousAmount;
-      const percentileDiff = currentPercentile - previousPercentile;
+      const amountDiff = Number((currentAmount - previousAmount).toFixed(2));
+      const percentileDiff = Number(
+        (currentPercentile - previousPercentile).toFixed(2),
+      );
 
       return {
         amount: currentAmount,
@@ -140,14 +142,14 @@ export default function TasksTab() {
         title: "Contracts verification",
         description: (
           <>
-            Log in to your Blockscout account and{" "}
+            Log in and{" "}
             <Link
               isExternal
               href="https://eth.blockscout.com/contract-verification?utm_source=merits-website&utm_medium=verify-contracts-task"
             >
               verify a smart contract
             </Link>{" "}
-            using Blockscout website to earn Merits.
+            on the Blockscout explorer to earn Merits.
           </>
         ),
         percentile: activities.contracts?.percentile,
@@ -186,7 +188,7 @@ export default function TasksTab() {
     },
     performanceRank: {
       text: "Performance rank",
-      hint: "Your rank across task groups compared to others. Higher rank = more Merits",
+      hint: "Your rank within a task group compared to other users in the same period. Higher rank = more Merits.",
     },
     meritsEarned: {
       text: "Merits earned",
@@ -281,7 +283,7 @@ export default function TasksTab() {
               lineHeight={1.5}
               mb={2}
             >
-              Tasks
+              Your activity
             </Heading>
             <Text fontSize="sm" mb={{ base: 2, md: 4 }}>
               Use Blockscout and related products daily to earn Merits. Check
@@ -319,7 +321,7 @@ export default function TasksTab() {
               </chakra.span>
               <br />
               Merits are calculated based on the activity of all users and may
-              increase or decrease by the end of the period.
+              increase or decrease by the end of the weekly period.
             </Text>
           </Flex>
         </Flex>
