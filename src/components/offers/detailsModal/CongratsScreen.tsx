@@ -1,10 +1,13 @@
 import { Flex, Image, Text, Button, Link } from "@chakra-ui/react";
 import React from "react";
+import NextLink from "next/link";
 
 import type { Offer } from "~/types/api/offer";
 
 import { apos } from "~/lib/htmlEntities";
 import CopyToClipboard from "~/components/shared/CopyToClipboard";
+import Skeleton from "~/chakra/Skeleton";
+import useConfigQuery from "~/hooks/useConfigQuery";
 
 import { getBgColor } from "../utils";
 
@@ -21,7 +24,9 @@ const CongratsScreen = ({
   onClose,
   onOpenInstructions,
 }: Props) => {
+  const configQuery = useConfigQuery();
   const bgColor = getBgColor(offer.details.type, true);
+
   return (
     <Flex flexDir="column" alignItems="center" gap={6}>
       <Flex
@@ -38,11 +43,24 @@ const CongratsScreen = ({
         />
       </Flex>
       <Flex flexDir="column" alignItems="center" gap={2}>
-        <Text>
-          {promoCode
-            ? "Promo code"
-            : `You${apos}ve been added to the whitelist`}
-        </Text>
+        <Skeleton isLoaded={Boolean(promoCode) || !configQuery.isLoading}>
+          <Text textAlign="center">
+            {promoCode ? (
+              "Promo code"
+            ) : offer.offer_id ===
+              configQuery.data?.rewards?.blockscout_activity_pass_id ? (
+              <>
+                You have successfully claimed your Activity Pass.{" "}
+                <NextLink href="/?tab=activity" passHref legacyBehavior>
+                  <Link>Check the Activity Tab</Link>
+                </NextLink>{" "}
+                to get started.
+              </>
+            ) : (
+              `You${apos}ve been added to the whitelist`
+            )}
+          </Text>
+        </Skeleton>
         {promoCode && (
           <Flex position="relative">
             <Text fontWeight="600">{promoCode}</Text>
