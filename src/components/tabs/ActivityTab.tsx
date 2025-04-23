@@ -78,8 +78,8 @@ export default function ActivityTab() {
 
       const currentAmount = Number(current?.amount || 0);
       const previousAmount = Number(previous?.amount || 0);
-      const currentPercentile = Number(current?.percentile || 0);
-      const previousPercentile = Number(previous?.percentile || 0);
+      const currentPercentile = Number(current?.percentile || 0) * 100;
+      const previousPercentile = Number(previous?.percentile || 0) * 100;
       const amountDiff = Number((currentAmount - previousAmount).toFixed(2));
       const percentileDiff = Number(
         (currentPercentile - previousPercentile).toFixed(2),
