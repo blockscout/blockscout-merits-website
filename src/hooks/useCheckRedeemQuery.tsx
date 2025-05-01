@@ -23,6 +23,9 @@ export default function useReferralsQuery(offer: Offer) {
           note: "",
         }),
       });
+      if (!response.ok) {
+        throw new Error("Failed to check redeem");
+      }
       return (await response.json()) as {
         is_redeemable: boolean;
         reason: string;
