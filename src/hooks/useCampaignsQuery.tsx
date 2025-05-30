@@ -6,9 +6,12 @@ import type { Campaign } from "~/types/campaign";
 import config from "~/config/app";
 import campaignsStub from "~/stubs/campaigns";
 
-const airtable = new Airtable({ apiKey: config.airtable.apiKey }).base(
-  config.airtable.baseId as string,
-);
+const airtable =
+  config.airtable.apiKey && config.airtable.baseId
+    ? new Airtable({ apiKey: config.airtable.apiKey }).base(
+        config.airtable.baseId as string,
+      )
+    : null;
 
 function sortCampaigns(array: Campaign[]): Campaign[] {
   const statusPriority: Record<Campaign["status"], number> = {
@@ -60,6 +63,10 @@ export default function useCampaignsQuery() {
   return useQuery({
     queryKey: ["campaigns"],
     queryFn: async () => {
+      if (!airtable) {
+        return [];
+      }
+
       const data = await airtable("campaigns").select().all();
 
       const parsed = data.map(

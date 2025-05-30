@@ -15,6 +15,7 @@ import OffersTab from "~/components/tabs/OffersTab";
 import RoutedTabs from "~/components/shared/tabs/RoutedTabs";
 
 import { useAppContext } from "~/contexts/app";
+import config from "~/config/app";
 
 export default function DashboardPage() {
   const { isInitialized } = useAppContext();
@@ -48,11 +49,13 @@ export default function DashboardPage() {
               title: "Badges",
               component: <BadgesTab />,
             },
-            {
-              id: "campaigns",
-              title: "Campaigns",
-              component: <CampaignsTab scrollRef={scrollRef} />,
-            },
+            config.airtable.apiKey && config.airtable.baseId
+              ? {
+                  id: "campaigns",
+                  title: "Campaigns",
+                  component: <CampaignsTab scrollRef={scrollRef} />,
+                }
+              : null,
             {
               id: "spend",
               title: "Spend Merits",
