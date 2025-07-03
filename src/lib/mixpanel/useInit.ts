@@ -22,7 +22,10 @@ export default function useInit() {
     const isAuth = Boolean(cookies.get(cookies.NAMES.API_TOKEN));
     const userId = getUuid();
 
-    mixpanel.init(projectToken, { track_pageview: "full-url" });
+    mixpanel.init(projectToken, {
+      track_pageview: "full-url",
+      persistence: "localStorage",
+    });
 
     mixpanel.register({
       Authorized: isAuth,
