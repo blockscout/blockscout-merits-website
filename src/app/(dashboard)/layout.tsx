@@ -1,14 +1,23 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { Flex, Text, Icon, Link } from "@chakra-ui/react";
+import {
+  Flex,
+  Text,
+  Icon,
+  Link,
+  Button,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 import meritsLogo from "@/public/static/merits_logo.svg";
+import meritsLogoShort from "@/public/static/merits_logo_short.svg";
 import * as cookies from "~/lib/cookies";
 import SpriteIcon from "~/components/shared/SpriteIcon";
 import LoginModal from "~/components/login/LoginModal";
 import AccountButton from "~/components/AccountButton";
+import HistoryModal from "~/components/HistoryModal";
 import { useAppContext } from "~/contexts/app";
 
 export default function DashboardLayout({
@@ -20,6 +29,7 @@ export default function DashboardLayout({
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { isInitialized, apiToken, address, loginModal } = useAppContext();
+  const historyModal = useDisclosure();
 
   useEffect(() => {
     if (!router || !isInitialized) {
@@ -35,7 +45,21 @@ export default function DashboardLayout({
         loginModal.onOpen();
       }
     }
-  }, [router, apiToken, loginModal, searchParams, pathname, isInitialized]);
+    const showHistory = params.get("history");
+    if (showHistory !== null) {
+      params.delete("history");
+      router.replace(`${pathname}?${params}`);
+      historyModal.onOpen();
+    }
+  }, [
+    router,
+    apiToken,
+    loginModal,
+    searchParams,
+    pathname,
+    isInitialized,
+    historyModal,
+  ]);
 
   return (
     <Flex direction="column" minH="100vh">
@@ -52,12 +76,28 @@ export default function DashboardLayout({
         borderColor="divider"
       >
         <Flex justify="space-between" align="center" w="full" maxW="1280px">
-          <Icon as={meritsLogo} w="188px" h="24px" />
-          <AccountButton
-            isLoading={!isInitialized}
-            address={address}
-            openModal={loginModal.onOpen}
+          <Icon
+            display={{ base: "block", md: "none" }}
+            as={meritsLogoShort}
+            w="87px"
+            h="24px"
           />
+          <Icon
+            display={{ base: "none", md: "block" }}
+            as={meritsLogo}
+            w="188px"
+            h="24px"
+          />
+          <Flex gap={3}>
+            <AccountButton
+              isLoading={!isInitialized}
+              address={address}
+              openModal={loginModal.onOpen}
+            />
+            <Button size="sm" onClick={historyModal.onOpen}>
+              Your history
+            </Button>
+          </Flex>
         </Flex>
       </Flex>
       <Flex
@@ -117,6 +157,7 @@ export default function DashboardLayout({
         </Flex>
       </Flex>
       {loginModal.isOpen && <LoginModal onClose={loginModal.onClose} />}
+      {historyModal.isOpen && <HistoryModal onClose={historyModal.onClose} />}
     </Flex>
   );
 }

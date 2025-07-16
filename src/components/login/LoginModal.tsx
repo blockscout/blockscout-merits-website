@@ -16,9 +16,10 @@ import LoginStepContent from "./steps/LoginStepContent";
 
 type Props = {
   onClose: () => void;
+  onConfirm?: () => void;
 };
 
-const RewardsLoginModal = ({ onClose }: Props) => {
+const RewardsLoginModal = ({ onClose, onConfirm }: Props) => {
   const isMobile = useIsMobile();
   const { open: isWalletModalOpen } = useAppKitState();
 
@@ -50,12 +51,15 @@ const RewardsLoginModal = ({ onClose }: Props) => {
         <ModalCloseButton top={6} right={6} />
         <ModalBody mb={0}>
           {isLoginStep ? (
-            <LoginStepContent goNext={goNext} closeModal={onClose} />
+            <LoginStepContent
+              goNext={goNext}
+              closeModal={onConfirm || onClose}
+            />
           ) : (
             <CongratsStepContent
               isReferral={isReferral}
               customReferralReward={customReferralReward}
-              closeModal={onClose}
+              closeModal={onConfirm || onClose}
             />
           )}
         </ModalBody>
