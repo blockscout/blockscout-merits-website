@@ -63,7 +63,7 @@ export default function ExplorersModal({ isOpen, onClose, items }: Props) {
                     borderRadius="base"
                   >
                     <Image
-                      src={instance.details.icon_url}
+                      src={instance.details?.icon_url}
                       alt={instance.name}
                       boxSize={5}
                       flexShrink={0}

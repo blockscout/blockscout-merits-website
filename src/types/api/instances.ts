@@ -2,7 +2,7 @@ export interface Instance {
   chain_id: "string";
   name: "string";
   domain: "string";
-  details: {
+  details?: {
     icon_url: "string";
     is_mainnet: "boolean";
   };
