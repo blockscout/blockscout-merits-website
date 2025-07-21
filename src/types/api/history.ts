@@ -5,6 +5,7 @@ export interface HistoryItem {
     manual_id?: string;
     description?: string;
     offer_id?: string;
+    activity?: string;
   };
   timestamp: string;
 }

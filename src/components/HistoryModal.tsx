@@ -33,16 +33,25 @@ function getDescription(item: HistoryItem) {
     return item.details.description;
   }
   switch (item.action) {
-    case "redeem_offer":
-      return `Redeem offer (${item.details.offer_id})`;
     case "activity":
-      return "Activity";
+      switch (item.details.activity) {
+        case "sent_transactions":
+          return "Weekly Blockscout tools usage";
+        case "verified_contracts":
+          return "Weekly contracts verification";
+        case "blockscout_usage":
+          return "Blockscout weekly usage";
+        default:
+          return "";
+      }
+    case "redeem_offer":
+      return "Offer redeemed";
     case "daily_reward":
       return "Daily reward";
     case "register":
-      return "Join the program";
+      return "Registration";
     default:
-      return item.details.description;
+      return "";
   }
 }
 
