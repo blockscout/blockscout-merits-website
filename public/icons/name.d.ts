@@ -6,6 +6,7 @@
 	| "blockscout-logo"
 	| "cardio"
 	| "cards"
+	| "clock-2"
 	| "clock"
 	| "copy"
 	| "info-circle"

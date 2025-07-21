@@ -1,18 +1,10 @@
 "use client";
 
 import React, { useEffect } from "react";
-import {
-  Flex,
-  Text,
-  Icon,
-  Link,
-  Button,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Flex, Text, Icon, Link, useDisclosure } from "@chakra-ui/react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
 import meritsLogo from "@/public/static/merits_logo.svg";
-import meritsLogoShort from "@/public/static/merits_logo_short.svg";
 import * as cookies from "~/lib/cookies";
 import SpriteIcon from "~/components/shared/SpriteIcon";
 import LoginModal from "~/components/login/LoginModal";
@@ -76,28 +68,13 @@ export default function DashboardLayout({
         borderColor="divider"
       >
         <Flex justify="space-between" align="center" w="full" maxW="1280px">
-          <Icon
-            display={{ base: "block", md: "none" }}
-            as={meritsLogoShort}
-            w="87px"
-            h="24px"
+          <Icon as={meritsLogo} w="188px" h="24px" />
+          <AccountButton
+            isLoading={!isInitialized}
+            address={address}
+            openLoginModal={loginModal.onOpen}
+            openHistoryModal={historyModal.onOpen}
           />
-          <Icon
-            display={{ base: "none", md: "block" }}
-            as={meritsLogo}
-            w="188px"
-            h="24px"
-          />
-          <Flex gap={3}>
-            <AccountButton
-              isLoading={!isInitialized}
-              address={address}
-              openModal={loginModal.onOpen}
-            />
-            <Button size="sm" onClick={historyModal.onOpen}>
-              Your history
-            </Button>
-          </Flex>
         </Flex>
       </Flex>
       <Flex

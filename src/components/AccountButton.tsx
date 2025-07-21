@@ -6,6 +6,9 @@ import {
   PopoverBody,
   Text,
   useDisclosure,
+  Box,
+  Divider,
+  Link,
 } from "@chakra-ui/react";
 import { useCallback } from "react";
 import { useDisconnect } from "@reown/appkit/react";
@@ -14,17 +17,20 @@ import { useAppContext } from "~/contexts/app";
 import * as mixpanel from "~/lib/mixpanel";
 
 import AddressEntity from "~/components/shared/AddressEntity";
+import SpriteIcon from "~/components/shared/SpriteIcon";
 
 type Props = {
   isLoading?: boolean;
   address?: string;
-  openModal: () => void;
+  openLoginModal: () => void;
+  openHistoryModal: () => void;
 };
 
 export default function AccountButton({
   isLoading,
   address,
-  openModal,
+  openLoginModal,
+  openHistoryModal,
 }: Props) {
   const { saveApiToken } = useAppContext();
   const accountMenu = useDisclosure();
@@ -50,7 +56,7 @@ export default function AccountButton({
           variant="header"
           size="sm"
           fontWeight="700"
-          onClick={address ? accountMenu.onOpen : openModal}
+          onClick={address ? accountMenu.onOpen : openLoginModal}
           data-selected={Boolean(address)}
           isLoading={isLoading}
           loadingText="Loading..."
@@ -62,12 +68,33 @@ export default function AccountButton({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent w="230px">
+      <PopoverContent w="280px">
         <PopoverBody display="flex" flexDir="column">
-          <Text fontSize="sm" mb={2} textAlign="center">
-            This address is used for the Merits program. Use it across all
-            Blockscout explorers
-          </Text>
+          <Box p={3} borderRadius="base" bgColor="blackAlpha.50">
+            <Text fontSize="xs" fontWeight="500" lineHeight="1.33">
+              This address is used for the Merits program. Use it across all
+              Blockscout explorers
+            </Text>
+          </Box>
+          <Link
+            variant="menu"
+            display="flex"
+            alignItems="center"
+            gap={3}
+            onClick={openHistoryModal}
+            py="14px"
+            fontSize="sm"
+            fontWeight="500"
+            color="blackAlpha.800"
+            _hover={{
+              color: "blue.400",
+              textDecoration: "none",
+            }}
+          >
+            <SpriteIcon name="clock-2" boxSize={5} />
+            Merits history
+          </Link>
+          <Divider mb={4} />
           <Button variant="outline" size="sm" onClick={handleLogout}>
             Log out
           </Button>
