@@ -23,6 +23,7 @@ const config = {
     apiKey: getEnvValue("NEXT_PUBLIC_AIRTABLE_API_KEY"),
     baseId: getEnvValue("NEXT_PUBLIC_AIRTABLE_BASE_ID"),
   },
+  adBanner: getEnvValue("NEXT_PUBLIC_AD_BANNER") === "true",
 };
 
 export default config;

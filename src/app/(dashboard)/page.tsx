@@ -13,6 +13,7 @@ import UsersTab from "~/components/tabs/UsersTab";
 import CampaignsTab from "~/components/tabs/CampaignsTab";
 import OffersTab from "~/components/tabs/OffersTab";
 import RoutedTabs from "~/components/shared/tabs/RoutedTabs";
+import AdBanner from "~/components/shared/ad/AdBanner";
 
 import { useAppContext } from "~/contexts/app";
 import config from "~/config/app";
@@ -23,7 +24,10 @@ export default function DashboardPage() {
 
   return (
     <Flex flexDirection="column" w="full" gap={8}>
-      <Banner />
+      <Flex gap={6}>
+        <Banner />
+        <AdBanner />
+      </Flex>
       <Dashboard />
       <Box ref={scrollRef} mt={-8} />
       {isInitialized && (

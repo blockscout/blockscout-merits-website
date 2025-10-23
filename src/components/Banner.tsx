@@ -1,9 +1,13 @@
 import { Flex, Text, Button, Image } from "@chakra-ui/react";
 import React, { useCallback } from "react";
 
+import config from "~/config/app";
 import * as mixpanel from "~/lib/mixpanel";
+import useAdblockDetect from "~/hooks/useAdblockDetect";
 
 export default function Banner() {
+  const isAdblockDetected = useAdblockDetect();
+
   const handleClick = useCallback(() => {
     mixpanel.logEvent(mixpanel.EventTypes.ACTION, { Source: "Banner" });
   }, []);
@@ -15,7 +19,8 @@ export default function Banner() {
       alignItems="center"
       w="full"
       px={8}
-      py={6}
+      py={{ base: 6, md: 0 }}
+      h={{ base: "auto", md: "100px" }}
       borderRadius="md"
       bgGradient="linear(284deg, #DFE4FC 19.64%, #FEFEFF 69.9%, #D3E4FF 100%)"
       position="relative"
@@ -24,9 +29,9 @@ export default function Banner() {
       <Text
         fontSize={{ base: "20px", md: "28px" }}
         lineHeight={{ base: "28px", md: "36px" }}
-        color="blue.700"
+        color="blue.500"
         fontWeight="semibold"
-        zIndex={1}
+        zIndex={3}
         textAlign={{ base: "center", md: "left" }}
         mb={{ base: 4, md: 0 }}
       >
@@ -57,10 +62,12 @@ export default function Banner() {
       <Image
         src="/static/bg_parts/merit_2.svg"
         alt="Merit 2"
-        h="122px"
+        h="100px"
         position="absolute"
         bottom={0}
-        left="50%"
+        left={
+          !config.adBanner || isAdblockDetected ? "50%" : "calc(30% + 150px)"
+        }
         display={{ base: "none", md: "block" }}
         zIndex={2}
       />
