@@ -73,7 +73,28 @@ export default function BadgeCard({
           </Link>
         </Text>
       </Flex>
-      <Text fontSize="sm" px={3} wordBreak="break-word">
+      <Text
+        fontSize="sm"
+        px={3}
+        wordBreak="break-word"
+        overflowY="scroll"
+        css={{
+          scrollbarWidth: "auto",
+          scrollbarColor: "initial",
+          scrollbarGutter: "stable",
+          paddingInlineEnd: "8px",
+          "&::-webkit-scrollbar": {
+            width: "4px",
+          },
+          "&::-webkit-scrollbar-track": {
+            background: "transparent",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            borderRadius: "8px",
+            border: "0px solid transparent",
+          },
+        }}
+      >
         {description}
       </Text>
     </>
@@ -117,7 +138,8 @@ export default function BadgeCard({
           </Text>
         </Flex>
       </Flex>
-      <Text fontWeight="500" px={3}>
+      <></> {/* Fixes scrollbar issue */}
+      <Text fontWeight="500" px={3} noOfLines={1}>
         {name}
       </Text>
     </>
