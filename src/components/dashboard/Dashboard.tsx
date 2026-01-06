@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex, Link, Alert } from "@chakra-ui/react";
+import { Flex, Link, Alert, Button } from "@chakra-ui/react";
 import { useState, useEffect, useCallback } from "react";
 
 import { useAppContext } from "~/contexts/app";
@@ -89,6 +89,16 @@ export default function Dashboard() {
               </Link>
             </>
           }
+          contentAfter={
+            <Button
+              as="a"
+              target="_blank"
+              href="https://eth.blockscout.com/account/merits?utm_source=merits-website&utm_medium=daily-claim"
+              mt={3}
+            >
+              Daily claim
+            </Button>
+          }
           direction="column-reverse"
           cardValueStyle={{ h: { base: "64px", md: "88px" } }}
         >
@@ -141,6 +151,16 @@ export default function Dashboard() {
               </Link>{" "}
               to learn how your streak number affects daily rewards
             </>
+          }
+          contentAfter={
+            <Button
+              as="a"
+              target="_blank"
+              href="https://eth.blockscout.com/account/merits?utm_source=merits-website&utm_medium=streak"
+              mt={3}
+            >
+              Check achievements
+            </Button>
           }
           direction="column-reverse"
           cardValueStyle={{ h: { base: "64px", md: "88px" } }}
