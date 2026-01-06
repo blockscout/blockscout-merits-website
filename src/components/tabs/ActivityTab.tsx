@@ -109,16 +109,9 @@ export default function ActivityTab() {
             Use Blockscout tools like{" "}
             <Link
               isExternal
-              href="https://revoke.blockscout.com?utm_source=merits-website&utm_medium=transactions-task"
+              href="https://eth.blockscout.com/apps?utm_source=merits-website&utm_medium=transactions-task"
             >
-              Revokescout
-            </Link>{" "}
-            or{" "}
-            <Link
-              isExternal
-              href="https://swap.blockscout.com?utm_source=merits-website&utm_medium=transactions-task"
-            >
-              Swapscout
+              Essential dapps
             </Link>
             , or{" "}
             <Link
