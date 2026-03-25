@@ -18,7 +18,6 @@ type Props = {
   hint?: string | React.ReactNode;
   availableSoon?: boolean;
   blurFilter?: boolean;
-  contentAfter?: React.ReactNode;
   direction?: "column" | "column-reverse" | "row";
   children?: React.ReactNode;
   label?: string;
@@ -33,7 +32,6 @@ const DashboardCard = ({
   hint,
   availableSoon,
   blurFilter,
-  contentAfter,
   direction = "column",
   children,
   label,
@@ -61,7 +59,6 @@ const DashboardCard = ({
       className={className}
     >
       <Flex
-        flex={1}
         flexDirection="column"
         gap={2}
         p={{ base: 1.5, md: 3 }}
@@ -99,12 +96,6 @@ const DashboardCard = ({
         <Text as="div" fontSize="sm">
           {description}
         </Text>
-        <Flex
-          flexDirection="column"
-          mt={direction === "column-reverse" ? "auto" : 0}
-        >
-          {contentAfter}
-        </Flex>
       </Flex>
       <Flex
         alignItems="center"
