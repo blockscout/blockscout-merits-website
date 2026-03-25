@@ -40,28 +40,54 @@ export default function useBadgesQuery() {
         Object.values(badges).map(({ chainId }) => chainId),
       );
 
-      const chains = await Promise.all(
-        chainIds.map(
-          (chainId): Promise<any> =>
-            fetch(`${CHAINS_API_URL}/api/chains/${chainId}`).then((res) =>
-              res.json(),
-            ),
-        ),
+      const chainResults = await Promise.allSettled(
+        chainIds.map(async (chainId) => {
+          const response = await fetch(
+            `${CHAINS_API_URL}/api/chains/${chainId}`,
+          );
+
+          if (!response.ok) {
+            throw new Error(`Failed to fetch chain ${chainId}`);
+          }
+
+          const chainData: { explorers?: Array<{ url: string }> } =
+            await response.json();
+          const explorerUrl = chainData.explorers?.[0]?.url;
+
+          if (!explorerUrl) {
+            throw new Error(`No explorer url for chain ${chainId}`);
+          }
+
+          return [chainId, explorerUrl.replace(/\/$/, "")] as const;
+        }),
       );
 
+      const brokenChainIds: string[] = [];
       const chainExplorers = Object.fromEntries(
-        chainIds.map((chainId, index) => [
-          chainId,
-          chains[index].explorers[0].url.replace(/\/$/, ""),
-        ]),
+        chainResults.flatMap((result, index) => {
+          if (result.status === "fulfilled") {
+            return [result.value];
+          }
+
+          brokenChainIds.push(chainIds[index]);
+          console.error(result.reason);
+          return [];
+        }),
       );
+
+      const brokenChainIdsSet = new Set(brokenChainIds);
+      const filteredBadges = Object.fromEntries(
+        Object.entries(badges).filter(
+          ([, { chainId }]) => !brokenChainIdsSet.has(chainId),
+        ),
+      ) as BadgesConfig;
 
       function getBadgePropValue(
         prop: keyof BadgeConfig,
         address: keyof BadgesConfig,
         tokenId: string,
       ) {
-        const badge = badges[address];
+        const badge = filteredBadges[address];
 
         if (
           typeof badge[prop] === "string" ||
@@ -74,7 +100,7 @@ export default function useBadgesQuery() {
       }
 
       await Promise.all(
-        Object.entries(badges).map(
+        Object.entries(filteredBadges).map(
           async ([tokenAddress, { chainId, isAnimated }]) => {
             try {
               let nextPageParams = null;
@@ -153,7 +179,7 @@ export default function useBadgesQuery() {
       );
 
       return userBadges.sort((a, b) => {
-        const addresses = Object.keys(badges);
+        const addresses = Object.keys(filteredBadges);
         const [aIndex, bIndex] = [
           addresses.indexOf(a.address),
           addresses.indexOf(b.address),
