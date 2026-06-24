@@ -25,6 +25,7 @@ export default function useInit() {
     mixpanel.init(projectToken, {
       track_pageview: "full-url",
       persistence: "localStorage",
+      api_host: "https://api-eu.mixpanel.com",
     });
 
     mixpanel.register({
