@@ -471,7 +471,7 @@ export default function ActivityTab() {
               Metrics are not updated in real time. Please allow up to one hour
               for your Performance Rank and earned Merits to reflect recent
               activity. If you experience any issues, feel free to reach out on{" "}
-              <Link isExternal href="https://discord.gg/blockscout">
+              <Link isExternal href="https://discord.gg/3yAWj8TXV2">
                 Discord
               </Link>
             </Text>

@@ -126,7 +126,7 @@ export default function DashboardLayout({
               <Link href="https://x.com/blockscout" isExternal h={5}>
                 <SpriteIcon name="social/x-circle" boxSize={5} />
               </Link>
-              <Link href="https://discord.gg/blockscout" isExternal h={5}>
+              <Link href="https://discord.gg/3yAWj8TXV2" isExternal h={5}>
                 <SpriteIcon name="social/discord-circle" boxSize={5} />
               </Link>
             </Flex>

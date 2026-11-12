@@ -110,7 +110,7 @@ export default function Description({ offer, alert, redeemButton }: Props) {
         </Flex>
       </Flex>
       <Text mb={2}>{offer.details.description}</Text>
-      <Link href="https://discord.gg/blockscout" isExternal mb={6}>
+      <Link href="https://discord.gg/3yAWj8TXV2" isExternal mb={6}>
         Faced any issues? Contact us on Discord
       </Link>
       {redeemButton}
